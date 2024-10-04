@@ -1,14 +1,17 @@
 plugins {
-    kotlin("multiplatform") version libs.versions.kotlin
+    alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.kover)
 }
 
 kotlin {
-    jvm {}
+    jvmToolchain(17)
+    jvm()
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
     sourceSets {
         commonMain {
-            dependencies {
-            }
+            dependencies {}
         }
         commonTest {
             dependencies {
