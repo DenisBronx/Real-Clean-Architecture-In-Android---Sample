@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.kover)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 kotlin {
@@ -13,12 +14,19 @@ kotlin {
         commonMain {
             dependencies {
                 implementation(project(":foundations"))
+                implementation(project(":cache"))
+                implementation(project(":httpclient"))
+                implementation(libs.ktor)
+                implementation(libs.ktor.serialization)
+                implementation(libs.ktor.content.negotiation)
             }
         }
         commonTest {
             dependencies {
                 implementation(libs.kotlin.test)
                 implementation(libs.coroutines.test)
+                implementation(libs.netmock)
+                implementation(project(":cache-test"))
             }
         }
     }

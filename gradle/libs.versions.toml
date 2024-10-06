@@ -34,6 +34,7 @@ kotlin-test = {group = "org.jetbrains.kotlin", name = "kotlin-test", version.ref
 netmock = { group = "io.github.denisbronx.netmock", name = "netmock-engine", version.ref = "netmock" }
 ktor = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
 ktor-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-cio = { group = "io.ktor", name = "ktor-client-cio", version.ref = "ktor" }
 ktor-serialization = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
 
 [plugins]

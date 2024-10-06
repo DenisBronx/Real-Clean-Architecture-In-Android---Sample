@@ -23,3 +23,6 @@ rootProject.name = "Real Clean Architecture in Android"
 include(":app")
 include(":foundations")
 include(":user-component")
+include(":cache")
+include(":httpclient")
+include(":cache-test")
