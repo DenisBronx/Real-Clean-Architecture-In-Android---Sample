@@ -11,11 +11,14 @@ kotlin {
     iosSimulatorArm64()
     sourceSets {
         commonMain {
-            dependencies {}
+            dependencies {
+                implementation(project(":foundations"))
+            }
         }
         commonTest {
             dependencies {
                 implementation(libs.kotlin.test)
+                implementation(libs.coroutines.test)
             }
         }
     }
