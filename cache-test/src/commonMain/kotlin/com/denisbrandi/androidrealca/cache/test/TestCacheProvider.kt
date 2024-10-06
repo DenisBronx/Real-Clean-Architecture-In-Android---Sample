@@ -14,6 +14,8 @@ class TestCacheProvider(
             InMemoryCachedObject(defaultValue).also {
                 providedCachedObject = it
             }
-        } else throw IllegalStateException("getCachedObject not stubbed")
+        } else {
+            throw IllegalStateException("getCachedObject not stubbed")
+        }
     }
 }

@@ -54,5 +54,4 @@ class LoginUseCaseTest {
     private companion object {
         val VALID_LOGIN_REQUEST = LoginRequest("valid@email.com", "validPassword")
     }
-
 }
