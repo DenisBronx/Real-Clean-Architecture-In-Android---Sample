@@ -17,7 +17,11 @@ internal class RealUserRepository(
 ) : UserRepository {
 
     private val cachedObject: CachedObject<JsonUserCacheDTO> by lazy {
-        cacheProvider.getCachedObject("user-cache", JsonUserCacheDTO("", ""))
+        cacheProvider.getCachedObject(
+            fileName = "user-cache",
+            serializer = JsonUserCacheDTO.serializer(),
+            defaultValue = JsonUserCacheDTO("", "")
+        )
     }
 
     override suspend fun login(loginRequest: LoginRequest): Answer<Unit, LoginError> {

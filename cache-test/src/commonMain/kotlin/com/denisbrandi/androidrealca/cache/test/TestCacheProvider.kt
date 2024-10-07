@@ -1,6 +1,7 @@
 package com.denisbrandi.androidrealca.cache.test
 
 import com.denisbrandi.androidrealca.cache.*
+import kotlinx.serialization.KSerializer
 
 class TestCacheProvider(
     private val expectedFileName: String,
@@ -9,7 +10,11 @@ class TestCacheProvider(
 
     lateinit var providedCachedObject: InMemoryCachedObject<*>
 
-    override fun <T : Any> getCachedObject(fileName: String, defaultValue: T): CachedObject<T> {
+    override fun <T : Any> getCachedObject(
+        fileName: String,
+        serializer: KSerializer<T>,
+        defaultValue: T
+    ): CachedObject<T> {
         return if (expectedFileName == fileName && expectedDefaultValue == defaultValue) {
             InMemoryCachedObject(defaultValue).also {
                 providedCachedObject = it

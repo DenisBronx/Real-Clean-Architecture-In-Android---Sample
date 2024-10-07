@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 kotlin {
@@ -12,6 +13,7 @@ kotlin {
         commonMain {
             dependencies {
                 implementation(project(":cache"))
+                implementation(libs.kotlin.serialization)
             }
         }
     }
