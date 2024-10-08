@@ -17,4 +17,12 @@ class UserComponentDI(
     val login: Login by lazy {
         LoginUseCase(userRepository)
     }
+
+    val getUser by lazy {
+        GetUser(userRepository::getUser)
+    }
+
+    val isUserLoggedIn by lazy {
+        IsUserLoggedIn(userRepository::isLoggedIn)
+    }
 }

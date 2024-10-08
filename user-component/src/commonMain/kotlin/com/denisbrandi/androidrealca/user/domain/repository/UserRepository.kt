@@ -5,4 +5,6 @@ import com.denisbrandi.androidrealca.user.domain.model.*
 
 internal interface UserRepository {
     suspend fun login(loginRequest: LoginRequest): Answer<Unit, LoginError>
+    fun getUser(): User
+    fun isLoggedIn(): Boolean
 }

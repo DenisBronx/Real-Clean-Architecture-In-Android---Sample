@@ -76,6 +76,18 @@ class RealUserRepositoryTest {
 
         assertEquals(Answer.Success(Unit), result)
         assertEquals(EXPECTED_CACHED_OBJECT, cacheProvider.providedCachedObject.get())
+        assertTrue(sut.isLoggedIn())
+        assertEquals(User("AmazingAndroidDevId", "Amazing Android Dev"), sut.getUser())
+    }
+
+    @Test
+    fun `EXPECT false WHEN user not logged in`() {
+        assertFalse(sut.isLoggedIn())
+    }
+
+    @Test
+    fun `EXPECT default empty user WHEN user not logged in`() {
+        assertEquals(User("", ""), sut.getUser())
     }
 
     private companion object {

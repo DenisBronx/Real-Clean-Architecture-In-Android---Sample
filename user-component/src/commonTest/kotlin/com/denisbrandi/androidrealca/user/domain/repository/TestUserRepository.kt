@@ -14,4 +14,12 @@ class TestUserRepository : UserRepository {
             throw IllegalStateException("method called with not stubbed parameters")
         }
     }
+
+    override fun getUser(): User {
+        TODO("Not yet implemented")
+    }
+
+    override fun isLoggedIn(): Boolean {
+        TODO("Not yet implemented")
+    }
 }

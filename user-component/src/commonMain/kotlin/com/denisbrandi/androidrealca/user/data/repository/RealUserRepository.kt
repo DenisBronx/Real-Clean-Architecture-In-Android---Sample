@@ -20,7 +20,7 @@ internal class RealUserRepository(
         cacheProvider.getCachedObject(
             fileName = "user-cache",
             serializer = JsonUserCacheDTO.serializer(),
-            defaultValue = JsonUserCacheDTO("", "")
+            defaultValue = DEFAULT_USER
         )
     }
 
@@ -56,5 +56,18 @@ internal class RealUserRepository(
             LoginError.GenericError
         }
         return Answer.Error(error)
+    }
+
+    override fun getUser(): User {
+        val cachedUser = cachedObject.get()
+        return User(cachedUser.id, cachedUser.fullName)
+    }
+
+    override fun isLoggedIn(): Boolean {
+        return cachedObject.get() != DEFAULT_USER
+    }
+
+    private companion object {
+        val DEFAULT_USER = JsonUserCacheDTO("", "")
     }
 }

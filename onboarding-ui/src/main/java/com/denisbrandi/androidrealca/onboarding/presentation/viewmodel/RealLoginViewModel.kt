@@ -6,7 +6,6 @@ import com.denisbrandi.androidrealca.user.domain.usecase.Login
 import com.denisbrandi.androidrealca.viewmodel.*
 import kotlinx.coroutines.launch
 
-
 internal class RealLoginViewModel(
     private val login: Login,
     private val stateDelegate: StateDelegate<LoginState>,
@@ -35,5 +34,4 @@ internal class RealLoginViewModel(
             )
         }
     }
-
 }

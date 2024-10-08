@@ -86,7 +86,9 @@ class RealLoginViewModelTest {
         override suspend fun invoke(loginRequest: LoginRequest): Answer<Unit, LoginError> {
             return if (LoginRequest(EMAIL, PASSWORD) == loginRequest) {
                 loginResult()
-            } else throw IllegalStateException("login not stubbed")
+            } else {
+                throw IllegalStateException("login not stubbed")
+            }
         }
     }
 
