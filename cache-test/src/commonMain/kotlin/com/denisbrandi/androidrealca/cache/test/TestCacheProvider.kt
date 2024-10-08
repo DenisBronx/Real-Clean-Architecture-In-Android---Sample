@@ -23,4 +23,12 @@ class TestCacheProvider(
             throw IllegalStateException("getCachedObject not stubbed")
         }
     }
+
+    override fun <T : Any> getFlowCachedObject(
+        fileName: String,
+        serializer: KSerializer<T>,
+        defaultValue: T
+    ): FlowCachedObject<T> {
+        return RealFlowCachedObject(getCachedObject(fileName, serializer, defaultValue))
+    }
 }

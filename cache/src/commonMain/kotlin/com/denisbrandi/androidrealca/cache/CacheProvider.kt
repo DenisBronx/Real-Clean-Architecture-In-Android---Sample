@@ -8,4 +8,10 @@ interface CacheProvider {
         serializer: KSerializer<T>,
         defaultValue: T
     ): CachedObject<T>
+
+    fun <T : Any> getFlowCachedObject(
+        fileName: String,
+        serializer: KSerializer<T>,
+        defaultValue: T
+    ): FlowCachedObject<T>
 }

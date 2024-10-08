@@ -16,12 +16,14 @@ kotlin {
                 implementation(libs.multiplatform.settings)
                 implementation(libs.multiplatform.settings.serialization)
                 implementation(libs.kotlin.serialization)
+                implementation(libs.coroutines.core)
             }
         }
         commonTest {
             dependencies {
                 implementation(libs.kotlin.test)
                 implementation(libs.multiplatform.settings.test)
+                implementation(project(":flow-test-observer"))
             }
         }
     }

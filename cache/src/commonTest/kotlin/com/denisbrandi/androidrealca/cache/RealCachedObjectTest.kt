@@ -1,8 +1,8 @@
 package com.denisbrandi.androidrealca.cache
 
+import com.denisbrandi.androidrealca.cache.fixture.TestModel
 import com.russhwolf.settings.MapSettings
 import kotlin.test.*
-import kotlinx.serialization.Serializable
 
 class RealCachedObjectTest {
 
@@ -24,7 +24,4 @@ class RealCachedObjectTest {
 
         assertEquals(TestModel("id"), sut.get())
     }
-
-    @Serializable
-    data class TestModel(val id: String)
 }
