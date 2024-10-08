@@ -32,8 +32,7 @@ class ObserveUserWishlistTest {
                 id = "1",
                 name = "Wireless Headphones",
                 money = Money(99.99, "$"),
-                imageUrl = "https://example.com/images/wireless-headphones.jpg",
-                quantityAvailable = 50
+                imageUrl = "https://example.com/images/wireless-headphones.jpg"
             )
         )
     }

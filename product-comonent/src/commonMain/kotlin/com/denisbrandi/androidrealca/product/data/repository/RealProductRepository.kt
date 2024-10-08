@@ -42,8 +42,7 @@ internal class RealProductRepository(
                 jsonProduct.id.toString(),
                 jsonProduct.name,
                 Money(jsonProduct.price, jsonProduct.currency),
-                jsonProduct.imageUrl,
-                jsonProduct.quantityAvailable
+                jsonProduct.imageUrl
             )
         }
     }

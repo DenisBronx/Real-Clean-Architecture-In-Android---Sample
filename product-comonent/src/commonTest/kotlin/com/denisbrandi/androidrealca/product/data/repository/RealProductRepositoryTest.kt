@@ -80,15 +80,13 @@ class RealProductRepositoryTest {
                 id = "1",
                 name = "Wireless Headphones",
                 money = Money(99.99, "$"),
-                imageUrl = "https://example.com/images/wireless-headphones.jpg",
-                quantityAvailable = 50
+                imageUrl = "https://example.com/images/wireless-headphones.jpg"
             ),
             Product(
                 id = "2",
                 name = "Smartphone Stand",
                 money = Money(15.49, "$"),
-                imageUrl = "https://example.com/images/smartphone-stand.jpg",
-                quantityAvailable = 150
+                imageUrl = "https://example.com/images/smartphone-stand.jpg"
             )
         )
         const val PRODUCTS_RESPONSE = """[
@@ -105,8 +103,7 @@ class RealProductRepositoryTest {
     "name": "Smartphone Stand",
     "price": 15.49,
     "currency": "$",
-    "imageUrl": "https://example.com/images/smartphone-stand.jpg",
-    "quantityAvailable": 150
+    "imageUrl": "https://example.com/images/smartphone-stand.jpg"
   }
   ]"""
     }

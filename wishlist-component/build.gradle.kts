@@ -14,6 +14,8 @@ kotlin {
         commonMain {
             dependencies {
                 implementation(libs.coroutines.core)
+                implementation(libs.kotlin.serialization)
+                implementation(project(":cache"))
                 implementation(project(":money-component"))
                 implementation(project(":user-component"))
             }
@@ -22,6 +24,7 @@ kotlin {
             dependencies {
                 implementation(libs.kotlin.test)
                 implementation(libs.coroutines.test)
+                implementation(project(":cache-test"))
                 implementation(project(":flow-test-observer"))
             }
         }

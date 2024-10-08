@@ -8,6 +8,5 @@ data class JsonProductResponseDTO(
     @SerialName("name") val name: String,
     @SerialName("price") val price: Double,
     @SerialName("currency") val currency: String,
-    @SerialName("imageUrl") val imageUrl: String,
-    @SerialName("quantityAvailable") val quantityAvailable: Int
+    @SerialName("imageUrl") val imageUrl: String
 )
