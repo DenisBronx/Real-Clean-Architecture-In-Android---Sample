@@ -30,6 +30,7 @@ class RealWishlistRepositoryTest {
     fun `EXPECT data added and wishlist updates emitted`() {
         val wishlistObserver = sut.observeWishlist(USER_ID).test()
         sut.addToWishlist(USER_ID, WISHLIST_ITEM)
+
         sut.addToWishlist(USER_ID, WISHLIST_ITEM.copy(id = "2"))
 
         assertEquals(
@@ -46,6 +47,7 @@ class RealWishlistRepositoryTest {
     fun `EXPECT no new emissions WHEN item to add is already in wishlist`() {
         val wishlistObserver = sut.observeWishlist(USER_ID).test()
         sut.addToWishlist(USER_ID, WISHLIST_ITEM)
+
         sut.addToWishlist(USER_ID, WISHLIST_ITEM)
 
         assertEquals(
