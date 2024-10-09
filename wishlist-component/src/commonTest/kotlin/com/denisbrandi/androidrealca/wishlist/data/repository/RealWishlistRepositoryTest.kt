@@ -2,9 +2,8 @@ package com.denisbrandi.androidrealca.wishlist.data.repository
 
 import com.denisbrandi.androidrealca.cache.test.TestCacheProvider
 import com.denisbrandi.androidrealca.flow.testobserver.test
-import com.denisbrandi.androidrealca.money.domain.model.Money
 import com.denisbrandi.androidrealca.wishlist.data.model.JsonWishlistCacheDto
-import com.denisbrandi.androidrealca.wishlist.domain.model.WishlistItem
+import com.denisbrandi.androidrealca.wishlist.domain.model.makeWishlistItem
 import kotlin.test.*
 
 class RealWishlistRepositoryTest {
@@ -93,11 +92,6 @@ class RealWishlistRepositoryTest {
 
     private companion object {
         const val USER_ID = "1234"
-        val WISHLIST_ITEM = WishlistItem(
-            id = "1",
-            name = "Wireless Headphones",
-            money = Money(99.99, "$"),
-            imageUrl = "https://example.com/images/wireless-headphones.jpg"
-        )
+        val WISHLIST_ITEM = makeWishlistItem()
     }
 }
