@@ -7,14 +7,14 @@ internal interface LoginViewModel : StateViewModel<LoginState>, EventViewModel<L
     fun login(email: String, password: String)
 }
 
-data class LoginState(val contentType: ContentType)
+internal data class LoginState(val contentType: ContentType)
 
-sealed interface ContentType {
+internal sealed interface ContentType {
     data object Form : ContentType
     data object LoggingIn : ContentType
 }
 
-sealed interface LoginViewEvent {
+internal sealed interface LoginViewEvent {
     data class ShowError(val loginError: LoginError) : LoginViewEvent
     data object SuccessfulLogin : LoginViewEvent
 }

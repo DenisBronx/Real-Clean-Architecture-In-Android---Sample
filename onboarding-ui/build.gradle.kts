@@ -2,10 +2,11 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kover)
+    alias(libs.plugins.compose.compiler)
 }
 
 android {
-    namespace = "com.denisbrandi.androidrealca.onboarding"
+    namespace = "com.denisbrandi.androidrealca.onboarding.ui"
     compileSdk = 34
 
     defaultConfig {
@@ -31,14 +32,29 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.1"
+    }
 }
 
 dependencies {
     implementation(project(":foundations"))
     implementation(project(":user-component"))
     implementation(project(":viewmodel"))
+    implementation(project(":designsystem"))
     implementation(libs.coroutines.core)
     implementation(libs.lifecycle.viewmodel)
+    implementation(libs.androidx.runtime.android)
+
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.ui.tooling.preview)
+    implementation(libs.androidx.material3)
+    debugImplementation(libs.androidx.ui.tooling)
+    debugImplementation(libs.androidx.ui.test.manifest)
+
     testImplementation(libs.junit)
     testImplementation(libs.coroutines.test)
     testImplementation(project(":flow-test-observer"))
