@@ -14,7 +14,7 @@ class RemoveFromWishlistUseCaseTest {
 
         assertEquals(
             listOf(USER_ID to WISHLIST_ITEM_ID),
-            testWishlistRepository.removeWishlistInvocations
+            testWishlistRepository.removeFromWishlistInvocations
         )
     }
 

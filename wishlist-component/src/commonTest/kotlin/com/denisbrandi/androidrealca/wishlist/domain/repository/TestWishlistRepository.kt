@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 class TestWishlistRepository : WishlistRepository {
     val addToWishlistInvocations: MutableList<Pair<String, WishlistItem>> = mutableListOf()
-    val removeWishlistInvocations: MutableList<Pair<String, String>> = mutableListOf()
+    val removeFromWishlistInvocations: MutableList<Pair<String, String>> = mutableListOf()
     val wishlistUpdates = mutableMapOf<String, Flow<List<WishlistItem>>>()
 
     override fun addToWishlist(userId: String, wishlistItem: WishlistItem) {
@@ -13,7 +13,7 @@ class TestWishlistRepository : WishlistRepository {
     }
 
     override fun removeFromWishlist(userId: String, wishlistItemId: String) {
-        removeWishlistInvocations.add(userId to wishlistItemId)
+        removeFromWishlistInvocations.add(userId to wishlistItemId)
     }
 
     override fun observeWishlist(userId: String): Flow<List<WishlistItem>> {
