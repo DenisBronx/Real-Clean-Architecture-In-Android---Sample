@@ -20,6 +20,7 @@ material = "1.10.0"
 lifecycle = "2.8.6"
 runtimeAndroid = "1.7.3"
 preferences-ktx = "1.2.1"
+navigation-compose = "2.8.2"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -54,6 +55,7 @@ coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-
 lifecycle-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
 androidx-runtime-android = { group = "androidx.compose.runtime", name = "runtime-android", version.ref = "runtimeAndroid" }
 preferences-ktx = { group = "androidx.preference", name = "preference-ktx", version.ref = "preferences-ktx" }
+compose-navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation-compose"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

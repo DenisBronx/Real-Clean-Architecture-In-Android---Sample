@@ -4,4 +4,7 @@
     <string name="enter_email">Enter email</string>
     <string name="enter_password">Enter password</string>
     <string name="login_button_text">Login</string>
+    <string name="error_invalid_email">Please insert a valid email</string>
+    <string name="error_invalid_password">Please insert a valid password (min 8 chars)</string>
+    <string name="error_invalid_credentials">No user with the provided credentials can be found</string>
 </resources>

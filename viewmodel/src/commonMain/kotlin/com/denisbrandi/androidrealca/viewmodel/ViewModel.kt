@@ -37,7 +37,7 @@ class StateDelegate<State> : StateViewModel<State> {
 }
 
 class EventDelegate<ViewEvent> : EventViewModel<ViewEvent> {
-    private val _viewEvent = MutableSharedFlow<ViewEvent>()
+    val _viewEvent = MutableSharedFlow<ViewEvent>()
     override val viewEvent: Flow<ViewEvent> = _viewEvent.asSharedFlow()
 
     fun sendEvent(scope: CoroutineScope, newEvent: ViewEvent) {

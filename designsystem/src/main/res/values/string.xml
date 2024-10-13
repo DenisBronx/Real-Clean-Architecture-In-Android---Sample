@@ -2,4 +2,6 @@
 <resources>
     <string name="generic_error_message">Something went wrong</string>
     <string name="retry">Retry</string>
+    <string name="ok">OK</string>
+    <string name="something_went_wrong">Something went wrong</string>
 </resources>

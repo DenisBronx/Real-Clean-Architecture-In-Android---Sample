@@ -13,6 +13,7 @@ import androidx.compose.ui.text.input.*
 import com.denisbrandi.androidrealca.designsystem.*
 import com.denisbrandi.androidrealca.onboarding.presentation.viewmodel.*
 import com.denisbrandi.androidrealca.onboarding.ui.R
+import com.denisbrandi.androidrealca.user.domain.model.LoginError
 
 @Composable
 internal fun LoginScreen(loginViewModel: LoginViewModel) {
@@ -85,6 +86,67 @@ private fun Form(loginViewModel: LoginViewModel) {
         val isLoading = loginState.value.contentType is ContentType.LoggingIn
         LoadingButton(text = stringResource(R.string.login_button_text), isLoading) {
             loginViewModel.login(emailText, passwordText)
+        }
+        LoginEvent(loginViewModel) {
+            loginViewModel.login(emailText, passwordText)
+        }
+    }
+}
+
+@Composable
+private fun LoginEvent(loginViewModel: LoginViewModel, onRetryLogin: () -> Unit) {
+    var showErrorDialog by remember { mutableStateOf<Any>(Unit) }
+
+    LaunchedEffect(Unit) {
+        loginViewModel.viewEvent.collect { viewEvent ->
+            when (viewEvent) {
+                is LoginViewEvent.ShowError -> {
+                    showErrorDialog = viewEvent
+                }
+
+                is LoginViewEvent.SuccessfulLogin -> {}
+            }
+        }
+    }
+
+    when (showErrorDialog) {
+        is LoginError.GenericError -> {
+            CustomAlertDialog(
+                onConfirm = {
+                    showErrorDialog = Unit
+                    onRetryLogin()
+                },
+                onDismiss = { showErrorDialog = Unit },
+                dialogText = stringResource(com.denisbrandi.androidrealca.designsystem.R.string.something_went_wrong),
+                confirmText = stringResource(com.denisbrandi.androidrealca.designsystem.R.string.retry)
+            )
+        }
+
+        is LoginError.InvalidEmail -> {
+            CustomAlertDialog(
+                onConfirm = { showErrorDialog = Unit },
+                onDismiss = { showErrorDialog = Unit },
+                dialogText = stringResource(R.string.error_invalid_email),
+                confirmText = stringResource(com.denisbrandi.androidrealca.designsystem.R.string.ok)
+            )
+        }
+
+        is LoginError.InvalidPassword -> {
+            CustomAlertDialog(
+                onConfirm = { showErrorDialog = Unit },
+                onDismiss = { showErrorDialog = Unit },
+                dialogText = stringResource(R.string.error_invalid_password),
+                confirmText = stringResource(com.denisbrandi.androidrealca.designsystem.R.string.ok)
+            )
+        }
+
+        is LoginError.IncorrectCredentials -> {
+            CustomAlertDialog(
+                onConfirm = { showErrorDialog = Unit },
+                onDismiss = { showErrorDialog = Unit },
+                dialogText = stringResource(R.string.error_invalid_password),
+                confirmText = stringResource(com.denisbrandi.androidrealca.designsystem.R.string.ok)
+            )
         }
     }
 }
