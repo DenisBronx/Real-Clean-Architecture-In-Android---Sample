@@ -2,6 +2,7 @@ package com.denisbrandi.androidrealca.user.data.repository
 
 import com.denisbrandi.androidrealca.cache.test.TestCacheProvider
 import com.denisbrandi.androidrealca.foundations.Answer
+import com.denisbrandi.androidrealca.httpclient.AccessTokenProvider
 import com.denisbrandi.androidrealca.httpclient.RealHttpClientProvider.createClient
 import com.denisbrandi.androidrealca.user.data.model.JsonUserCacheDTO
 import com.denisbrandi.androidrealca.user.data.repository.RealUserRepository.Companion.DEFAULT_USER
@@ -109,7 +110,8 @@ class RealUserRepositoryTest {
     private companion object {
         val REQUEST_HEADERS = mapOf(
             "Accept" to "application/json",
-            "Accept-Charset" to "UTF-8"
+            "Accept-Charset" to "UTF-8",
+            AccessTokenProvider.getAccessTokenHeader()
         )
         val RESPONSE_HEADERS = mapOf(
             "Content-Type" to "application/json"
@@ -124,7 +126,7 @@ class RealUserRepositoryTest {
      "fullName": "Amazing Android Dev"
         }"""
         val EXPECTED_REQUEST = NetMockRequest(
-            requestUrl = "https://api.unexisting.com/login",
+            requestUrl = "https://api.json-generator.com/templates/Q7s_NUVpyBND/data",
             method = Method.Post,
             mandatoryHeaders = REQUEST_HEADERS,
             body = REQUEST_BODY

@@ -18,5 +18,10 @@ kotlin {
                 api(libs.ktor.content.negotiation)
             }
         }
+        commonTest {
+            dependencies {
+                implementation(libs.kotlin.test)
+            }
+        }
     }
 }

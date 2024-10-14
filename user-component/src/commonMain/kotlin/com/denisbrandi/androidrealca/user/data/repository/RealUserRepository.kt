@@ -2,6 +2,7 @@ package com.denisbrandi.androidrealca.user.data.repository
 
 import com.denisbrandi.androidrealca.cache.*
 import com.denisbrandi.androidrealca.foundations.Answer
+import com.denisbrandi.androidrealca.httpclient.AccessTokenProvider
 import com.denisbrandi.androidrealca.user.data.model.*
 import com.denisbrandi.androidrealca.user.domain.model.*
 import com.denisbrandi.androidrealca.user.domain.repository.UserRepository
@@ -26,12 +27,15 @@ internal class RealUserRepository(
 
     override suspend fun login(loginRequest: LoginRequest): Answer<Unit, LoginError> {
         return try {
-            val response = client.post("https://api.unexisting.com/login") {
-                headers {
-                    append(HttpHeaders.ContentType, ContentType.Application.Json.toString())
+            val response =
+                client.post("https://api.json-generator.com/templates/Q7s_NUVpyBND/data") {
+                    headers {
+                        append(HttpHeaders.ContentType, ContentType.Application.Json.toString())
+                        val accessTokenHeader = AccessTokenProvider.getAccessTokenHeader()
+                        append(accessTokenHeader.first, accessTokenHeader.second)
+                    }
+                    setBody(JsonLoginRequestDTO(loginRequest.email, loginRequest.password))
                 }
-                setBody(JsonLoginRequestDTO(loginRequest.email, loginRequest.password))
-            }
             if (response.status.isSuccess()) {
                 handleSuccessfulLoginResponse(response)
             } else {

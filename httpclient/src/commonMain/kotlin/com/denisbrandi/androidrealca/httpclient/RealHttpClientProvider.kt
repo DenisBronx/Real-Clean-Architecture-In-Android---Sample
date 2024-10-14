@@ -25,7 +25,7 @@ object RealHttpClientProvider : HttpClientProvider {
                 )
             }
             install(HttpTimeout) {
-                requestTimeoutMillis = 1000L
+                requestTimeoutMillis = 3000L
             }
         }
     }
