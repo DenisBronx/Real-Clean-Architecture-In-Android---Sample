@@ -107,13 +107,14 @@ private fun LoginEvent(
     onRetryLogin: () -> Unit,
     onLoggedIn: () -> Unit
 ) {
-    var showErrorDialog by remember { mutableStateOf<Any>(Unit) }
+    val noModalEvent = ModalEvent<LoginError>(null)
+    var showErrorDialog by remember { mutableStateOf(noModalEvent) }
 
     LaunchedEffect(key1 = Unit) {
         loginViewModel.viewEvent.onEach { viewEvent ->
             when (viewEvent) {
                 is LoginViewEvent.ShowError -> {
-                    showErrorDialog = viewEvent
+                    showErrorDialog = ModalEvent(viewEvent.loginError)
                 }
 
                 is LoginViewEvent.SuccessfulLogin -> {
@@ -123,14 +124,14 @@ private fun LoginEvent(
         }.launchIn(this)
     }
 
-    when (showErrorDialog) {
+    when (showErrorDialog.viewEvent) {
         is LoginError.GenericError -> {
             CustomAlertDialog(
                 onConfirm = {
-                    showErrorDialog = Unit
+                    showErrorDialog = noModalEvent
                     onRetryLogin()
                 },
-                onDismiss = { showErrorDialog = Unit },
+                onDismiss = { showErrorDialog = noModalEvent },
                 dialogText = stringResource(com.denisbrandi.androidrealca.designsystem.R.string.something_went_wrong),
                 confirmText = stringResource(com.denisbrandi.androidrealca.designsystem.R.string.retry)
             )
@@ -138,8 +139,8 @@ private fun LoginEvent(
 
         is LoginError.InvalidEmail -> {
             CustomAlertDialog(
-                onConfirm = { showErrorDialog = Unit },
-                onDismiss = { showErrorDialog = Unit },
+                onConfirm = { showErrorDialog = noModalEvent },
+                onDismiss = { showErrorDialog = noModalEvent },
                 dialogText = stringResource(R.string.error_invalid_email),
                 confirmText = stringResource(com.denisbrandi.androidrealca.designsystem.R.string.ok)
             )
@@ -147,8 +148,8 @@ private fun LoginEvent(
 
         is LoginError.InvalidPassword -> {
             CustomAlertDialog(
-                onConfirm = { showErrorDialog = Unit },
-                onDismiss = { showErrorDialog = Unit },
+                onConfirm = { showErrorDialog = noModalEvent },
+                onDismiss = { showErrorDialog = noModalEvent },
                 dialogText = stringResource(R.string.error_invalid_password),
                 confirmText = stringResource(com.denisbrandi.androidrealca.designsystem.R.string.ok)
             )
@@ -156,11 +157,13 @@ private fun LoginEvent(
 
         is LoginError.IncorrectCredentials -> {
             CustomAlertDialog(
-                onConfirm = { showErrorDialog = Unit },
-                onDismiss = { showErrorDialog = Unit },
+                onConfirm = { showErrorDialog = noModalEvent },
+                onDismiss = { showErrorDialog = noModalEvent },
                 dialogText = stringResource(R.string.error_invalid_password),
                 confirmText = stringResource(com.denisbrandi.androidrealca.designsystem.R.string.ok)
             )
         }
+
+        else -> {}
     }
 }
