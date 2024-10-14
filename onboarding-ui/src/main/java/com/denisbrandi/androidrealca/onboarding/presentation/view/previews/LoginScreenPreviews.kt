@@ -9,13 +9,13 @@ import com.denisbrandi.androidrealca.viewmodel.*
 @Preview
 @Composable
 fun PreviewLoginScreenFormState() {
-    LoginScreen(createViewModelWithState(LoginState(ContentType.Form)))
+    LoginScreen(createViewModelWithState(LoginState(ContentType.Form))) {}
 }
 
 @Preview
 @Composable
 fun PreviewLoginScreenLoggingState() {
-    LoginScreen(createViewModelWithState(LoginState(ContentType.LoggingIn)))
+    LoginScreen(createViewModelWithState(LoginState(ContentType.LoggingIn))) {}
 }
 
 private fun createViewModelWithState(loginState: LoginState): LoginViewModel {

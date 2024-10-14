@@ -1,52 +1,21 @@
 package com.denisbrandi.androidrealca
 
 import android.os.Bundle
-import androidx.activity.ComponentActivity
+import androidx.activity.*
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.denisbrandi.androidrealca.di.Injection
+import com.denisbrandi.androidrealca.di.Injector
+import com.denisbrandi.androidrealca.navigation.Navigation
 import com.denisbrandi.androidrealca.ui.theme.RealCleanArchitectureInAndroidTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Injection.start(this.applicationContext)
+        Injector.start(this.applicationContext)
         enableEdgeToEdge()
         setContent {
             RealCleanArchitectureInAndroidTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding),
-                    )
-                }
+                Navigation()
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(
-    name: String,
-    modifier: Modifier = Modifier,
-) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier,
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    RealCleanArchitectureInAndroidTheme {
-        Greeting("Android")
     }
 }

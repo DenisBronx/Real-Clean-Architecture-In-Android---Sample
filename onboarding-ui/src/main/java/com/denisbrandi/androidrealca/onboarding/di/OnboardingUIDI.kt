@@ -18,7 +18,7 @@ class OnboardingUIDI(
     }
 
     @Composable
-    fun LoginScreenDI() {
-        LoginScreen(makeLoginViewModel())
+    fun LoginScreenDI(onLoggedIn: () -> Unit) {
+        LoginScreen(makeLoginViewModel(), onLoggedIn)
     }
 }
