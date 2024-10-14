@@ -67,7 +67,7 @@ internal class RealUserRepository(
         return cachedObject.get() != DEFAULT_USER
     }
 
-    private companion object {
+    companion object {
         val DEFAULT_USER = JsonUserCacheDTO("", "")
     }
 }

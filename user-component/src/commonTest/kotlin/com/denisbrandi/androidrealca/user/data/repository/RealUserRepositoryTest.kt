@@ -4,6 +4,7 @@ import com.denisbrandi.androidrealca.cache.test.TestCacheProvider
 import com.denisbrandi.androidrealca.foundations.Answer
 import com.denisbrandi.androidrealca.httpclient.RealHttpClientProvider.createClient
 import com.denisbrandi.androidrealca.user.data.model.JsonUserCacheDTO
+import com.denisbrandi.androidrealca.user.data.repository.RealUserRepository.Companion.DEFAULT_USER
 import com.denisbrandi.androidrealca.user.domain.model.*
 import com.denisbrandi.netmock.*
 import com.denisbrandi.netmock.engine.NetMockEngine
@@ -102,6 +103,7 @@ class RealUserRepositoryTest {
     @Test
     fun `EXPECT default empty user WHEN user not logged in`() {
         assertEquals(User("", ""), sut.getUser())
+        assertEquals(DEFAULT_USER, cacheProvider.providedCachedObject.get())
     }
 
     private companion object {
