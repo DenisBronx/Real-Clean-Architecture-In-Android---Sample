@@ -3,6 +3,7 @@ package com.denisbrandi.androidrealca.httpclient
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.client.engine.cio.CIO
+import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
@@ -22,6 +23,9 @@ object RealHttpClientProvider : HttpClientProvider {
                         ignoreUnknownKeys = true
                     }
                 )
+            }
+            install(HttpTimeout) {
+                requestTimeoutMillis = 1000L
             }
         }
     }

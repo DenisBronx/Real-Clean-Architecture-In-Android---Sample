@@ -133,7 +133,8 @@ private fun LoginEvent(
                 },
                 onDismiss = { showErrorDialog = noModalEvent },
                 dialogText = stringResource(com.denisbrandi.androidrealca.designsystem.R.string.something_went_wrong),
-                confirmText = stringResource(com.denisbrandi.androidrealca.designsystem.R.string.retry)
+                confirmText = stringResource(com.denisbrandi.androidrealca.designsystem.R.string.retry),
+                dismissText = stringResource(com.denisbrandi.androidrealca.designsystem.R.string.cancel)
             )
         }
 

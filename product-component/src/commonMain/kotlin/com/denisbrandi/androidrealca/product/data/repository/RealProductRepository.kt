@@ -15,25 +15,25 @@ internal class RealProductRepository(
     private val httpClient: HttpClient
 ) : ProductRepository {
     override suspend fun getProducts(): Answer<List<Product>, Unit> {
-        val response = httpClient.get("https://api.unexisting.com/products") {
-            headers {
-                append(HttpHeaders.ContentType, ContentType.Application.Json.toString())
+        return try {
+            val response = httpClient.get("https://api.unexisting.com/products") {
+                headers {
+                    append(HttpHeaders.ContentType, ContentType.Application.Json.toString())
+                }
             }
-        }
-        return if (response.status.isSuccess()) {
-            handleSuccessfulProductsResponse(response)
-        } else {
+            if (response.status.isSuccess()) {
+                handleSuccessfulProductsResponse(response)
+            } else {
+                Answer.Error(Unit)
+            }
+        } catch (t: Throwable) {
             Answer.Error(Unit)
         }
     }
 
     private suspend fun handleSuccessfulProductsResponse(httpResponse: HttpResponse): Answer<List<Product>, Unit> {
-        return try {
-            val responseBody = httpResponse.body<List<JsonProductResponseDTO>>()
-            Answer.Success(mapProducts(responseBody))
-        } catch (t: Throwable) {
-            Answer.Error(Unit)
-        }
+        val responseBody = httpResponse.body<List<JsonProductResponseDTO>>()
+        return Answer.Success(mapProducts(responseBody))
     }
 
     private fun mapProducts(jsonProducts: List<JsonProductResponseDTO>): List<Product> {

@@ -25,28 +25,28 @@ internal class RealUserRepository(
     }
 
     override suspend fun login(loginRequest: LoginRequest): Answer<Unit, LoginError> {
-        val response = client.post("https://api.unexisting.com/login") {
-            headers {
-                append(HttpHeaders.ContentType, ContentType.Application.Json.toString())
-            }
-            setBody(JsonLoginRequestDTO(loginRequest.email, loginRequest.password))
-        }
-        return if (response.status.isSuccess()) {
-            handleSuccessfulLoginResponse(response)
-        } else {
-            handleFailingLoginResponse(response)
-        }
-    }
-
-    private suspend fun handleSuccessfulLoginResponse(httpResponse: HttpResponse): Answer<Unit, LoginError> {
         return try {
-            val responseBody = httpResponse.body<JsonLoginResponseDTO>()
-            cachedObject.put(JsonUserCacheDTO(responseBody.id, responseBody.fullName))
-            Answer.Success(Unit)
+            val response = client.post("https://api.unexisting.com/login") {
+                headers {
+                    append(HttpHeaders.ContentType, ContentType.Application.Json.toString())
+                }
+                setBody(JsonLoginRequestDTO(loginRequest.email, loginRequest.password))
+            }
+            if (response.status.isSuccess()) {
+                handleSuccessfulLoginResponse(response)
+            } else {
+                handleFailingLoginResponse(response)
+            }
         } catch (t: Throwable) {
             t.printStackTrace()
             Answer.Error(LoginError.GenericError)
         }
+    }
+
+    private suspend fun handleSuccessfulLoginResponse(httpResponse: HttpResponse): Answer<Unit, LoginError> {
+        val responseBody = httpResponse.body<JsonLoginResponseDTO>()
+        cachedObject.put(JsonUserCacheDTO(responseBody.id, responseBody.fullName))
+        return Answer.Success(Unit)
     }
 
     private fun handleFailingLoginResponse(httpResponse: HttpResponse): Answer<Unit, LoginError> {

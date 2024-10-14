@@ -8,7 +8,8 @@ fun CustomAlertDialog(
     onConfirm: () -> Unit,
     onDismiss: () -> Unit,
     dialogText: String,
-    confirmText: String
+    confirmText: String,
+    dismissText: String? = null,
 ) {
     AlertDialog(
         text = {
@@ -24,6 +25,17 @@ fun CustomAlertDialog(
                 }
             ) {
                 Text(confirmText)
+            }
+        },
+        dismissButton = dismissText?.let { text ->
+            {
+                TextButton(
+                    onClick = {
+                        onDismiss()
+                    }
+                ) {
+                    Text(text)
+                }
             }
         }
     )
