@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
-
 package com.denisbrandi.androidrealca.onboarding.presentation.view
 
 import androidx.compose.foundation.layout.*
@@ -23,14 +21,7 @@ internal fun LoginScreen(
 ) {
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = {
-                    Text(
-                        text = stringResource(R.string.login_screen_title),
-                        color = TopBarText,
-                    )
-                }
-            )
+            TopBar(stringResource(R.string.login_screen_title))
         },
         content = { padding ->
             Box(

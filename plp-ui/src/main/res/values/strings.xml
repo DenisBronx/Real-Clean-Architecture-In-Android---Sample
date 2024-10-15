@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="plp_welcome">Welcome back, %s</string>
+    <string name="plp_no_products">No products were found</string>
+</resources>

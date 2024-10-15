@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.*
+import com.denisbrandi.androidrealca.di.injector
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -71,6 +72,7 @@ fun MainScreen() {
             modifier = Modifier.padding(paddingValues = paddingValues)
         ) {
             composable<NavProducts> {
+                injector.plpUIDI.PLPScreenDI()
             }
             composable<NavWishlist> {
             }
