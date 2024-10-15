@@ -1,4 +1,4 @@
-package com.denisbrandi.androidrealca.navigation
+package com.denisbrandi.androidrealca.main.presentation.view
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
@@ -13,7 +13,10 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.*
 import com.denisbrandi.androidrealca.R
+import com.denisbrandi.androidrealca.cart.domain.model.Cart
+import com.denisbrandi.androidrealca.cart.domain.usecase.ObserveUserCart
 import com.denisbrandi.androidrealca.di.injector
+import com.denisbrandi.androidrealca.wishlist.domain.usecase.ObserveUserWishlist
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -25,7 +28,7 @@ object NavWishlist
 @Serializable
 object NavCart
 
-data class TopLevelRoute<T : Any>(
+data class TopLevelRoute<out T : Any>(
     val name: String,
     val route: T,
     val icon: ImageVector
@@ -43,7 +46,12 @@ private fun topLevelRoutes() = listOf(
 )
 
 @Composable
-fun MainScreen() {
+internal fun MainScreen(
+    observeUserWishlist: ObserveUserWishlist,
+    observeUserCart: ObserveUserCart
+) {
+    val wishlist by observeUserWishlist().collectAsState(emptyList())
+    val cart by observeUserCart().collectAsState(Cart(emptyList()))
     var navigationSelectedItem by remember {
         mutableIntStateOf(0)
     }
@@ -57,7 +65,7 @@ fun MainScreen() {
                 topLevelRoutes.forEachIndexed { index, navigationItem ->
                     NavigationBarItem(
                         icon = {
-                            Icon(navigationItem.icon, contentDescription = navigationItem.name)
+                            BottomBarIcon(index, wishlist.size, cart.cartItems.size, navigationItem)
                         },
                         label = { Text(navigationItem.name) },
                         selected = index == navigationSelectedItem,
@@ -90,6 +98,39 @@ fun MainScreen() {
             composable<NavCart> {
                 injector.cartUIDI.CartScreenDI()
             }
+        }
+    }
+}
+
+@Composable
+private fun BottomBarIcon(
+    index: Int,
+    wishlistCount: Int,
+    cartItemsCount: Int,
+    navigationItem: TopLevelRoute<Any>
+) {
+    val count = when (index) {
+        1 -> {
+            wishlistCount
+        }
+
+        2 -> {
+            cartItemsCount
+        }
+
+        else -> 0
+    }
+    if (count == 0) {
+        Icon(navigationItem.icon, contentDescription = navigationItem.name)
+    } else {
+        BadgedBox(
+            badge = {
+                Badge {
+                    Text(text = count.toString())
+                }
+            }
+        ) {
+            Icon(navigationItem.icon, contentDescription = navigationItem.name)
         }
     }
 }

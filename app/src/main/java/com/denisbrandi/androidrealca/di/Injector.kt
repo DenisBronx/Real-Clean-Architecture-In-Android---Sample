@@ -19,6 +19,8 @@ class Injector private constructor(
     private val wishlistComponentDI = WishlistComponentDI(cacheProvider, userComponentDI.getUser)
     private val cartComponentDI = CartComponentDI(cacheProvider, userComponentDI.getUser)
     val isUserLoggedIn = userComponentDI.isUserLoggedIn
+    val observeUserWishlist = wishlistComponentDI.observeUserWishlist
+    val observeUserCart = cartComponentDI.observeUserCart
     val onboardingUIDI = OnboardingUIDI(userComponentDI.login)
     val plpUIDI = PLPUIDI(
         userComponentDI.getUser,
