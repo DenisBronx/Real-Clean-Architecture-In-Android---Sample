@@ -88,6 +88,7 @@ fun MainScreen() {
                 injector.wishlistUIDI.WishlistScreenDI()
             }
             composable<NavCart> {
+                injector.cartUIDI.CartScreenDI()
             }
         }
     }

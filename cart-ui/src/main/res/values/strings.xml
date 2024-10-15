@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cart_title">Your Cart</string>
+    <string name="cart_empty_message">You haven\'t added any product to your cart yet</string>
+</resources>
