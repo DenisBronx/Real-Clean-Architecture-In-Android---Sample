@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.denisbrandi.androidrealca.onboarding.ui"
+    namespace = "com.denisbrandi.androidrealca.plp.ui"
     compileSdk = 34
 
     defaultConfig {
@@ -43,6 +43,8 @@ android {
 dependencies {
     implementation(project(":foundations"))
     implementation(project(":user-component"))
+    implementation(project(":product-component"))
+    implementation(project(":wishlist-component"))
     implementation(project(":viewmodel"))
     implementation(project(":designsystem"))
     implementation(libs.coroutines.core)

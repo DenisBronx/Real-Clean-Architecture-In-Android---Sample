@@ -25,4 +25,8 @@ class WishlistComponentDI(
     val observeUserWishlist: ObserveUserWishlist by lazy {
         ObserveUserWishlistUseCase(getUser, wishlistRepository)
     }
+
+    val observeUserWishlistIds: ObserveUserWishlistIds by lazy {
+        ObserveUserWishlistIdsUseCase(observeUserWishlist)
+    }
 }

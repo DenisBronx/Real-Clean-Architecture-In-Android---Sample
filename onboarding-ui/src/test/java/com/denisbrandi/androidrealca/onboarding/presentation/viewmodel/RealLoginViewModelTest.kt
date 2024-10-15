@@ -16,7 +16,7 @@ class RealLoginViewModelTest {
     @get:Rule
     val rule = MainCoroutineRule()
 
-    private val login = StubLogin()
+    private val login = TestLogin()
     private lateinit var stateObserver: FlowTestObserver<LoginState>
     private lateinit var eventObserver: FlowTestObserver<LoginViewEvent>
     private val sut = RealLoginViewModel(login, StateDelegate(), EventDelegate())
@@ -81,7 +81,7 @@ class RealLoginViewModelTest {
         assertEquals(listOf(LoginViewEvent.SuccessfulLogin), eventObserver.getValues())
     }
 
-    private class StubLogin : Login {
+    private class TestLogin : Login {
         lateinit var loginResult: suspend () -> Answer<Unit, LoginError>
         override suspend fun invoke(loginRequest: LoginRequest): Answer<Unit, LoginError> {
             return if (LoginRequest(EMAIL, PASSWORD) == loginRequest) {

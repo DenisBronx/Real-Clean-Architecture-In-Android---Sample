@@ -14,3 +14,7 @@ fun interface RemoveFromWishlist {
 fun interface ObserveUserWishlist {
     operator fun invoke(): Flow<List<WishlistItem>>
 }
+
+fun interface ObserveUserWishlistIds {
+    operator fun invoke(): Flow<List<String>>
+}
