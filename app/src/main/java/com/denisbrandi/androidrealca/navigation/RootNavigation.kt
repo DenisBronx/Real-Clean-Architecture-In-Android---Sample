@@ -3,7 +3,6 @@ package com.denisbrandi.androidrealca.navigation
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.*
 import com.denisbrandi.androidrealca.di.injector
-import com.denisbrandi.androidrealca.ui.MainScreen
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -16,7 +15,7 @@ object NavLogin
 object NavMain
 
 @Composable
-fun Navigation() {
+fun RootNavigation() {
     val navController = rememberNavController()
     NavHost(navController, startDestination = NavSplash) {
         composable<NavSplash> {

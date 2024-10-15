@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.*
 import androidx.activity.compose.setContent
 import com.denisbrandi.androidrealca.di.Injector
-import com.denisbrandi.androidrealca.navigation.Navigation
+import com.denisbrandi.androidrealca.navigation.RootNavigation
 import com.denisbrandi.androidrealca.ui.theme.RealCleanArchitectureInAndroidTheme
 
 class MainActivity : ComponentActivity() {
@@ -14,7 +14,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             RealCleanArchitectureInAndroidTheme {
-                Navigation()
+                RootNavigation()
             }
         }
     }
