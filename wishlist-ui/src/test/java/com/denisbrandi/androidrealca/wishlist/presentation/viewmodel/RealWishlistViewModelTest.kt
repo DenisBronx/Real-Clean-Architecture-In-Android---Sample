@@ -1,5 +1,7 @@
 package com.denisbrandi.androidrealca.wishlist.presentation.viewmodel
 
+import com.denisbrandi.androidrealca.cart.domain.model.CartItem
+import com.denisbrandi.androidrealca.cart.domain.usecase.UpdateCartItem
 import com.denisbrandi.androidrealca.coroutines.testdispatcher.MainCoroutineRule
 import com.denisbrandi.androidrealca.flow.testobserver.*
 import com.denisbrandi.androidrealca.money.domain.model.Money
@@ -18,12 +20,18 @@ class RealWishlistViewModelTest {
 
     private val observeUserWishlist = TestObserveUserWishlist()
     private val removeFromWishlist = TestRemoveFromWishlist()
+    private val updateCartItem = TestUpdateCartItem()
     private lateinit var sut: RealWishlistViewModel
     private lateinit var stateObserver: FlowTestObserver<WishlistState>
 
     @Before
     fun setUp() {
-        sut = RealWishlistViewModel(observeUserWishlist, removeFromWishlist, StateDelegate())
+        sut = RealWishlistViewModel(
+            observeUserWishlist,
+            removeFromWishlist,
+            updateCartItem,
+            StateDelegate()
+        )
         stateObserver = sut.state.test()
     }
 
@@ -47,6 +55,13 @@ class RealWishlistViewModelTest {
         assertEquals(listOf("1"), removeFromWishlist.invocations)
     }
 
+    @Test
+    fun `EXPECT item added to cart`() {
+        sut.addProductToCart(WISHLIST_ITEM)
+
+        assertEquals(listOf(CART_ITEM), updateCartItem.invocations)
+    }
+
     private class TestObserveUserWishlist : ObserveUserWishlist {
         val wishlistUpdates = MutableStateFlow(emptyList<WishlistItem>())
         override fun invoke(): Flow<List<WishlistItem>> = wishlistUpdates
@@ -59,6 +74,13 @@ class RealWishlistViewModelTest {
         }
     }
 
+    private class TestUpdateCartItem : UpdateCartItem {
+        val invocations = mutableListOf<CartItem>()
+        override fun invoke(cartItem: CartItem) {
+            invocations.add(cartItem)
+        }
+    }
+
     private companion object {
         val WISHLIST_ITEM = WishlistItem(
             id = "1",
@@ -67,5 +89,12 @@ class RealWishlistViewModelTest {
             imageUrl = "https://example.com/images/wireless-headphones.jpg"
         )
         val WISHLIST_ITEMS = listOf(WISHLIST_ITEM)
+        val CART_ITEM = CartItem(
+            "1",
+            "Wireless Headphones",
+            Money(99.99, "$"),
+            "https://m.media-amazon.com/images/I/61fU3njgzZL._AC_SL1500_.jpg",
+            quantity = 1
+        )
     }
 }

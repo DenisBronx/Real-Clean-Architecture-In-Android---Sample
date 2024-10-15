@@ -5,6 +5,8 @@ import com.denisbrandi.androidrealca.wishlist.domain.model.WishlistItem
 
 internal interface WishlistViewModel : StateViewModel<WishlistState> {
     fun removeItemFromWishlist(wishlistItemId: String)
+
+    fun addProductToCart(wishlistItem: WishlistItem)
 }
 
 data class WishlistState(val wishlistItems: List<WishlistItem> = emptyList())

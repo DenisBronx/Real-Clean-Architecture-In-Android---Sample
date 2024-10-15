@@ -23,9 +23,10 @@ class Injector private constructor(
     val plpUIDI = PLPUIDI(
         userComponentDI.getUser,
         productComponentDI.getProducts,
-        wishlistComponentDI
+        wishlistComponentDI,
+        cartComponentDI.updateCartItem
     )
-    val wishlistUIDI = WishlistUIDI(wishlistComponentDI)
+    val wishlistUIDI = WishlistUIDI(wishlistComponentDI, cartComponentDI.updateCartItem)
 
     companion object {
         lateinit var INSTANCE: Injector

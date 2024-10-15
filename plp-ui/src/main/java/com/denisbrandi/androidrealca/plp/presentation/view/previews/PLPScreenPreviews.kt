@@ -83,4 +83,6 @@ private class TestPLPViewModel(
     override fun addProductToWishlist(product: Product) {}
 
     override fun removeProductFromWishlist(productId: String) {}
+
+    override fun addProductToCart(product: Product) {}
 }

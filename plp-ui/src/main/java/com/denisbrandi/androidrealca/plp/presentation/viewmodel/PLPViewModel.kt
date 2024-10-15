@@ -8,6 +8,7 @@ internal interface PLPViewModel : StateViewModel<PLPState> {
     fun isFavourite(productId: String): Boolean
     fun addProductToWishlist(product: Product)
     fun removeProductFromWishlist(productId: String)
+    fun addProductToCart(product: Product)
 }
 
 internal data class PLPState(

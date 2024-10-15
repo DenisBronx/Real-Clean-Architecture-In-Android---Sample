@@ -126,6 +126,16 @@ private fun ProductRow(
                 horizontalArrangement = Arrangement.End
             ) {
                 WishlistButton(plpViewModel, product)
+                IconButton(
+                    onClick = {
+                        plpViewModel.addProductToCart(product)
+                    }
+                ) {
+                    Icon(
+                        painterResource(com.denisbrandi.androidrealca.designsystem.R.drawable.baseline_add_shopping_cart_24),
+                        contentDescription = null
+                    )
+                }
             }
         }
     }

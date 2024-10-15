@@ -3,6 +3,7 @@ package com.denisbrandi.androidrealca.wishlist.presentation.view.previews
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.denisbrandi.androidrealca.viewmodel.*
+import com.denisbrandi.androidrealca.wishlist.domain.model.WishlistItem
 import com.denisbrandi.androidrealca.wishlist.presentation.view.WishlistScreen
 import com.denisbrandi.androidrealca.wishlist.presentation.viewmodel.*
 
@@ -30,4 +31,6 @@ private class TestWishlistViewModel(
     StateViewModel<WishlistState> by stateDelegate {
 
     override fun removeItemFromWishlist(wishlistItemId: String) {}
+
+    override fun addProductToCart(wishlistItem: WishlistItem) {}
 }

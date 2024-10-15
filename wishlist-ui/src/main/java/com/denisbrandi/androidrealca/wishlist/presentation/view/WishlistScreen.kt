@@ -112,6 +112,16 @@ private fun WishlistItemRow(
                 ) {
                     Icon(painterResource(R.drawable.baseline_delete_24), contentDescription = null)
                 }
+                IconButton(
+                    onClick = {
+                        wishlistViewModel.addProductToCart(wishlistItem)
+                    }
+                ) {
+                    Icon(
+                        painterResource(com.denisbrandi.androidrealca.designsystem.R.drawable.baseline_add_shopping_cart_24),
+                        contentDescription = null
+                    )
+                }
             }
         }
     }
