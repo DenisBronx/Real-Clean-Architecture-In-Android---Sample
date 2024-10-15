@@ -1,6 +1,7 @@
 package com.denisbrandi.androidrealca.product.data.repository
 
 import com.denisbrandi.androidrealca.foundations.Answer
+import com.denisbrandi.androidrealca.httpclient.AccessTokenProvider
 import com.denisbrandi.androidrealca.money.domain.model.Money
 import com.denisbrandi.androidrealca.product.data.model.JsonProductResponseDTO
 import com.denisbrandi.androidrealca.product.domain.model.Product
@@ -16,11 +17,14 @@ internal class RealProductRepository(
 ) : ProductRepository {
     override suspend fun getProducts(): Answer<List<Product>, Unit> {
         return try {
-            val response = httpClient.get("https://api.unexisting.com/products") {
-                headers {
-                    append(HttpHeaders.ContentType, ContentType.Application.Json.toString())
+            val response =
+                httpClient.get("https://api.json-generator.com/templates/Vc6TVI8VwZNT/data") {
+                    headers {
+                        append(HttpHeaders.ContentType, ContentType.Application.Json.toString())
+                        val accessTokenHeader = AccessTokenProvider.getAccessTokenHeader()
+                        append(accessTokenHeader.first, accessTokenHeader.second)
+                    }
                 }
-            }
             if (response.status.isSuccess()) {
                 handleSuccessfulProductsResponse(response)
             } else {

@@ -43,6 +43,7 @@ android {
 dependencies {
     implementation(project(":foundations"))
     implementation(project(":user-component"))
+    implementation(project(":money-component"))
     implementation(project(":product-component"))
     implementation(project(":wishlist-component"))
     implementation(project(":viewmodel"))
@@ -56,6 +57,9 @@ dependencies {
     implementation(libs.androidx.material3)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    implementation(libs.coil.compose)
+    implementation(libs.coil.okhttp)
 
     testImplementation(libs.junit)
     testImplementation(libs.coroutines.test)

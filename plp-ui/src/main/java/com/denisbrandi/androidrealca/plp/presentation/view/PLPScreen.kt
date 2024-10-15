@@ -1,10 +1,13 @@
 package com.denisbrandi.androidrealca.plp.presentation.view
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.Scaffold
+import androidx.compose.foundation.lazy.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.*
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.*
+import coil3.compose.AsyncImage
 import com.denisbrandi.androidrealca.designsystem.*
 import com.denisbrandi.androidrealca.plp.presentation.viewmodel.*
 import com.denisbrandi.androidrealca.plp.ui.R
@@ -63,4 +66,52 @@ private fun BodyContent(
     plpState: PLPState,
     products: List<Product>
 ) {
+    LazyColumn(contentPadding = PaddingValues(vertical = halfMargin)) {
+        items(products) { product ->
+            ProductRow(product)
+        }
+    }
+}
+
+@Composable
+private fun ProductRow(
+    product: Product
+) {
+    Card(
+        modifier = Modifier
+            .padding(vertical = halfMargin, horizontal = defaultMargin)
+            .fillMaxWidth(),
+        colors = CardDefaults.cardColors(containerColor = Color.White),
+        elevation = CardDefaults.cardElevation(defaultElevation = cardElevation),
+        onClick = { }
+    ) {
+        Row(
+            modifier = Modifier
+                .height(cardHeight)
+                .padding(horizontal = defaultMargin),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            AsyncImage(
+                modifier = Modifier.size(cardImage),
+                model = product.imageUrl,
+                contentDescription = null,
+                placeholder = painterResource(com.denisbrandi.androidrealca.designsystem.R.drawable.baseline_image_24),
+                error = painterResource(com.denisbrandi.androidrealca.designsystem.R.drawable.baseline_image_24)
+            )
+            Column(
+                modifier = Modifier.padding(start = defaultMargin)
+            ) {
+                Text(
+                    text = product.name,
+                    style = MaterialTheme.typography.headlineSmall,
+                    maxLines = 1
+                )
+                Text(
+                    text = "${product.money.currencySymbol}${product.money.amount}",
+                    style = MaterialTheme.typography.bodyMedium,
+                    maxLines = 2
+                )
+            }
+        }
+    }
 }

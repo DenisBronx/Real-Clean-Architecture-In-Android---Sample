@@ -7,3 +7,7 @@ val halfMargin = Dp(8f)
 val quarterMargin = Dp(4f)
 val doubleMargin = Dp(32f)
 val noMargin = Dp(0f)
+
+val cardElevation = Dp(2f)
+val cardHeight = Dp(96f)
+val cardImage = Dp(48f)

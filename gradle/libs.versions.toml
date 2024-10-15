@@ -19,8 +19,7 @@ lifecycle = "2.8.6"
 runtimeAndroid = "1.7.3"
 preferences-ktx = "1.2.1"
 navigation-compose = "2.8.2"
-junitVersion = "1.2.1"
-espressoCore = "3.6.1"
+coil = "3.0.0-rc01"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -53,8 +52,8 @@ lifecycle-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmode
 androidx-runtime-android = { group = "androidx.compose.runtime", name = "runtime-android", version.ref = "runtimeAndroid" }
 preferences-ktx = { group = "androidx.preference", name = "preference-ktx", version.ref = "preferences-ktx" }
 compose-navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation-compose" }
-androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
-androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil"}
+coil-okhttp = { group = "io.coil-kt.coil3", name = "coil-network-okhttp", version.ref = "coil"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

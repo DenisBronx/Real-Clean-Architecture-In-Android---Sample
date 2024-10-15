@@ -1,6 +1,7 @@
 package com.denisbrandi.androidrealca.product.data.repository
 
 import com.denisbrandi.androidrealca.foundations.Answer
+import com.denisbrandi.androidrealca.httpclient.AccessTokenProvider
 import com.denisbrandi.androidrealca.httpclient.RealHttpClientProvider.createClient
 import com.denisbrandi.androidrealca.money.domain.model.Money
 import com.denisbrandi.androidrealca.product.domain.model.Product
@@ -79,13 +80,14 @@ class RealProductRepositoryTest {
     private companion object {
         val REQUEST_HEADERS = mapOf(
             "Accept" to "application/json",
-            "Accept-Charset" to "UTF-8"
+            "Accept-Charset" to "UTF-8",
+            AccessTokenProvider.getAccessTokenHeader()
         )
         val RESPONSE_HEADERS = mapOf(
             "Content-Type" to "application/json"
         )
         val EXPECTED_REQUEST = NetMockRequest(
-            requestUrl = "https://api.unexisting.com/products",
+            requestUrl = "https://api.json-generator.com/templates/Vc6TVI8VwZNT/data",
             method = Method.Get,
             mandatoryHeaders = REQUEST_HEADERS
         )
@@ -109,8 +111,7 @@ class RealProductRepositoryTest {
     "name": "Wireless Headphones",
     "price": 99.99,
     "currency": "$",
-    "imageUrl": "https://example.com/images/wireless-headphones.jpg",
-    "quantityAvailable": 50
+    "imageUrl": "https://example.com/images/wireless-headphones.jpg"
   },
   {
     "id": 2,

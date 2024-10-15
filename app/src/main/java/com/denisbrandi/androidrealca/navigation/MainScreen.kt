@@ -8,6 +8,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.*
 import com.denisbrandi.androidrealca.di.injector
@@ -42,6 +43,7 @@ fun MainScreen() {
     val navController = rememberNavController()
     Scaffold(
         modifier = Modifier.fillMaxSize(),
+        topBar = { Box(Modifier.size(0.dp)) },
         bottomBar = {
             NavigationBar {
                 topLevelRoutes.forEachIndexed { index, navigationItem ->

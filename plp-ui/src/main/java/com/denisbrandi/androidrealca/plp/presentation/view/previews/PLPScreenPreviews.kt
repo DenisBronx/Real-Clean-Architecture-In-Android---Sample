@@ -51,6 +51,19 @@ fun PreviewPLPEmptyState() {
     )
 }
 
+@Preview
+@Composable
+fun PreviewPLPProductsState() {
+    PLPScreen(
+        createViewModelWithState(
+            PLPState(
+                fullName = "Full Name",
+                contentType = ContentType.Content(productList)
+            )
+        )
+    )
+}
+
 private fun createViewModelWithState(state: PLPState): PLPViewModel {
     val stateDelegate = StateDelegate<PLPState>()
     stateDelegate.setDefaultState(state)
@@ -61,7 +74,5 @@ private class TestPLPViewModel(
     stateDelegate: StateDelegate<PLPState>
 ) : PLPViewModel,
     StateViewModel<PLPState> by stateDelegate {
-    override fun loadProducts() {
-        TODO("Not yet implemented")
-    }
+    override fun loadProducts() {}
 }
