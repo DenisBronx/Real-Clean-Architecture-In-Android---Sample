@@ -1,7 +1,7 @@
 package com.denisbrandi.androidrealca.cart.presentation.viewmodel
 
 import com.denisbrandi.androidrealca.cart.domain.model.*
-import com.denisbrandi.androidrealca.cart.domain.usecase.ObserveUserCart
+import com.denisbrandi.androidrealca.cart.domain.usecase.*
 import com.denisbrandi.androidrealca.coroutines.testdispatcher.MainCoroutineRule
 import com.denisbrandi.androidrealca.flow.testobserver.*
 import com.denisbrandi.androidrealca.money.domain.model.Money
@@ -17,12 +17,13 @@ class RealCartViewModelTest {
     val rule = MainCoroutineRule()
 
     private val observeUserCart = TestObserveUserCart()
+    private val updateCartItem = TestUpdateCartItem()
     private lateinit var sut: RealCartViewModel
     private lateinit var stateObserver: FlowTestObserver<CartState>
 
     @Before
     fun setUp() {
-        sut = RealCartViewModel(observeUserCart, StateDelegate())
+        sut = RealCartViewModel(observeUserCart, updateCartItem, StateDelegate())
         stateObserver = sut.state.test()
     }
 
@@ -39,9 +40,23 @@ class RealCartViewModelTest {
         )
     }
 
+    @Test
+    fun `EXPECT cart updated`() {
+        sut.updateCartItemQuantity(CART_ITEM)
+
+        assertEquals(listOf(CART_ITEM), updateCartItem.invocations)
+    }
+
     private class TestObserveUserCart : ObserveUserCart {
         val cartUpdates = MutableStateFlow(Cart(emptyList()))
         override fun invoke(): Flow<Cart> = cartUpdates
+    }
+
+    private class TestUpdateCartItem : UpdateCartItem {
+        val invocations = mutableListOf<CartItem>()
+        override fun invoke(cartItem: CartItem) {
+            invocations.add(cartItem)
+        }
     }
 
     private companion object {

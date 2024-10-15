@@ -103,8 +103,31 @@ private fun CartItemRow(
                 modifier = Modifier
                     .padding(horizontal = halfMargin, vertical = defaultMargin)
                     .fillMaxSize(),
-                horizontalArrangement = Arrangement.End
+                horizontalArrangement = Arrangement.End,
+                verticalAlignment = Alignment.CenterVertically
             ) {
+                val quantity = cartItem.quantity
+                IconButton(
+                    onClick = {
+                        cartViewModel.updateCartItemQuantity(cartItem.copy(quantity = quantity + 1))
+                    }
+                ) {
+                    Icon(
+                        painterResource(R.drawable.baseline_add_24),
+                        contentDescription = null
+                    )
+                }
+                MediumLabel(text = quantity.toString())
+                IconButton(
+                    onClick = {
+                        cartViewModel.updateCartItemQuantity(cartItem.copy(quantity = quantity - 1))
+                    }
+                ) {
+                    Icon(
+                        painterResource(R.drawable.baseline_remove_24),
+                        contentDescription = null
+                    )
+                }
             }
         }
     }

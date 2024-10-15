@@ -9,7 +9,11 @@ class CartUIDI(
     private val cartComponentDI: CartComponentDI
 ) {
     private fun makeCartViewModel(): CartViewModel {
-        return RealCartViewModel(cartComponentDI.observeUserCart, StateDelegate())
+        return RealCartViewModel(
+            cartComponentDI.observeUserCart,
+            cartComponentDI.updateCartItem,
+            StateDelegate()
+        )
     }
 
     @Composable

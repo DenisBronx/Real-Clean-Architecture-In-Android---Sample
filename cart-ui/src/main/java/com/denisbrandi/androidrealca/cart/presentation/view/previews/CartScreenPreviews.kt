@@ -2,10 +2,9 @@ package com.denisbrandi.androidrealca.cart.presentation.view.previews
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.denisbrandi.androidrealca.cart.domain.model.Cart
+import com.denisbrandi.androidrealca.cart.domain.model.*
 import com.denisbrandi.androidrealca.cart.presentation.view.CartScreen
 import com.denisbrandi.androidrealca.cart.presentation.viewmodel.*
-import com.denisbrandi.androidrealca.cart.presentation.viewmodel.CartState
 import com.denisbrandi.androidrealca.viewmodel.*
 
 @Preview
@@ -29,4 +28,6 @@ private fun createViewModelWithState(state: CartState): CartViewModel {
 private class TestCartViewModel(
     stateDelegate: StateDelegate<CartState>
 ) : CartViewModel,
-    StateViewModel<CartState> by stateDelegate
+    StateViewModel<CartState> by stateDelegate {
+    override fun updateCartItemQuantity(cartItem: CartItem) {}
+}

@@ -5,7 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
 @Composable
-fun MediumLabel(modifier: Modifier, text: String) {
+fun MediumLabel(modifier: Modifier = Modifier, text: String) {
     Text(
         modifier = modifier,
         style = MaterialTheme.typography.bodyMedium,

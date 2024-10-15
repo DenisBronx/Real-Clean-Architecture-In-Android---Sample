@@ -86,7 +86,7 @@ class RealWishlistViewModelTest {
             id = "1",
             name = "Wireless Headphones",
             money = Money(99.99, "$"),
-            imageUrl = "https://example.com/images/wireless-headphones.jpg"
+            imageUrl = "https://m.media-amazon.com/images/I/61fU3njgzZL._AC_SL1500_.jpg"
         )
         val WISHLIST_ITEMS = listOf(WISHLIST_ITEM)
         val CART_ITEM = CartItem(
