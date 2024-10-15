@@ -61,6 +61,7 @@ dependencies {
     implementation(project(":cart-component"))
     implementation(project(":onboarding-ui"))
     implementation(project(":plp-ui"))
+    implementation(project(":wishlist-ui"))
 
     implementation(libs.multiplatform.settings)
     implementation(libs.preferences.ktx)

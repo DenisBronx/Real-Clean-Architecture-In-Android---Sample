@@ -85,6 +85,7 @@ fun MainScreen() {
                 injector.plpUIDI.PLPScreenDI()
             }
             composable<NavWishlist> {
+                injector.wishlistUIDI.WishlistScreenDI()
             }
             composable<NavCart> {
             }

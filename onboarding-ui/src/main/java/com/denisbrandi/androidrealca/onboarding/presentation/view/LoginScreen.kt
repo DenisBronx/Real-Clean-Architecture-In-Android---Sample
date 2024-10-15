@@ -39,7 +39,7 @@ internal fun LoginScreen(
 private fun Form(loginViewModel: LoginViewModel, onLoggedIn: () -> Unit) {
     var emailText by rememberSaveable { mutableStateOf("") }
     var passwordText by rememberSaveable { mutableStateOf("") }
-    val loginState = loginViewModel.state.collectAsState()
+    val loginState by loginViewModel.state.collectAsState()
     Column(
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.SpaceEvenly,
@@ -78,7 +78,7 @@ private fun Form(loginViewModel: LoginViewModel, onLoggedIn: () -> Unit) {
                 passwordText = it
             }
         )
-        val isLoading = loginState.value.contentType is ContentType.LoggingIn
+        val isLoading = loginState.contentType is ContentType.LoggingIn
         LoadingButton(text = stringResource(R.string.login_button_text), isLoading) {
             loginViewModel.login(emailText, passwordText)
         }

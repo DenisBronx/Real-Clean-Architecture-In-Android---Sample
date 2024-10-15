@@ -19,10 +19,10 @@ import com.denisbrandi.androidrealca.product.domain.model.Product
 internal fun PLPScreen(
     plpViewModel: PLPViewModel
 ) {
-    val plpState = plpViewModel.state.collectAsState()
+    val plpState by plpViewModel.state.collectAsState()
     Scaffold(
         topBar = {
-            TopBar(stringResource(R.string.plp_welcome, plpState.value.fullName))
+            TopBar(stringResource(R.string.plp_welcome, plpState.fullName))
         },
         bottomBar = { Box(Modifier.size(0.dp)) }
     ) { padding ->
@@ -31,7 +31,7 @@ internal fun PLPScreen(
                 .padding(padding)
                 .fillMaxWidth()
         ) {
-            Body(plpViewModel, plpState.value)
+            Body(plpViewModel, plpState)
         }
     }
     LaunchedEffect(Unit) {
@@ -143,14 +143,14 @@ private fun WishlistButton(
     val updateWishlist: () -> Unit
     if (isFavourite) {
         painter =
-            painterResource(com.denisbrandi.androidrealca.designsystem.R.drawable.baseline_favorite_24)
+            painterResource(R.drawable.baseline_favorite_24)
         updateWishlist = {
             plpViewModel.removeProductFromWishlist(product.id)
             isFavourite = false
         }
     } else {
         painter =
-            painterResource(com.denisbrandi.androidrealca.designsystem.R.drawable.baseline_favorite_border_24)
+            painterResource(R.drawable.baseline_favorite_border_24)
         updateWishlist = {
             plpViewModel.addProductToWishlist(product)
             isFavourite = true
