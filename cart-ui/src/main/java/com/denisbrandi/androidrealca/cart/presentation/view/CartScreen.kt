@@ -1,5 +1,6 @@
 package com.denisbrandi.androidrealca.cart.presentation.view
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
 import androidx.compose.material3.*
@@ -12,6 +13,7 @@ import coil3.compose.AsyncImage
 import com.denisbrandi.androidrealca.cart.domain.model.*
 import com.denisbrandi.androidrealca.cart.presentation.viewmodel.CartViewModel
 import com.denisbrandi.androidrealca.designsystem.*
+import com.denisbrandi.androidrealca.money.domain.model.Money
 import com.denisbrandi.androidrealca.plp.ui.R
 
 @Composable
@@ -49,11 +51,41 @@ private fun BodyContent(
     cartViewModel: CartViewModel,
     cart: Cart
 ) {
-    LazyColumn(
-        contentPadding = PaddingValues(vertical = halfMargin)
+    Box(Modifier.fillMaxSize()) {
+        LazyColumn(
+            contentPadding = PaddingValues(vertical = halfMargin)
+        ) {
+            itemsIndexed(cart.cartItems) { index, item ->
+                CartItemRow(cartViewModel, item, index == cart.cartItems.size - 1)
+            }
+        }
+        cart.getSubtotal()?.let { subtotal -> CartSubTotal(subtotal) }
+    }
+}
+
+@Composable
+private fun BoxScope.CartSubTotal(
+    subtotal: Money
+) {
+    Box(
+        Modifier
+            .fillMaxWidth()
+            .align(Alignment.BottomCenter)
+            .background(Color.White)
     ) {
-        items(cart.cartItems) { item ->
-            CartItemRow(cartViewModel, item)
+        Box(
+            Modifier
+                .fillMaxWidth()
+                .padding(defaultMargin)
+        ) {
+            Text(
+                modifier = Modifier.align(Alignment.CenterEnd),
+                text = stringResource(
+                    R.string.cart_subtotal,
+                    "${subtotal.currencySymbol}${subtotal.amount}"
+                ),
+                style = MaterialTheme.typography.titleSmall,
+            )
         }
     }
 }
@@ -61,11 +93,17 @@ private fun BodyContent(
 @Composable
 private fun CartItemRow(
     cartViewModel: CartViewModel,
-    cartItem: CartItem
+    cartItem: CartItem,
+    isLastItem: Boolean
 ) {
     Card(
         modifier = Modifier
-            .padding(vertical = halfMargin, horizontal = defaultMargin)
+            .padding(
+                top = halfMargin,
+                start = defaultMargin,
+                end = defaultMargin,
+                bottom = if (isLastItem) 56.dp else halfMargin
+            )
             .fillMaxWidth(),
         colors = CardDefaults.cardColors(containerColor = Color.White),
         elevation = CardDefaults.cardElevation(defaultElevation = cardElevation),

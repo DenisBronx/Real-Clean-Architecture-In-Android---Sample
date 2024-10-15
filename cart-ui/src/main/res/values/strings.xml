@@ -2,4 +2,5 @@
 <resources>
     <string name="cart_title">Your Cart</string>
     <string name="cart_empty_message">You haven\'t added any product to your cart yet</string>
+    <string name="cart_subtotal">Subtotal: %s</string>
 </resources>

@@ -1,21 +1,16 @@
 package com.denisbrandi.androidrealca.cart.domain.model
 
+import com.denisbrandi.androidrealca.money.domain.model.Money
+
 data class Cart(val cartItems: List<CartItem>) {
-    fun getSubtotal(): Double? {
+    fun getSubtotal(): Money? {
         return if (cartItems.isNotEmpty()) {
+            val currency = cartItems[0].money.currencySymbol
             var subtotal = 0.0
             cartItems.forEach {
                 subtotal += it.money.amount * it.quantity
             }
-            subtotal
-        } else {
-            null
-        }
-    }
-
-    fun getCurrency(): String? {
-        return if (cartItems.isNotEmpty()) {
-            cartItems[0].money.currencySymbol
+            Money(subtotal, currency)
         } else {
             null
         }

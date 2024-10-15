@@ -9,8 +9,9 @@ class CartTest {
     fun `EXPECT null subtotal and currency WHEN cart is empty`() {
         val sut = Cart(emptyList())
 
-        assertNull(sut.getSubtotal())
-        assertNull(sut.getCurrency())
+        val result = sut.getSubtotal()
+
+        assertNull(result)
     }
 
     @Test
@@ -24,8 +25,9 @@ class CartTest {
             )
         )
 
-        assertEquals(150.99, sut.getSubtotal())
-        assertEquals("$", sut.getCurrency())
+        val result = sut.getSubtotal()
+
+        assertEquals(Money(150.99, "$"), result)
     }
 
     fun makeCartItem(amount: Double, quantity: Int): CartItem {
