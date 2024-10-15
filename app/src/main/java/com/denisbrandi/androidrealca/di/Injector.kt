@@ -23,7 +23,7 @@ class Injector private constructor(
     val plpUIDI = PLPUIDI(
         userComponentDI.getUser,
         productComponentDI.getProducts,
-        wishlistComponentDI.observeUserWishlistIds
+        wishlistComponentDI
     )
 
     companion object {

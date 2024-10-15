@@ -3,17 +3,19 @@ package com.denisbrandi.androidrealca.plp.presentation.viewmodel
 import com.denisbrandi.androidrealca.coroutines.testdispatcher.MainCoroutineRule
 import com.denisbrandi.androidrealca.flow.testobserver.*
 import com.denisbrandi.androidrealca.foundations.Answer
+import com.denisbrandi.androidrealca.money.domain.model.Money
 import com.denisbrandi.androidrealca.product.domain.model.Product
 import com.denisbrandi.androidrealca.product.domain.usecase.GetProducts
 import com.denisbrandi.androidrealca.user.domain.model.User
 import com.denisbrandi.androidrealca.user.domain.usecase.GetUser
 import com.denisbrandi.androidrealca.viewmodel.StateDelegate
-import com.denisbrandi.androidrealca.wishlist.domain.usecase.ObserveUserWishlistIds
+import com.denisbrandi.androidrealca.wishlist.domain.model.WishlistItem
+import com.denisbrandi.androidrealca.wishlist.domain.usecase.*
 import kotlinx.coroutines.awaitCancellation
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.test.runTest
 import org.junit.*
-import org.junit.Assert.assertEquals
+import org.junit.Assert.*
 
 class RealPLPViewModelTest {
 
@@ -23,6 +25,9 @@ class RealPLPViewModelTest {
     private val getUser = GetUser { USER }
     private val getProducts = TestGetProducts()
     private val observeUserWishlistIds = TestObserveUserWishlistIds()
+    private val addToWishlist = TestAddToWishlist()
+    private val removeFromWishlist = TestRemoveFromWishlist()
+    private val stateDelegate = StateDelegate<PLPState>()
     private lateinit var stateObserver: FlowTestObserver<PLPState>
     private lateinit var sut: RealPLPViewModel
 
@@ -32,7 +37,9 @@ class RealPLPViewModelTest {
             getUser,
             getProducts,
             observeUserWishlistIds,
-            StateDelegate()
+            addToWishlist,
+            removeFromWishlist,
+            stateDelegate
         )
         stateObserver = sut.state.test()
     }
@@ -112,6 +119,61 @@ class RealPLPViewModelTest {
         )
     }
 
+    @Test
+    fun `EXPECT not favourite WHEN wishlist is empty`() = runTest {
+        stateDelegate.updateState {
+            PLPState(fullName = NAME, contentType = ContentType.Content(PRODUCTS))
+        }
+
+        val result = sut.isFavourite("2")
+
+        assertFalse(result)
+    }
+
+    @Test
+    fun `EXPECT favourite WHEN wishlist has id`() = runTest {
+        stateDelegate.updateState {
+            PLPState(
+                fullName = NAME,
+                wishlistIds = listOf("2", "3"),
+                contentType = ContentType.Content(PRODUCTS)
+            )
+        }
+
+        val result = sut.isFavourite("2")
+
+        assertTrue(result)
+    }
+
+    @Test
+    fun `EXPECT not favourite WHEN wishlist doesn't have id`() = runTest {
+        stateDelegate.updateState {
+            PLPState(
+                fullName = NAME,
+                wishlistIds = listOf("2", "3"),
+                contentType = ContentType.Content(PRODUCTS)
+            )
+        }
+
+        val result = sut.isFavourite("1")
+
+        assertFalse(result)
+    }
+
+    @Test
+    fun `EXPECT item added to wishlist`() {
+        sut.addProductToWishlist(PRODUCT)
+
+        assertEquals(listOf(WISHLIST_ITEM), addToWishlist.invocations)
+    }
+
+    @Test
+    fun `EXPECT item removed from wishlist`() {
+        sut.removeProductFromWishlist("1")
+
+        assertEquals(listOf("1"), removeFromWishlist.invocations)
+    }
+
     private class TestGetProducts : GetProducts {
         lateinit var productsResult: suspend () -> Answer<List<Product>, Unit>
         override suspend fun invoke() = productsResult()
@@ -122,9 +184,35 @@ class RealPLPViewModelTest {
         override fun invoke(): Flow<List<String>> = wishlistUpdates
     }
 
+    private class TestAddToWishlist : AddToWishlist {
+        val invocations = mutableListOf<WishlistItem>()
+        override fun invoke(wishlistItem: WishlistItem) {
+            invocations.add(wishlistItem)
+        }
+    }
+
+    private class TestRemoveFromWishlist : RemoveFromWishlist {
+        val invocations = mutableListOf<String>()
+        override fun invoke(wishlistItemId: String) {
+            invocations.add(wishlistItemId)
+        }
+    }
+
     private companion object {
         const val NAME = "Amazing Android Dev"
         val USER = User(id = "", fullName = NAME)
-        val PRODUCTS = emptyList<Product>()
+        val PRODUCT = Product(
+            "1",
+            "Wireless Headphones",
+            Money(99.99, "$"),
+            "https://m.media-amazon.com/images/I/61fU3njgzZL._AC_SL1500_.jpg"
+        )
+        val PRODUCTS = listOf(PRODUCT)
+        val WISHLIST_ITEM = WishlistItem(
+            "1",
+            "Wireless Headphones",
+            Money(99.99, "$"),
+            "https://m.media-amazon.com/images/I/61fU3njgzZL._AC_SL1500_.jpg"
+        )
     }
 }

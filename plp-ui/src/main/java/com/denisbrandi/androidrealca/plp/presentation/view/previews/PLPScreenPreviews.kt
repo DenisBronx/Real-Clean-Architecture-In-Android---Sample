@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.denisbrandi.androidrealca.plp.presentation.view.PLPScreen
 import com.denisbrandi.androidrealca.plp.presentation.viewmodel.*
+import com.denisbrandi.androidrealca.product.domain.model.Product
 import com.denisbrandi.androidrealca.viewmodel.*
 
 @Preview
@@ -75,4 +76,11 @@ private class TestPLPViewModel(
 ) : PLPViewModel,
     StateViewModel<PLPState> by stateDelegate {
     override fun loadProducts() {}
+    override fun isFavourite(productId: String): Boolean {
+        return productId.toInt() % 2 == 0
+    }
+
+    override fun addProductToWishlist(product: Product) {}
+
+    override fun removeProductFromWishlist(productId: String) {}
 }

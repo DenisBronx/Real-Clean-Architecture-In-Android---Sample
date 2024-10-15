@@ -6,7 +6,9 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.*
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.*
+import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.denisbrandi.androidrealca.designsystem.*
 import com.denisbrandi.androidrealca.plp.presentation.viewmodel.*
@@ -21,7 +23,8 @@ internal fun PLPScreen(
     Scaffold(
         topBar = {
             TopBar(stringResource(R.string.plp_welcome, plpState.value.fullName))
-        }
+        },
+        bottomBar = { Box(Modifier.size(0.dp)) }
     ) { padding ->
         Box(
             modifier = Modifier
@@ -51,7 +54,7 @@ private fun Body(plpViewModel: PLPViewModel, plpState: PLPState) {
             if (contentType.products.isEmpty()) {
                 FullScreenMessage(stringResource(R.string.plp_no_products))
             } else {
-                BodyContent(plpState, contentType.products)
+                BodyContent(plpViewModel, contentType.products)
             }
         }
 
@@ -63,18 +66,21 @@ private fun Body(plpViewModel: PLPViewModel, plpState: PLPState) {
 
 @Composable
 private fun BodyContent(
-    plpState: PLPState,
+    plpViewModel: PLPViewModel,
     products: List<Product>
 ) {
-    LazyColumn(contentPadding = PaddingValues(vertical = halfMargin)) {
+    LazyColumn(
+        contentPadding = PaddingValues(vertical = halfMargin)
+    ) {
         items(products) { product ->
-            ProductRow(product)
+            ProductRow(plpViewModel, product)
         }
     }
 }
 
 @Composable
 private fun ProductRow(
+    plpViewModel: PLPViewModel,
     product: Product
 ) {
     Card(
@@ -103,7 +109,7 @@ private fun ProductRow(
             ) {
                 Text(
                     text = product.name,
-                    style = MaterialTheme.typography.headlineSmall,
+                    style = MaterialTheme.typography.titleSmall,
                     maxLines = 1
                 )
                 Text(
@@ -112,6 +118,50 @@ private fun ProductRow(
                     maxLines = 2
                 )
             }
+
+            Row(
+                modifier = Modifier
+                    .padding(horizontal = halfMargin, vertical = defaultMargin)
+                    .fillMaxSize(),
+                horizontalArrangement = Arrangement.End
+            ) {
+                WishlistButton(plpViewModel, product)
+            }
         }
+    }
+}
+
+@Composable
+private fun WishlistButton(
+    plpViewModel: PLPViewModel,
+    product: Product
+) {
+    var isFavourite by remember {
+        mutableStateOf(plpViewModel.isFavourite(product.id))
+    }
+    val painter: Painter
+    val updateWishlist: () -> Unit
+    if (isFavourite) {
+        painter =
+            painterResource(com.denisbrandi.androidrealca.designsystem.R.drawable.baseline_favorite_24)
+        updateWishlist = {
+            plpViewModel.removeProductFromWishlist(product.id)
+            isFavourite = false
+        }
+    } else {
+        painter =
+            painterResource(com.denisbrandi.androidrealca.designsystem.R.drawable.baseline_favorite_border_24)
+        updateWishlist = {
+            plpViewModel.addProductToWishlist(product)
+            isFavourite = true
+        }
+    }
+
+    IconButton(
+        onClick = {
+            updateWishlist()
+        }
+    ) {
+        Icon(painter, contentDescription = null)
     }
 }

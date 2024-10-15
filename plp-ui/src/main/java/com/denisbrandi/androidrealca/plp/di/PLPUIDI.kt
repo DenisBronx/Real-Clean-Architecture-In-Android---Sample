@@ -6,15 +6,22 @@ import com.denisbrandi.androidrealca.plp.presentation.viewmodel.*
 import com.denisbrandi.androidrealca.product.domain.usecase.GetProducts
 import com.denisbrandi.androidrealca.user.domain.usecase.GetUser
 import com.denisbrandi.androidrealca.viewmodel.StateDelegate
-import com.denisbrandi.androidrealca.wishlist.domain.usecase.ObserveUserWishlistIds
+import com.denisbrandi.androidrealca.wishlist.di.WishlistComponentDI
 
 class PLPUIDI(
     private val getUser: GetUser,
     private val getProducts: GetProducts,
-    private val observeUserWishlistIds: ObserveUserWishlistIds
+    private val wishlistComponentDI: WishlistComponentDI
 ) {
     private fun makePLPViewModel(): PLPViewModel {
-        return RealPLPViewModel(getUser, getProducts, observeUserWishlistIds, StateDelegate())
+        return RealPLPViewModel(
+            getUser,
+            getProducts,
+            wishlistComponentDI.observeUserWishlistIds,
+            wishlistComponentDI.addToWishlist,
+            wishlistComponentDI.removeFromWishlist,
+            StateDelegate()
+        )
     }
 
     @Composable

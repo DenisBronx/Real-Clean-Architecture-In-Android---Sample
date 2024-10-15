@@ -8,9 +8,11 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.*
+import com.denisbrandi.androidrealca.R
 import com.denisbrandi.androidrealca.di.injector
 import kotlinx.serialization.Serializable
 
@@ -29,10 +31,15 @@ data class TopLevelRoute<T : Any>(
     val icon: ImageVector
 )
 
-val topLevelRoutes = listOf(
-    TopLevelRoute("Products", NavProducts, Icons.Filled.Search),
-    TopLevelRoute("Wishlist", NavWishlist, Icons.Outlined.FavoriteBorder),
-    TopLevelRoute("Cart", NavCart, Icons.Filled.ShoppingCart)
+@Composable
+private fun topLevelRoutes() = listOf(
+    TopLevelRoute(stringResource(R.string.nav_products), NavProducts, Icons.Filled.Search),
+    TopLevelRoute(
+        stringResource(R.string.nav_wishlist),
+        NavWishlist,
+        Icons.Outlined.FavoriteBorder
+    ),
+    TopLevelRoute(stringResource(R.string.nav_cart), NavCart, Icons.Filled.ShoppingCart)
 )
 
 @Composable
@@ -41,6 +48,7 @@ fun MainScreen() {
         mutableIntStateOf(0)
     }
     val navController = rememberNavController()
+    val topLevelRoutes = topLevelRoutes()
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = { Box(Modifier.size(0.dp)) },

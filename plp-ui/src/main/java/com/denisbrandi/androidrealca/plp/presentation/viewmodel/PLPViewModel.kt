@@ -5,6 +5,9 @@ import com.denisbrandi.androidrealca.viewmodel.StateViewModel
 
 internal interface PLPViewModel : StateViewModel<PLPState> {
     fun loadProducts()
+    fun isFavourite(productId: String): Boolean
+    fun addProductToWishlist(product: Product)
+    fun removeProductFromWishlist(productId: String)
 }
 
 internal data class PLPState(
