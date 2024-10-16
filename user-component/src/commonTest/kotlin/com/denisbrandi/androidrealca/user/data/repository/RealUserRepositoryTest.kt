@@ -9,24 +9,26 @@ import com.denisbrandi.androidrealca.user.data.repository.RealUserRepository.Com
 import com.denisbrandi.androidrealca.user.domain.model.*
 import com.denisbrandi.netmock.*
 import com.denisbrandi.netmock.engine.NetMockEngine
-import io.ktor.client.engine.mock.*
+import io.ktor.client.engine.mock.MockEngineConfig
 import kotlin.test.*
 import kotlinx.coroutines.test.runTest
 
 class RealUserRepositoryTest {
 
-    private val netMock = NetMockEngine()
+    private val config = MockEngineConfig()
+    private val netMock = NetMockEngine(config)
     private val client = createClient(netMock)
     private val cacheProvider = TestCacheProvider("user-cache", JsonUserCacheDTO("", ""))
     private val sut = RealUserRepository(client, cacheProvider)
 
     @Test
     fun `EXPECT generic error WHEN response crashes`() = runTest {
-        val mockEngine = MockEngine { _ ->
-            throw IllegalStateException()
+        config.apply {
+            requestHandlers.clear()
+            addHandler {
+                throw IllegalStateException()
+            }
         }
-        val client = createClient(mockEngine)
-        val sut = RealUserRepository(client, cacheProvider)
 
         val result = sut.login(LOGIN_REQUEST)
 

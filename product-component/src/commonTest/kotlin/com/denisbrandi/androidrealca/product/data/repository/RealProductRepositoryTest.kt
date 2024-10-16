@@ -7,24 +7,26 @@ import com.denisbrandi.androidrealca.money.domain.model.Money
 import com.denisbrandi.androidrealca.product.domain.model.Product
 import com.denisbrandi.netmock.*
 import com.denisbrandi.netmock.engine.NetMockEngine
-import io.ktor.client.engine.mock.MockEngine
+import io.ktor.client.engine.mock.MockEngineConfig
 import kotlin.test.*
 import kotlinx.coroutines.test.runTest
 
 class RealProductRepositoryTest {
 
-    private val netMock = NetMockEngine()
+    private val config = MockEngineConfig()
+    private val netMock = NetMockEngine(config)
     private val client = createClient(netMock)
 
     private val sut = RealProductRepository(client)
 
     @Test
     fun `EXPECT generic error WHEN response crashes`() = runTest {
-        val mockEngine = MockEngine { _ ->
-            throw IllegalStateException()
+        config.apply {
+            requestHandlers.clear()
+            addHandler {
+                throw IllegalStateException()
+            }
         }
-        val client = createClient(mockEngine)
-        val sut = RealProductRepository(client)
 
         val result = sut.getProducts()
 
