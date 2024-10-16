@@ -47,6 +47,7 @@ dependencies {
     implementation(project(":product-component"))
     implementation(project(":wishlist-component"))
     implementation(project(":cart-component"))
+    implementation(project(":money-ui"))
     implementation(project(":viewmodel"))
     implementation(project(":designsystem"))
     implementation(libs.coroutines.core)

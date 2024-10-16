@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.denisbrandi.androidrealca.wishlist.ui"
+    namespace = "com.denisbrandi.androidrealca.money.ui"
     compileSdk = 34
 
     defaultConfig {
@@ -41,18 +41,12 @@ android {
 }
 
 dependencies {
-    implementation(project(":foundations"))
     implementation(project(":money-component"))
-    implementation(project(":wishlist-component"))
-    implementation(project(":cart-component"))
-    implementation(project(":money-ui"))
-    implementation(project(":viewmodel"))
     implementation(project(":designsystem"))
-    implementation(libs.coroutines.core)
-    implementation(libs.lifecycle.viewmodel)
     implementation(libs.androidx.runtime.android)
 
     implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.compose.navigation)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     debugImplementation(libs.androidx.ui.tooling)

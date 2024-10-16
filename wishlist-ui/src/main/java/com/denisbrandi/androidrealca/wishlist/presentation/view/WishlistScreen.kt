@@ -10,6 +10,7 @@ import androidx.compose.ui.res.*
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.denisbrandi.androidrealca.designsystem.*
+import com.denisbrandi.androidrealca.money.presentation.view.PriceText
 import com.denisbrandi.androidrealca.wishlist.domain.model.WishlistItem
 import com.denisbrandi.androidrealca.wishlist.presentation.viewmodel.WishlistViewModel
 import com.denisbrandi.androidrealca.wishlist.ui.R
@@ -92,11 +93,7 @@ private fun WishlistItemRow(
                     style = MaterialTheme.typography.titleSmall,
                     maxLines = 1
                 )
-                Text(
-                    text = "${wishlistItem.money.currencySymbol}${wishlistItem.money.amount}",
-                    style = MaterialTheme.typography.bodyMedium,
-                    maxLines = 2
-                )
+                PriceText(wishlistItem.money)
             }
 
             Row(

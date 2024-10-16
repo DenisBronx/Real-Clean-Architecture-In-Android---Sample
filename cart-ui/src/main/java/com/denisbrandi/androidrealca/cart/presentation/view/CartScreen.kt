@@ -15,6 +15,8 @@ import com.denisbrandi.androidrealca.cart.presentation.viewmodel.CartViewModel
 import com.denisbrandi.androidrealca.cart.ui.R
 import com.denisbrandi.androidrealca.designsystem.*
 import com.denisbrandi.androidrealca.money.domain.model.Money
+import com.denisbrandi.androidrealca.money.presentation.presenter.MoneyPresenter
+import com.denisbrandi.androidrealca.money.presentation.view.PriceText
 
 @Composable
 internal fun CartScreen(
@@ -82,7 +84,7 @@ private fun BoxScope.CartSubTotal(
                 modifier = Modifier.align(Alignment.CenterEnd),
                 text = stringResource(
                     R.string.cart_subtotal,
-                    "${subtotal.currencySymbol}${subtotal.amount}"
+                    MoneyPresenter.format(subtotal)
                 ),
                 style = MaterialTheme.typography.titleSmall,
             )
@@ -130,11 +132,7 @@ private fun CartItemRow(
                     style = MaterialTheme.typography.titleSmall,
                     maxLines = 1
                 )
-                Text(
-                    text = "${cartItem.money.currencySymbol}${cartItem.money.amount}",
-                    style = MaterialTheme.typography.bodyMedium,
-                    maxLines = 2
-                )
+                PriceText(cartItem.money)
             }
 
             Row(

@@ -11,6 +11,7 @@ import androidx.compose.ui.res.*
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.denisbrandi.androidrealca.designsystem.*
+import com.denisbrandi.androidrealca.money.presentation.view.PriceText
 import com.denisbrandi.androidrealca.plp.presentation.viewmodel.*
 import com.denisbrandi.androidrealca.plp.ui.R
 import com.denisbrandi.androidrealca.product.domain.model.Product
@@ -112,11 +113,7 @@ private fun ProductRow(
                     style = MaterialTheme.typography.titleSmall,
                     maxLines = 1
                 )
-                Text(
-                    text = "${product.money.currencySymbol}${product.money.amount}",
-                    style = MaterialTheme.typography.bodyMedium,
-                    maxLines = 2
-                )
+                PriceText(product.money)
             }
 
             Row(
