@@ -2,7 +2,7 @@ package com.denisbrandi.androidrealca.cart.data.repository
 
 import com.denisbrandi.androidrealca.cache.*
 import com.denisbrandi.androidrealca.cart.data.model.*
-import com.denisbrandi.androidrealca.cart.domain.model.CartItem
+import com.denisbrandi.androidrealca.cart.domain.model.*
 import com.denisbrandi.androidrealca.cart.domain.repository.CartRepository
 import com.denisbrandi.androidrealca.money.domain.model.Money
 import kotlinx.coroutines.flow.*
@@ -55,10 +55,20 @@ internal class RealCartRepository(
         )
     }
 
-    override fun observeCart(userId: String): Flow<List<CartItem>> {
+    override fun observeCart(userId: String): Flow<Cart> {
         return flowCachedObject.observe().map { cachedDto ->
-            mapToCartItems(cachedDto.usersCart[userId] ?: emptyList())
+            mapToCart(userId, cachedDto)
         }
+    }
+
+    override fun getCart(userId: String): Cart {
+        return mapToCart(userId, flowCachedObject.get())
+    }
+
+    private fun mapToCart(userId: String, cachedDto: JsonCartCacheDto): Cart {
+        return Cart(
+            mapToCartItems(cachedDto.usersCart[userId] ?: emptyList())
+        )
     }
 
     private fun mapToCartItems(dtos: List<JsonCartItemCacheDto>): List<CartItem> {

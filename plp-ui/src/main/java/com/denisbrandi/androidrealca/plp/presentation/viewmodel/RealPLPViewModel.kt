@@ -2,7 +2,7 @@ package com.denisbrandi.androidrealca.plp.presentation.viewmodel
 
 import androidx.lifecycle.*
 import com.denisbrandi.androidrealca.cart.domain.model.CartItem
-import com.denisbrandi.androidrealca.cart.domain.usecase.UpdateCartItem
+import com.denisbrandi.androidrealca.cart.domain.usecase.*
 import com.denisbrandi.androidrealca.product.domain.model.Product
 import com.denisbrandi.androidrealca.product.domain.usecase.GetProducts
 import com.denisbrandi.androidrealca.user.domain.usecase.GetUser
@@ -18,7 +18,7 @@ internal class RealPLPViewModel(
     observeUserWishlistIds: ObserveUserWishlistIds,
     private val addToWishlist: AddToWishlist,
     private val removeFromWishlist: RemoveFromWishlist,
-    private val updateCartItem: UpdateCartItem,
+    private val addCartItem: AddCartItem,
     private val stateDelegate: StateDelegate<PLPState>
 ) : PLPViewModel, StateViewModel<PLPState> by stateDelegate, ViewModel() {
 
@@ -58,7 +58,7 @@ internal class RealPLPViewModel(
     }
 
     override fun addProductToCart(product: Product) {
-        updateCartItem(
+        addCartItem(
             CartItem(
                 id = product.id,
                 name = product.name,

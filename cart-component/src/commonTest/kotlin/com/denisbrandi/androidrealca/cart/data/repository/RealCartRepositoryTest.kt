@@ -2,7 +2,7 @@ package com.denisbrandi.androidrealca.cart.data.repository
 
 import com.denisbrandi.androidrealca.cache.test.TestCacheProvider
 import com.denisbrandi.androidrealca.cart.data.model.JsonCartCacheDto
-import com.denisbrandi.androidrealca.cart.domain.model.makeCartItem
+import com.denisbrandi.androidrealca.cart.domain.model.*
 import com.denisbrandi.androidrealca.flow.testobserver.test
 import kotlin.test.*
 
@@ -20,8 +20,10 @@ class RealCartRepositoryTest {
 
         sut.updateCartItem(USER_ID, CART_ITEM)
 
+        val finalCart = Cart(listOf(CART_ITEM))
+        assertEquals(finalCart, sut.getCart(USER_ID))
         assertEquals(
-            listOf(emptyList(), listOf(CART_ITEM)),
+            listOf(Cart(emptyList()), finalCart),
             cartObserver.getValues()
         )
     }
@@ -33,11 +35,13 @@ class RealCartRepositoryTest {
 
         sut.updateCartItem(USER_ID, CART_ITEM.copy(id = "2"))
 
+        val finalCart = Cart(listOf(CART_ITEM, CART_ITEM.copy(id = "2")))
+        assertEquals(finalCart, sut.getCart(USER_ID))
         assertEquals(
             listOf(
-                emptyList(),
-                listOf(CART_ITEM),
-                listOf(CART_ITEM, CART_ITEM.copy(id = "2"))
+                Cart(emptyList()),
+                Cart(listOf(CART_ITEM)),
+                finalCart
             ),
             cartObserver.getValues()
         )
@@ -50,11 +54,13 @@ class RealCartRepositoryTest {
 
         sut.updateCartItem(USER_ID, CART_ITEM.copy(quantity = 2))
 
+        val finalCart = Cart(listOf(CART_ITEM.copy(quantity = 2)))
+        assertEquals(finalCart, sut.getCart(USER_ID))
         assertEquals(
             listOf(
-                emptyList(),
-                listOf(CART_ITEM),
-                listOf(CART_ITEM.copy(quantity = 2))
+                Cart(emptyList()),
+                Cart(listOf(CART_ITEM)),
+                finalCart
             ),
             cartObserver.getValues()
         )
@@ -67,10 +73,12 @@ class RealCartRepositoryTest {
 
         sut.updateCartItem(USER_ID, CART_ITEM)
 
+        val finalCart = Cart(listOf(CART_ITEM))
+        assertEquals(finalCart, sut.getCart(USER_ID))
         assertEquals(
             listOf(
-                emptyList(),
-                listOf(CART_ITEM)
+                Cart(emptyList()),
+                finalCart
             ),
             cartObserver.getValues()
         )
@@ -83,11 +91,13 @@ class RealCartRepositoryTest {
 
         sut.updateCartItem(USER_ID, CART_ITEM.copy(quantity = 0))
 
+        val finalCart = Cart(emptyList())
+        assertEquals(finalCart, sut.getCart(USER_ID))
         assertEquals(
             listOf(
-                emptyList(),
-                listOf(CART_ITEM),
-                emptyList()
+                Cart(emptyList()),
+                Cart(listOf(CART_ITEM)),
+                finalCart
             ),
             cartObserver.getValues()
         )

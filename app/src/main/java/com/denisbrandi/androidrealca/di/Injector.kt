@@ -20,18 +20,19 @@ class Injector private constructor(
     private val wishlistComponentDI = WishlistComponentDI(cacheProvider, userComponentDI.getUser)
     private val cartComponentDI = CartComponentDI(cacheProvider, userComponentDI.getUser)
     val isUserLoggedIn = userComponentDI.isUserLoggedIn
-    val observeUserWishlistIds = wishlistComponentDI.observeUserWishlistIds
-    val observeUserCart = cartComponentDI.observeUserCart
     val onboardingUIDI = OnboardingUIDI(userComponentDI.login)
     val plpUIDI = PLPUIDI(
         userComponentDI.getUser,
         productComponentDI.getProducts,
         wishlistComponentDI,
-        cartComponentDI.updateCartItem
+        cartComponentDI.addCartItem
     )
-    val wishlistUIDI = WishlistUIDI(wishlistComponentDI, cartComponentDI.updateCartItem)
+    val wishlistUIDI = WishlistUIDI(wishlistComponentDI, cartComponentDI.addCartItem)
     val cartUIDI = CartUIDI(cartComponentDI)
-    val mainUIDI = MainUIDI(wishlistComponentDI.observeUserWishlistIds, cartComponentDI.observeUserCart)
+    val mainUIDI = MainUIDI(
+        wishlistComponentDI.observeUserWishlistIds,
+        cartComponentDI.observeUserCart
+    )
 
     companion object {
         lateinit var INSTANCE: Injector

@@ -20,4 +20,7 @@ class CartComponentDI(
     val observeUserCart: ObserveUserCart by lazy {
         ObserveUserCartUseCase(getUser, cartRepository)
     }
+    val addCartItem: AddCartItem by lazy {
+        AddCartItemUseCase(getUser, cartRepository, updateCartItem)
+    }
 }

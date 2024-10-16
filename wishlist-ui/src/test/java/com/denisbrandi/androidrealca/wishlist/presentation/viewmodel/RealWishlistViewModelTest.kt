@@ -1,7 +1,7 @@
 package com.denisbrandi.androidrealca.wishlist.presentation.viewmodel
 
 import com.denisbrandi.androidrealca.cart.domain.model.CartItem
-import com.denisbrandi.androidrealca.cart.domain.usecase.UpdateCartItem
+import com.denisbrandi.androidrealca.cart.domain.usecase.AddCartItem
 import com.denisbrandi.androidrealca.coroutines.testdispatcher.MainCoroutineRule
 import com.denisbrandi.androidrealca.flow.testobserver.*
 import com.denisbrandi.androidrealca.money.domain.model.Money
@@ -20,7 +20,7 @@ class RealWishlistViewModelTest {
 
     private val observeUserWishlist = TestObserveUserWishlist()
     private val removeFromWishlist = TestRemoveFromWishlist()
-    private val updateCartItem = TestUpdateCartItem()
+    private val addCartItem = TestAddCartItem()
     private lateinit var sut: RealWishlistViewModel
     private lateinit var stateObserver: FlowTestObserver<WishlistState>
 
@@ -29,7 +29,7 @@ class RealWishlistViewModelTest {
         sut = RealWishlistViewModel(
             observeUserWishlist,
             removeFromWishlist,
-            updateCartItem,
+            addCartItem,
             StateDelegate()
         )
         stateObserver = sut.state.test()
@@ -59,7 +59,7 @@ class RealWishlistViewModelTest {
     fun `EXPECT item added to cart`() {
         sut.addProductToCart(WISHLIST_ITEM)
 
-        assertEquals(listOf(CART_ITEM), updateCartItem.invocations)
+        assertEquals(listOf(CART_ITEM), addCartItem.invocations)
     }
 
     private class TestObserveUserWishlist : ObserveUserWishlist {
@@ -74,7 +74,7 @@ class RealWishlistViewModelTest {
         }
     }
 
-    private class TestUpdateCartItem : UpdateCartItem {
+    private class TestAddCartItem : AddCartItem {
         val invocations = mutableListOf<CartItem>()
         override fun invoke(cartItem: CartItem) {
             invocations.add(cartItem)

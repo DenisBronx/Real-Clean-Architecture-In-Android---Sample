@@ -10,3 +10,7 @@ fun interface UpdateCartItem {
 fun interface ObserveUserCart {
     operator fun invoke(): Flow<Cart>
 }
+
+fun interface AddCartItem {
+    operator fun invoke(cartItem: CartItem)
+}

@@ -13,7 +13,7 @@ class ObserveUserCartUseCaseTest {
 
     @Test
     fun `EXPECT cart updates`() {
-        testCartRepository.cartUpdates[USER_ID] = flowOf(emptyList(), CART_ITEMS)
+        testCartRepository.cartUpdates[USER_ID] = flowOf(Cart(emptyList()), Cart(CART_ITEMS))
 
         val testObserver = sut().test()
 

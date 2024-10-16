@@ -1,7 +1,7 @@
 package com.denisbrandi.androidrealca.plp.presentation.viewmodel
 
 import com.denisbrandi.androidrealca.cart.domain.model.CartItem
-import com.denisbrandi.androidrealca.cart.domain.usecase.UpdateCartItem
+import com.denisbrandi.androidrealca.cart.domain.usecase.AddCartItem
 import com.denisbrandi.androidrealca.coroutines.testdispatcher.MainCoroutineRule
 import com.denisbrandi.androidrealca.flow.testobserver.*
 import com.denisbrandi.androidrealca.foundations.Answer
@@ -29,7 +29,7 @@ class RealPLPViewModelTest {
     private val observeUserWishlistIds = TestObserveUserWishlistIds()
     private val addToWishlist = TestAddToWishlist()
     private val removeFromWishlist = TestRemoveFromWishlist()
-    private val updateCartItem = TestUpdateCartItem()
+    private val addCartItem = TestAddCartItem()
     private val stateDelegate = StateDelegate<PLPState>()
     private lateinit var stateObserver: FlowTestObserver<PLPState>
     private lateinit var sut: RealPLPViewModel
@@ -42,7 +42,7 @@ class RealPLPViewModelTest {
             observeUserWishlistIds,
             addToWishlist,
             removeFromWishlist,
-            updateCartItem,
+            addCartItem,
             stateDelegate
         )
         stateObserver = sut.state.test()
@@ -182,7 +182,7 @@ class RealPLPViewModelTest {
     fun `EXPECT item added to cart`() {
         sut.addProductToCart(PRODUCT)
 
-        assertEquals(listOf(CART_ITEM), updateCartItem.invocations)
+        assertEquals(listOf(CART_ITEM), addCartItem.invocations)
     }
 
     private class TestGetProducts : GetProducts {
@@ -209,7 +209,7 @@ class RealPLPViewModelTest {
         }
     }
 
-    private class TestUpdateCartItem : UpdateCartItem {
+    private class TestAddCartItem : AddCartItem {
         val invocations = mutableListOf<CartItem>()
         override fun invoke(cartItem: CartItem) {
             invocations.add(cartItem)
