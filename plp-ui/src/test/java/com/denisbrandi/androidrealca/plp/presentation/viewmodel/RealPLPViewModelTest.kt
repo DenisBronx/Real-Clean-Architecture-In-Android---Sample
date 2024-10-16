@@ -124,6 +124,23 @@ class RealPLPViewModelTest {
     }
 
     @Test
+    fun `EXPECT no reloading WHEN data already loaded`() {
+        stateDelegate.updateState {
+            PLPState(fullName = NAME, contentType = ContentType.Content(PRODUCTS))
+        }
+
+        sut.loadProducts()
+
+        assertEquals(
+            listOf(
+                PLPState(fullName = NAME),
+                PLPState(fullName = NAME, contentType = ContentType.Content(PRODUCTS))
+            ),
+            stateObserver.getValues()
+        )
+    }
+
+    @Test
     fun `EXPECT not favourite WHEN wishlist is empty`() = runTest {
         stateDelegate.updateState {
             PLPState(fullName = NAME, contentType = ContentType.Content(PRODUCTS))

@@ -2,7 +2,7 @@ package com.denisbrandi.androidrealca.plp.presentation.viewmodel
 
 import androidx.lifecycle.*
 import com.denisbrandi.androidrealca.cart.domain.model.CartItem
-import com.denisbrandi.androidrealca.cart.domain.usecase.*
+import com.denisbrandi.androidrealca.cart.domain.usecase.AddCartItem
 import com.denisbrandi.androidrealca.product.domain.model.Product
 import com.denisbrandi.androidrealca.product.domain.usecase.GetProducts
 import com.denisbrandi.androidrealca.user.domain.usecase.GetUser
@@ -30,18 +30,26 @@ internal class RealPLPViewModel(
     }
 
     override fun loadProducts() {
-        stateDelegate.updateState {
-            it.copy(contentType = ContentType.Loading)
-        }
-        viewModelScope.launch {
-            getProducts().fold(
-                success = { products ->
-                    stateDelegate.updateState { it.copy(contentType = ContentType.Content(products)) }
-                },
-                error = {
-                    stateDelegate.updateState { it.copy(contentType = ContentType.Error) }
-                }
-            )
+        if (state.value.contentType == null) {
+            stateDelegate.updateState {
+                it.copy(contentType = ContentType.Loading)
+            }
+            viewModelScope.launch {
+                getProducts().fold(
+                    success = { products ->
+                        stateDelegate.updateState {
+                            it.copy(
+                                contentType = ContentType.Content(
+                                    products
+                                )
+                            )
+                        }
+                    },
+                    error = {
+                        stateDelegate.updateState { it.copy(contentType = ContentType.Error) }
+                    }
+                )
+            }
         }
     }
 

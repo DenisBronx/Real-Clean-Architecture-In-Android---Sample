@@ -1,7 +1,8 @@
 package com.denisbrandi.androidrealca.plp.di
 
 import androidx.compose.runtime.Composable
-import com.denisbrandi.androidrealca.cart.domain.usecase.*
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.denisbrandi.androidrealca.cart.domain.usecase.AddCartItem
 import com.denisbrandi.androidrealca.plp.presentation.view.PLPScreen
 import com.denisbrandi.androidrealca.plp.presentation.viewmodel.*
 import com.denisbrandi.androidrealca.product.domain.usecase.GetProducts
@@ -15,16 +16,19 @@ class PLPUIDI(
     private val wishlistComponentDI: WishlistComponentDI,
     private val addCartItem: AddCartItem
 ) {
+    @Composable
     private fun makePLPViewModel(): PLPViewModel {
-        return RealPLPViewModel(
-            getUser,
-            getProducts,
-            wishlistComponentDI.observeUserWishlistIds,
-            wishlistComponentDI.addToWishlist,
-            wishlistComponentDI.removeFromWishlist,
-            addCartItem,
-            StateDelegate()
-        )
+        return viewModel {
+            RealPLPViewModel(
+                getUser,
+                getProducts,
+                wishlistComponentDI.observeUserWishlistIds,
+                wishlistComponentDI.addToWishlist,
+                wishlistComponentDI.removeFromWishlist,
+                addCartItem,
+                StateDelegate()
+            )
+        }
     }
 
     @Composable

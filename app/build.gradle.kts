@@ -52,7 +52,7 @@ android {
 }
 
 dependencies {
-
+    implementation(project(":designsystem"))
     implementation(project(":cache"))
     implementation(project(":httpclient"))
     implementation(project(":user-component"))

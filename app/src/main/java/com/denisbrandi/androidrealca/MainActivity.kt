@@ -3,9 +3,9 @@ package com.denisbrandi.androidrealca
 import android.os.Bundle
 import androidx.activity.*
 import androidx.activity.compose.setContent
+import com.denisbrandi.androidrealca.designsystem.RealCleanArchitectureInAndroidTheme
 import com.denisbrandi.androidrealca.di.Injector
 import com.denisbrandi.androidrealca.navigation.RootNavigation
-import com.denisbrandi.androidrealca.ui.theme.RealCleanArchitectureInAndroidTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

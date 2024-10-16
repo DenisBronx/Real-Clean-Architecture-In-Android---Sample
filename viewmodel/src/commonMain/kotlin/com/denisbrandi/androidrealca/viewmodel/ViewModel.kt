@@ -27,13 +27,6 @@ class StateDelegate<State> : StateViewModel<State> {
             block(it)
         }
     }
-
-    inline fun <reified SubState : State> onState(block: (SubState) -> Unit) {
-        val currentState = state.value
-        if (currentState is SubState) {
-            block(currentState)
-        }
-    }
 }
 
 class EventDelegate<ViewEvent> : EventViewModel<ViewEvent> {
