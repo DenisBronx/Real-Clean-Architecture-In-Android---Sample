@@ -12,9 +12,9 @@ import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.denisbrandi.androidrealca.cart.domain.model.*
 import com.denisbrandi.androidrealca.cart.presentation.viewmodel.CartViewModel
+import com.denisbrandi.androidrealca.cart.ui.R
 import com.denisbrandi.androidrealca.designsystem.*
 import com.denisbrandi.androidrealca.money.domain.model.Money
-import com.denisbrandi.androidrealca.plp.ui.R
 
 @Composable
 internal fun CartScreen(

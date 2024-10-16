@@ -3,6 +3,7 @@ package com.denisbrandi.androidrealca.di
 import android.content.Context
 import com.denisbrandi.androidrealca.cart.di.*
 import com.denisbrandi.androidrealca.httpclient.RealHttpClientProvider
+import com.denisbrandi.androidrealca.main.di.MainUIDI
 import com.denisbrandi.androidrealca.onboarding.di.OnboardingUIDI
 import com.denisbrandi.androidrealca.plp.di.PLPUIDI
 import com.denisbrandi.androidrealca.product.di.ProductComponentDI
@@ -19,7 +20,7 @@ class Injector private constructor(
     private val wishlistComponentDI = WishlistComponentDI(cacheProvider, userComponentDI.getUser)
     private val cartComponentDI = CartComponentDI(cacheProvider, userComponentDI.getUser)
     val isUserLoggedIn = userComponentDI.isUserLoggedIn
-    val observeUserWishlist = wishlistComponentDI.observeUserWishlist
+    val observeUserWishlistIds = wishlistComponentDI.observeUserWishlistIds
     val observeUserCart = cartComponentDI.observeUserCart
     val onboardingUIDI = OnboardingUIDI(userComponentDI.login)
     val plpUIDI = PLPUIDI(
@@ -30,6 +31,7 @@ class Injector private constructor(
     )
     val wishlistUIDI = WishlistUIDI(wishlistComponentDI, cartComponentDI.updateCartItem)
     val cartUIDI = CartUIDI(cartComponentDI)
+    val mainUIDI = MainUIDI(wishlistComponentDI.observeUserWishlistIds, cartComponentDI.observeUserCart)
 
     companion object {
         lateinit var INSTANCE: Injector

@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.denisbrandi.androidrealca.plp.ui"
+    namespace = "com.denisbrandi.androidrealca.cart.ui"
     compileSdk = 34
 
     defaultConfig {

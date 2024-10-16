@@ -3,10 +3,11 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kover)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
-    namespace = "com.denisbrandi.androidrealca.wishlist.ui"
+    namespace = "com.denisbrandi.androidrealca.main.ui"
     compileSdk = 34
 
     defaultConfig {
@@ -50,8 +51,10 @@ dependencies {
     implementation(libs.coroutines.core)
     implementation(libs.lifecycle.viewmodel)
     implementation(libs.androidx.runtime.android)
+    implementation(libs.kotlin.serialization)
 
     implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.compose.navigation)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     debugImplementation(libs.androidx.ui.tooling)

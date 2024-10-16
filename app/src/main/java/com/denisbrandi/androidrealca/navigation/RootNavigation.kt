@@ -3,7 +3,6 @@ package com.denisbrandi.androidrealca.navigation
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.*
 import com.denisbrandi.androidrealca.di.injector
-import com.denisbrandi.androidrealca.main.presentation.view.MainScreen
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -33,7 +32,11 @@ fun RootNavigation() {
             }
         }
         composable<NavMain> {
-            MainScreen(injector.observeUserWishlist, injector.observeUserCart)
+            injector.mainUIDI.MainScreenDI(
+                makePLPScreen = { injector.plpUIDI.PLPScreenDI() },
+                makeWishlistScreen = { injector.wishlistUIDI.WishlistScreenDI() },
+                makeCartScreen = { injector.cartUIDI.CartScreenDI() }
+            )
         }
     }
 }

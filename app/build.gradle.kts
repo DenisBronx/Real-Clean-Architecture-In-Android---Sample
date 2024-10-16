@@ -63,6 +63,7 @@ dependencies {
     implementation(project(":plp-ui"))
     implementation(project(":wishlist-ui"))
     implementation(project(":cart-ui"))
+    implementation(project(":main-ui"))
 
     implementation(libs.multiplatform.settings)
     implementation(libs.preferences.ktx)

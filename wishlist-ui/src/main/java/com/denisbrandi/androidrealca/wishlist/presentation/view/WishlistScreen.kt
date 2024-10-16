@@ -10,9 +10,9 @@ import androidx.compose.ui.res.*
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.denisbrandi.androidrealca.designsystem.*
-import com.denisbrandi.androidrealca.plp.ui.R
 import com.denisbrandi.androidrealca.wishlist.domain.model.WishlistItem
 import com.denisbrandi.androidrealca.wishlist.presentation.viewmodel.WishlistViewModel
+import com.denisbrandi.androidrealca.wishlist.ui.R
 
 @Composable
 internal fun WishlistScreen(

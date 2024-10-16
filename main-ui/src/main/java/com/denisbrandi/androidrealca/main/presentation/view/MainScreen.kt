@@ -12,23 +12,22 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.*
-import com.denisbrandi.androidrealca.R
 import com.denisbrandi.androidrealca.cart.domain.model.Cart
 import com.denisbrandi.androidrealca.cart.domain.usecase.ObserveUserCart
-import com.denisbrandi.androidrealca.di.injector
-import com.denisbrandi.androidrealca.wishlist.domain.usecase.ObserveUserWishlist
+import com.denisbrandi.androidrealca.main.ui.R
+import com.denisbrandi.androidrealca.wishlist.domain.usecase.ObserveUserWishlistIds
 import kotlinx.serialization.Serializable
 
 @Serializable
-object NavProducts
+internal object NavProducts
 
 @Serializable
-object NavWishlist
+internal object NavWishlist
 
 @Serializable
-object NavCart
+internal object NavCart
 
-data class TopLevelRoute<out T : Any>(
+internal data class TopLevelRoute<out T : Any>(
     val name: String,
     val route: T,
     val icon: ImageVector
@@ -47,10 +46,13 @@ private fun topLevelRoutes() = listOf(
 
 @Composable
 internal fun MainScreen(
-    observeUserWishlist: ObserveUserWishlist,
-    observeUserCart: ObserveUserCart
+    observeUserWishlistIds: ObserveUserWishlistIds,
+    observeUserCart: ObserveUserCart,
+    makePLPScreen: @Composable () -> Unit,
+    makeWishlistScreen: @Composable () -> Unit,
+    makeCartScreen: @Composable () -> Unit
 ) {
-    val wishlist by observeUserWishlist().collectAsState(emptyList())
+    val wishlist by observeUserWishlistIds().collectAsState(emptyList())
     val cart by observeUserCart().collectAsState(Cart(emptyList()))
     var navigationSelectedItem by remember {
         mutableIntStateOf(0)
@@ -90,13 +92,13 @@ internal fun MainScreen(
             modifier = Modifier.padding(paddingValues = paddingValues)
         ) {
             composable<NavProducts> {
-                injector.plpUIDI.PLPScreenDI()
+                makePLPScreen()
             }
             composable<NavWishlist> {
-                injector.wishlistUIDI.WishlistScreenDI()
+                makeWishlistScreen()
             }
             composable<NavCart> {
-                injector.cartUIDI.CartScreenDI()
+                makeCartScreen()
             }
         }
     }
