@@ -6,6 +6,7 @@ import androidx.compose.material.icons.filled.*
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
@@ -50,7 +51,7 @@ internal fun MainScreen(
     makeCartScreen: @Composable () -> Unit
 ) {
     val state by mainViewModel.state.collectAsState()
-    var navigationSelectedItem by remember {
+    var navigationSelectedItem by rememberSaveable {
         mutableIntStateOf(0)
     }
     val navController = rememberNavController()
