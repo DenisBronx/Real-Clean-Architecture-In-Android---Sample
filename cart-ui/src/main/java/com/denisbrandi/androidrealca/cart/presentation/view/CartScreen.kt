@@ -137,7 +137,7 @@ private fun CartItemRow(
 
             Row(
                 modifier = Modifier
-                    .padding(horizontal = halfMargin, vertical = defaultMargin)
+                    .padding(start = halfMargin, top = defaultMargin, bottom = defaultMargin)
                     .fillMaxSize(),
                 horizontalArrangement = Arrangement.End,
                 verticalAlignment = Alignment.CenterVertically

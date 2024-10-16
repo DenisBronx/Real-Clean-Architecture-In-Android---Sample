@@ -98,7 +98,7 @@ private fun WishlistItemRow(
 
             Row(
                 modifier = Modifier
-                    .padding(horizontal = halfMargin, vertical = defaultMargin)
+                    .padding(start = halfMargin, top = defaultMargin, bottom = defaultMargin)
                     .fillMaxSize(),
                 horizontalArrangement = Arrangement.End
             ) {
