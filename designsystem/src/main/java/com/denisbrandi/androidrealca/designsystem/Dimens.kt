@@ -11,3 +11,6 @@ val noMargin = Dp(0f)
 val cardElevation = Dp(2f)
 val cardHeight = Dp(96f)
 val cardImage = Dp(48f)
+
+val topBarElevation = Dp(4f)
+val bottomNavElevation = Dp(4f)

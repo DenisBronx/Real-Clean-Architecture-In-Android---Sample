@@ -10,7 +10,7 @@ val Purple40 = Color(0xFF6650a4)
 val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 
-val TopBarText = Color(0xFF0000FF)
+val TopBarText = Color(0xFF000000)
 
 val TextField = Color(0xFF001234)
 

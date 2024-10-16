@@ -8,11 +8,13 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.*
+import com.denisbrandi.androidrealca.designsystem.bottomNavElevation
 import com.denisbrandi.androidrealca.main.presentation.viewmodel.MainViewModel
 import com.denisbrandi.androidrealca.main.ui.R
 import kotlinx.serialization.Serializable
@@ -60,7 +62,9 @@ internal fun MainScreen(
         modifier = Modifier.fillMaxSize(),
         topBar = { Box(Modifier.size(0.dp)) },
         bottomBar = {
-            NavigationBar {
+            NavigationBar(
+                modifier = Modifier.shadow(elevation = bottomNavElevation)
+            ) {
                 topLevelRoutes.forEachIndexed { index, navigationItem ->
                     NavigationBarItem(
                         icon = {
