@@ -41,7 +41,7 @@ private fun Form(loginViewModel: LoginViewModel, onLoggedIn: () -> Unit) {
     var passwordText by rememberSaveable { mutableStateOf("") }
     val loginState by loginViewModel.state.collectAsState()
     Column(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth().padding(top = defaultMargin),
         verticalArrangement = Arrangement.SpaceEvenly,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
