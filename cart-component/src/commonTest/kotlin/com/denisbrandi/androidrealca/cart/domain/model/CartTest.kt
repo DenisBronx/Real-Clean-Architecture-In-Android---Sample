@@ -30,7 +30,30 @@ class CartTest {
         assertEquals(Money(150.99, "$"), result)
     }
 
-    fun makeCartItem(amount: Double, quantity: Int): CartItem {
-        return CartItem("", "", Money(amount, "$"), "", quantity)
+    @Test
+    fun `EXPECT 0 items WHEN cart is empty`() {
+        val sut = Cart(emptyList())
+
+        val result = sut.getNumberOfItems()
+
+        assertEquals(0, result)
+    }
+
+    @Test
+    fun `EXPECT number of items WHEN all items have 1 quantity`() {
+        val sut = Cart(listOf(makeCartItem(), makeCartItem()))
+
+        val result = sut.getNumberOfItems()
+
+        assertEquals(2, result)
+    }
+
+    @Test
+    fun `EXPECT number of items x their quantity WHEN items have quantity 1+`() {
+        val sut = Cart(listOf(makeCartItem(quantity = 4), makeCartItem(quantity = 5)))
+
+        val result = sut.getNumberOfItems()
+
+        assertEquals(9, result)
     }
 }

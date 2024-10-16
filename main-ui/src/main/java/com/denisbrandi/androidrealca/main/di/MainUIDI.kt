@@ -13,7 +13,7 @@ class MainUIDI(
 ) {
 
     private fun makeMainViewModel(): MainViewModel {
-        return RealMainViewModel(observeUserWishlistIds, StateDelegate())
+        return RealMainViewModel(observeUserWishlistIds, observeUserCart, StateDelegate())
     }
 
     @Composable
@@ -24,7 +24,6 @@ class MainUIDI(
     ) {
         MainScreen(
             mainViewModel = makeMainViewModel(),
-            observeUserCart = observeUserCart,
             makePLPScreen = makePLPScreen,
             makeWishlistScreen = makeWishlistScreen,
             makeCartScreen = makeCartScreen

@@ -15,4 +15,8 @@ data class Cart(val cartItems: List<CartItem>) {
             null
         }
     }
+
+    fun getNumberOfItems(): Int {
+        return cartItems.sumOf { it.quantity }
+    }
 }

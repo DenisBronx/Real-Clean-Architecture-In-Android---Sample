@@ -12,8 +12,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.*
-import com.denisbrandi.androidrealca.cart.domain.model.Cart
-import com.denisbrandi.androidrealca.cart.domain.usecase.ObserveUserCart
 import com.denisbrandi.androidrealca.main.presentation.viewmodel.MainViewModel
 import com.denisbrandi.androidrealca.main.ui.R
 import kotlinx.serialization.Serializable
@@ -47,13 +45,11 @@ private fun topLevelRoutes() = listOf(
 @Composable
 internal fun MainScreen(
     mainViewModel: MainViewModel,
-    observeUserCart: ObserveUserCart,
     makePLPScreen: @Composable () -> Unit,
     makeWishlistScreen: @Composable () -> Unit,
     makeCartScreen: @Composable () -> Unit
 ) {
     val state by mainViewModel.state.collectAsState()
-    val cart by observeUserCart().collectAsState(Cart(emptyList()))
     var navigationSelectedItem by remember {
         mutableIntStateOf(0)
     }
@@ -70,7 +66,7 @@ internal fun MainScreen(
                             BottomBarIcon(
                                 index,
                                 state.wishlistBadge,
-                                cart.cartItems.size,
+                                state.cartBadge,
                                 navigationItem
                             )
                         },
