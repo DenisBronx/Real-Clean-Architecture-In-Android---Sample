@@ -1,7 +1,8 @@
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
-    alias(libs.plugins.kover)
 }
+
+apply(from = "../coverage/kmpCoverageReport.gradle")
 
 kotlin {
     jvmToolchain(17)

@@ -1,0 +1,14 @@
+apply plugin: 'org.jetbrains.kotlinx.kover'
+
+kover {
+    currentProject {
+        createVariant("customDebug") {
+            add(["debug"], false)
+        }
+    }
+    currentProject {
+        createVariant("customRelease") {
+            add(["release"], false)
+        }
+    }
+}

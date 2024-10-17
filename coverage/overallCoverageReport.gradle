@@ -1,0 +1,25 @@
+apply plugin: 'org.jetbrains.kotlinx.kover'
+
+kover {
+    currentProject {
+        createVariant("customDebug") {}
+        createVariant("customRelease") {}
+    }
+}
+
+dependencies {
+    kover(project(":cache"))
+    kover(project(":cart-component"))
+    kover(project(":cart-ui"))
+    kover(project(":foundations"))
+    kover(project(":httpclient"))
+    kover(project(":main-ui"))
+    kover(project(":money-component"))
+    kover(project(":money-ui"))
+    kover(project(":onboarding-ui"))
+    kover(project(":plp-ui"))
+    kover(project(":product-component"))
+    kover(project(":user-component"))
+    kover(project(":wishlist-component"))
+    kover(project(":wishlist-ui"))
+}

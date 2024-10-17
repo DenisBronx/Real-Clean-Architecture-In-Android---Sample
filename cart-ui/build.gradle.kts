@@ -1,9 +1,10 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kover)
     alias(libs.plugins.compose.compiler)
 }
+
+apply(from = "../coverage/androidCoverageReport.gradle")
 
 android {
     namespace = "com.denisbrandi.androidrealca.cart.ui"

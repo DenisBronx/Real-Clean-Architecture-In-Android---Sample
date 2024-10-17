@@ -1,10 +1,11 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kover)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kotlin.serialization)
 }
+
+apply(from = "../coverage/androidCoverageReport.gradle")
 
 android {
     namespace = "com.denisbrandi.androidrealca.main.ui"
