@@ -86,7 +86,7 @@ private fun BoxScope.CartSubTotal(
                     R.string.cart_subtotal,
                     MoneyPresenter.format(subtotal)
                 ),
-                style = MaterialTheme.typography.titleSmall,
+                style = MaterialTheme.typography.titleMedium,
             )
         }
     }
@@ -104,7 +104,7 @@ private fun CartItemRow(
                 top = halfMargin,
                 start = defaultMargin,
                 end = defaultMargin,
-                bottom = if (isLastItem) 56.dp else halfMargin
+                bottom = if (isLastItem) 64.dp else halfMargin
             )
             .fillMaxWidth(),
         colors = CardDefaults.cardColors(containerColor = Color.White),
@@ -145,22 +145,22 @@ private fun CartItemRow(
                 val quantity = cartItem.quantity
                 IconButton(
                     onClick = {
-                        cartViewModel.updateCartItemQuantity(cartItem.copy(quantity = quantity + 1))
+                        cartViewModel.updateCartItemQuantity(cartItem.copy(quantity = quantity - 1))
                     }
                 ) {
                     Icon(
-                        painterResource(R.drawable.baseline_add_24),
+                        painterResource(R.drawable.baseline_remove_24),
                         contentDescription = null
                     )
                 }
                 MediumLabel(text = quantity.toString())
                 IconButton(
                     onClick = {
-                        cartViewModel.updateCartItemQuantity(cartItem.copy(quantity = quantity - 1))
+                        cartViewModel.updateCartItemQuantity(cartItem.copy(quantity = quantity + 1))
                     }
                 ) {
                     Icon(
-                        painterResource(R.drawable.baseline_remove_24),
+                        painterResource(R.drawable.baseline_add_24),
                         contentDescription = null
                     )
                 }
