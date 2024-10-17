@@ -20,8 +20,8 @@ runtimeAndroid = "1.7.3"
 preferences-ktx = "1.2.1"
 navigation-compose = "2.8.2"
 coil = "3.0.0-rc01"
-junitVersion = "1.2.1"
-espressoCore = "3.6.1"
+screenshot = "0.0.1-alpha07"
+kotlin-compiler-extension = "1.5.4"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -56,8 +56,6 @@ preferences-ktx = { group = "androidx.preference", name = "preference-ktx", vers
 compose-navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation-compose" }
 coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil"}
 coil-okhttp = { group = "io.coil-kt.coil3", name = "coil-network-okhttp", version.ref = "coil"}
-androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
-androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -68,3 +66,4 @@ kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 android-library = { id = "com.android.library", version.ref = "agp" }
+screenshot = { id = "com.android.compose.screenshot", version.ref = "screenshot"}

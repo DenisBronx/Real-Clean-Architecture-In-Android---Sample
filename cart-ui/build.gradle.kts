@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.screenshot)
 }
 
 apply(from = "../coverage/androidCoverageReport.gradle")
@@ -37,8 +38,9 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = libs.versions.kotlin.compiler.extension.get()
     }
+    experimentalProperties["android.experimental.enableScreenshotTest"] = true
 }
 
 dependencies {
@@ -57,6 +59,7 @@ dependencies {
     implementation(libs.androidx.material3)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    implementation(libs.androidx.core.ktx)
 
     implementation(libs.coil.compose)
     implementation(libs.coil.okhttp)
@@ -66,5 +69,5 @@ dependencies {
     testImplementation(project(":flow-test-observer"))
     testImplementation(project(":coroutines-test-dispatcher"))
 
-    implementation(libs.androidx.core.ktx)
+    screenshotTestImplementation(libs.androidx.ui.tooling)
 }
