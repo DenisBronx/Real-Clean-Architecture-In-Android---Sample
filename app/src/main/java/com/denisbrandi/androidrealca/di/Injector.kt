@@ -11,7 +11,7 @@ import com.denisbrandi.androidrealca.user.di.UserComponentDI
 import com.denisbrandi.androidrealca.wishlist.di.*
 
 class Injector private constructor(
-    private val applicationContext: Context
+    applicationContext: Context
 ) {
     private val httpClient = RealHttpClientProvider.getClient()
     private val cacheProvider = AndroidCacheProvider(applicationContext)
