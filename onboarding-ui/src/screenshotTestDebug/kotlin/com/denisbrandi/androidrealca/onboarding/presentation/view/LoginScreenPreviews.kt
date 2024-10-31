@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.denisbrandi.androidrealca.onboarding.presentation.viewmodel.*
 import com.denisbrandi.androidrealca.viewmodel.*
+import kotlinx.coroutines.flow.*
 
 @Preview
 @Composable
@@ -13,21 +14,21 @@ fun PreviewLoginScreenFormState() {
 
 @Preview
 @Composable
-fun PreviewLoginScreenLoggingState() {
+fun PreviewLoginScreenLoggingInState() {
     LoginScreen(createViewModelWithState(LoginState(ContentType.LoggingIn))) {}
 }
 
 private fun createViewModelWithState(loginState: LoginState): LoginViewModel {
-    val stateDelegate = StateDelegate<LoginState>()
-    stateDelegate.setDefaultState(loginState)
-    return TestLoginViewModel(stateDelegate)
+    return TestLoginViewModel(MutableStateFlow(loginState), emptyFlow())
 }
 
 private class TestLoginViewModel(
-    stateDelegate: StateDelegate<LoginState>,
-    eventDelegate: EventDelegate<LoginViewEvent> = EventDelegate()
+    flowState: StateFlow<LoginState>,
+    flowViewEvent: Flow<LoginViewEvent>
 ) : LoginViewModel,
-    StateViewModel<LoginState> by stateDelegate,
-    EventViewModel<LoginViewEvent> by eventDelegate {
+    StateViewModel<LoginState>,
+    EventViewModel<LoginViewEvent> {
+    override val state = flowState
+    override val viewEvent = flowViewEvent
     override fun login(email: String, password: String) {}
 }

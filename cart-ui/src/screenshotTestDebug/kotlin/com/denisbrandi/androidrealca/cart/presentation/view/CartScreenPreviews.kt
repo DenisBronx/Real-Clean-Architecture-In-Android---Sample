@@ -4,7 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.denisbrandi.androidrealca.cart.domain.model.*
 import com.denisbrandi.androidrealca.cart.presentation.viewmodel.*
-import com.denisbrandi.androidrealca.viewmodel.*
+import com.denisbrandi.androidrealca.viewmodel.StateViewModel
+import kotlinx.coroutines.flow.*
 
 @Preview
 @Composable
@@ -19,14 +20,13 @@ fun PreviewPLPProductsState() {
 }
 
 private fun createViewModelWithState(state: CartState): CartViewModel {
-    val stateDelegate = StateDelegate<CartState>()
-    stateDelegate.setDefaultState(state)
-    return TestCartViewModel(stateDelegate)
+    return TestCartViewModel(MutableStateFlow(state))
 }
 
 private class TestCartViewModel(
-    stateDelegate: StateDelegate<CartState>
+    stateFlow: StateFlow<CartState>
 ) : CartViewModel,
-    StateViewModel<CartState> by stateDelegate {
+    StateViewModel<CartState> {
+    override val state = stateFlow
     override fun updateCartItemQuantity(cartItem: CartItem) {}
 }

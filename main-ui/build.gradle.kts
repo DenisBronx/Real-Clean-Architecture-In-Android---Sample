@@ -10,7 +10,7 @@ apply(from = "../coverage/androidCoverageReport.gradle")
 
 android {
     namespace = "com.denisbrandi.androidrealca.main.ui"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         minSdk = 24

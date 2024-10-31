@@ -4,7 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.denisbrandi.androidrealca.plp.presentation.viewmodel.*
 import com.denisbrandi.androidrealca.product.domain.model.Product
-import com.denisbrandi.androidrealca.viewmodel.*
+import com.denisbrandi.androidrealca.viewmodel.StateViewModel
+import kotlinx.coroutines.flow.*
 
 @Preview
 @Composable
@@ -65,15 +66,14 @@ fun PreviewPLPProductsState() {
 }
 
 private fun createViewModelWithState(state: PLPState): PLPViewModel {
-    val stateDelegate = StateDelegate<PLPState>()
-    stateDelegate.setDefaultState(state)
-    return TestPLPViewModel(stateDelegate)
+    return TestPLPViewModel(MutableStateFlow(state))
 }
 
 private class TestPLPViewModel(
-    stateDelegate: StateDelegate<PLPState>
+    stateFlow: StateFlow<PLPState>
 ) : PLPViewModel,
-    StateViewModel<PLPState> by stateDelegate {
+    StateViewModel<PLPState> {
+    override val state = stateFlow
     override fun loadProducts() {}
     override fun isFavourite(productId: String): Boolean {
         return productId.toInt() % 2 == 0

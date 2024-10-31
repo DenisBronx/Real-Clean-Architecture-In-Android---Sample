@@ -3,7 +3,8 @@ package com.denisbrandi.androidrealca.main.presentation.view
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.denisbrandi.androidrealca.main.presentation.viewmodel.*
-import com.denisbrandi.androidrealca.viewmodel.*
+import com.denisbrandi.androidrealca.viewmodel.StateViewModel
+import kotlinx.coroutines.flow.*
 
 @Preview
 @Composable
@@ -18,12 +19,12 @@ fun PreviewCartBadgeState() {
 }
 
 private fun createViewModelWithState(state: MainState): MainViewModel {
-    val stateDelegate = StateDelegate<MainState>()
-    stateDelegate.setDefaultState(state)
-    return TestMainViewModel(stateDelegate)
+    return TestMainViewModel(MutableStateFlow(state))
 }
 
 private class TestMainViewModel(
-    stateDelegate: StateDelegate<MainState>
+    stateFlow: StateFlow<MainState>
 ) : MainViewModel,
-    StateViewModel<MainState> by stateDelegate
+    StateViewModel<MainState> {
+    override val state = stateFlow
+}

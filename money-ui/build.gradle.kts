@@ -8,7 +8,7 @@ apply(from = "../coverage/androidCoverageReport.gradle")
 
 android {
     namespace = "com.denisbrandi.androidrealca.money.ui"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         minSdk = 24
