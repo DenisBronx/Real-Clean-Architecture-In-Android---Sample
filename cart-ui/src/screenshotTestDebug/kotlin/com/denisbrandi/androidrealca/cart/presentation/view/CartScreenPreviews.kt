@@ -10,23 +10,23 @@ import kotlinx.coroutines.flow.*
 @Preview
 @Composable
 fun PreviewPLPEmptyState() {
-    CartScreen(createViewModelWithState(CartState(Cart(emptyList()))))
+    CartScreen(createViewModelWithState(CartScreenState(Cart(emptyList()))))
 }
 
 @Preview
 @Composable
 fun PreviewPLPProductsState() {
-    CartScreen(createViewModelWithState(CartState(Cart((cartItems)))))
+    CartScreen(createViewModelWithState(CartScreenState(Cart((cartItems)))))
 }
 
-private fun createViewModelWithState(state: CartState): CartViewModel {
+private fun createViewModelWithState(state: CartScreenState): CartViewModel {
     return TestCartViewModel(MutableStateFlow(state))
 }
 
 private class TestCartViewModel(
-    stateFlow: StateFlow<CartState>
+    stateFlow: StateFlow<CartScreenState>
 ) : CartViewModel,
-    StateViewModel<CartState> {
+    StateViewModel<CartScreenState> {
     override val state = stateFlow
     override fun updateCartItemQuantity(cartItem: CartItem) {}
 }

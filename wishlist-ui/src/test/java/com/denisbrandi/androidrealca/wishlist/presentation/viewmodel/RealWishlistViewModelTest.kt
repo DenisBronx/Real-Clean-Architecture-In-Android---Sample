@@ -22,7 +22,7 @@ class RealWishlistViewModelTest {
     private val removeFromWishlist = TestRemoveFromWishlist()
     private val addCartItem = TestAddCartItem()
     private lateinit var sut: RealWishlistViewModel
-    private lateinit var stateObserver: FlowTestObserver<WishlistState>
+    private lateinit var stateObserver: FlowTestObserver<WishlistScreenState>
 
     @Before
     fun setUp() {
@@ -41,8 +41,8 @@ class RealWishlistViewModelTest {
 
         assertEquals(
             listOf(
-                WishlistState(emptyList()),
-                WishlistState(WISHLIST_ITEMS)
+                WishlistScreenState(emptyList()),
+                WishlistScreenState(WISHLIST_ITEMS)
             ),
             stateObserver.getValues()
         )

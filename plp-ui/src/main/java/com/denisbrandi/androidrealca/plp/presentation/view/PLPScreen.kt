@@ -41,17 +41,17 @@ internal fun PLPScreen(
 }
 
 @Composable
-private fun Body(plpViewModel: PLPViewModel, plpState: PLPState) {
-    when (val contentType = plpState.contentType) {
-        is ContentType.Error -> {
+private fun Body(plpViewModel: PLPViewModel, plpScreenState: PLPScreenState) {
+    when (val contentType = plpScreenState.displayState) {
+        is DisplayState.Error -> {
             RetryErrorView { plpViewModel.loadProducts() }
         }
 
-        is ContentType.Loading -> {
+        is DisplayState.Loading -> {
             FullScreenLoading()
         }
 
-        is ContentType.Content -> {
+        is DisplayState.Content -> {
             if (contentType.products.isEmpty()) {
                 FullScreenMessage(stringResource(R.string.plp_no_products))
             } else {

@@ -19,7 +19,7 @@ class RealCartViewModelTest {
     private val observeUserCart = TestObserveUserCart()
     private val updateCartItem = TestUpdateCartItem()
     private lateinit var sut: RealCartViewModel
-    private lateinit var stateObserver: FlowTestObserver<CartState>
+    private lateinit var stateObserver: FlowTestObserver<CartScreenState>
 
     @Before
     fun setUp() {
@@ -33,8 +33,8 @@ class RealCartViewModelTest {
 
         assertEquals(
             listOf(
-                CartState(Cart(emptyList())),
-                CartState(CART)
+                CartScreenState(Cart(emptyList())),
+                CartScreenState(CART)
             ),
             stateObserver.getValues()
         )

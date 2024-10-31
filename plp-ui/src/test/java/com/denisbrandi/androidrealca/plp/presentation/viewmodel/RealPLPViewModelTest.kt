@@ -30,8 +30,8 @@ class RealPLPViewModelTest {
     private val addToWishlist = TestAddToWishlist()
     private val removeFromWishlist = TestRemoveFromWishlist()
     private val addCartItem = TestAddCartItem()
-    private val stateDelegate = StateDelegate<PLPState>()
-    private lateinit var stateObserver: FlowTestObserver<PLPState>
+    private val stateDelegate = StateDelegate<PLPScreenState>()
+    private lateinit var stateObserver: FlowTestObserver<PLPScreenState>
     private lateinit var sut: RealPLPViewModel
 
     @Before
@@ -51,7 +51,7 @@ class RealPLPViewModelTest {
     @Test
     fun `EXPECT default state`() {
         assertEquals(
-            listOf(PLPState(fullName = NAME)),
+            listOf(PLPScreenState(fullName = NAME)),
             stateObserver.getValues()
         )
     }
@@ -64,8 +64,8 @@ class RealPLPViewModelTest {
 
         assertEquals(
             listOf(
-                PLPState(fullName = NAME),
-                PLPState(fullName = NAME, contentType = ContentType.Loading)
+                PLPScreenState(fullName = NAME),
+                PLPScreenState(fullName = NAME, displayState = DisplayState.Loading)
             ),
             stateObserver.getValues()
         )
@@ -79,9 +79,9 @@ class RealPLPViewModelTest {
 
         assertEquals(
             listOf(
-                PLPState(fullName = NAME),
-                PLPState(fullName = NAME, contentType = ContentType.Loading),
-                PLPState(fullName = NAME, contentType = ContentType.Error)
+                PLPScreenState(fullName = NAME),
+                PLPScreenState(fullName = NAME, displayState = DisplayState.Loading),
+                PLPScreenState(fullName = NAME, displayState = DisplayState.Error)
             ),
             stateObserver.getValues()
         )
@@ -95,9 +95,9 @@ class RealPLPViewModelTest {
 
         assertEquals(
             listOf(
-                PLPState(fullName = NAME),
-                PLPState(fullName = NAME, contentType = ContentType.Loading),
-                PLPState(fullName = NAME, contentType = ContentType.Content(PRODUCTS))
+                PLPScreenState(fullName = NAME),
+                PLPScreenState(fullName = NAME, displayState = DisplayState.Loading),
+                PLPScreenState(fullName = NAME, displayState = DisplayState.Content(PRODUCTS))
             ),
             stateObserver.getValues()
         )
@@ -114,10 +114,10 @@ class RealPLPViewModelTest {
 
         assertEquals(
             listOf(
-                PLPState(fullName = NAME),
-                PLPState(fullName = NAME, wishlistIds = wishlistIds1),
-                PLPState(fullName = NAME, wishlistIds = wishlistIds2),
-                PLPState(fullName = NAME, wishlistIds = wishlistIds3),
+                PLPScreenState(fullName = NAME),
+                PLPScreenState(fullName = NAME, wishlistIds = wishlistIds1),
+                PLPScreenState(fullName = NAME, wishlistIds = wishlistIds2),
+                PLPScreenState(fullName = NAME, wishlistIds = wishlistIds3),
             ),
             stateObserver.getValues()
         )
@@ -126,15 +126,15 @@ class RealPLPViewModelTest {
     @Test
     fun `EXPECT no reloading WHEN data already loaded`() {
         stateDelegate.updateState {
-            PLPState(fullName = NAME, contentType = ContentType.Content(PRODUCTS))
+            PLPScreenState(fullName = NAME, displayState = DisplayState.Content(PRODUCTS))
         }
 
         sut.loadProducts()
 
         assertEquals(
             listOf(
-                PLPState(fullName = NAME),
-                PLPState(fullName = NAME, contentType = ContentType.Content(PRODUCTS))
+                PLPScreenState(fullName = NAME),
+                PLPScreenState(fullName = NAME, displayState = DisplayState.Content(PRODUCTS))
             ),
             stateObserver.getValues()
         )
@@ -143,7 +143,7 @@ class RealPLPViewModelTest {
     @Test
     fun `EXPECT not favourite WHEN wishlist is empty`() = runTest {
         stateDelegate.updateState {
-            PLPState(fullName = NAME, contentType = ContentType.Content(PRODUCTS))
+            PLPScreenState(fullName = NAME, displayState = DisplayState.Content(PRODUCTS))
         }
 
         val result = sut.isFavourite("2")
@@ -154,10 +154,10 @@ class RealPLPViewModelTest {
     @Test
     fun `EXPECT favourite WHEN wishlist has id`() = runTest {
         stateDelegate.updateState {
-            PLPState(
+            PLPScreenState(
                 fullName = NAME,
                 wishlistIds = listOf("2", "3"),
-                contentType = ContentType.Content(PRODUCTS)
+                displayState = DisplayState.Content(PRODUCTS)
             )
         }
 
@@ -169,10 +169,10 @@ class RealPLPViewModelTest {
     @Test
     fun `EXPECT not favourite WHEN wishlist doesn't have id`() = runTest {
         stateDelegate.updateState {
-            PLPState(
+            PLPScreenState(
                 fullName = NAME,
                 wishlistIds = listOf("2", "3"),
-                contentType = ContentType.Content(PRODUCTS)
+                displayState = DisplayState.Content(PRODUCTS)
             )
         }
 

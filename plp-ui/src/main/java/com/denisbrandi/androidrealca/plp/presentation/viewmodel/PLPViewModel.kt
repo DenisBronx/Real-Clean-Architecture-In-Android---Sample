@@ -3,7 +3,7 @@ package com.denisbrandi.androidrealca.plp.presentation.viewmodel
 import com.denisbrandi.androidrealca.product.domain.model.Product
 import com.denisbrandi.androidrealca.viewmodel.StateViewModel
 
-internal interface PLPViewModel : StateViewModel<PLPState> {
+internal interface PLPViewModel : StateViewModel<PLPScreenState> {
     fun loadProducts()
     fun isFavourite(productId: String): Boolean
     fun addProductToWishlist(product: Product)
@@ -11,14 +11,14 @@ internal interface PLPViewModel : StateViewModel<PLPState> {
     fun addProductToCart(product: Product)
 }
 
-internal data class PLPState(
+internal data class PLPScreenState(
     val fullName: String,
     val wishlistIds: List<String> = emptyList(),
-    val contentType: ContentType? = null
+    val displayState: DisplayState? = null
 )
 
-internal sealed interface ContentType {
-    data object Loading : ContentType
-    data object Error : ContentType
-    data class Content(val products: List<Product>) : ContentType
+internal sealed interface DisplayState {
+    data object Loading : DisplayState
+    data object Error : DisplayState
+    data class Content(val products: List<Product>) : DisplayState
 }

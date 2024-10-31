@@ -102,7 +102,7 @@ private fun BottomNavigationBar(
 @Composable
 private fun RowScope.NavigationItem(
     index: Int,
-    state: MainState,
+    state: MainScreenState,
     navigationItem: TopLevelRoute<Any>,
     navigationSelectedItem: MutableState<Int>,
     navController: NavHostController

@@ -20,7 +20,7 @@ class RealMainViewModelTest {
     private val observeUserWishlistIds = TestObserveUserWishlistIds()
     private val observeUserCart = TestObserveUserCart()
     private lateinit var sut: RealMainViewModel
-    private lateinit var stateObserver: FlowTestObserver<MainState>
+    private lateinit var stateObserver: FlowTestObserver<MainScreenState>
 
     @Before
     fun setUp() {
@@ -35,9 +35,9 @@ class RealMainViewModelTest {
 
         assertEquals(
             listOf(
-                MainState(),
-                MainState(wishlistBadge = 5),
-                MainState(wishlistBadge = 8)
+                MainScreenState(),
+                MainScreenState(wishlistBadge = 5),
+                MainScreenState(wishlistBadge = 8)
             ),
             stateObserver.getValues()
         )
@@ -57,9 +57,9 @@ class RealMainViewModelTest {
 
         assertEquals(
             listOf(
-                MainState(),
-                MainState(cartBadge = 5),
-                MainState(cartBadge = 8)
+                MainScreenState(),
+                MainScreenState(cartBadge = 5),
+                MainScreenState(cartBadge = 8)
             ),
             stateObserver.getValues()
         )
@@ -73,10 +73,10 @@ class RealMainViewModelTest {
 
         assertEquals(
             listOf(
-                MainState(),
-                MainState(wishlistBadge = 5),
-                MainState(wishlistBadge = 5, cartBadge = 5),
-                MainState(wishlistBadge = 6, cartBadge = 5)
+                MainScreenState(),
+                MainScreenState(wishlistBadge = 5),
+                MainScreenState(wishlistBadge = 5, cartBadge = 5),
+                MainScreenState(wishlistBadge = 6, cartBadge = 5)
             ),
             stateObserver.getValues()
         )

@@ -78,7 +78,7 @@ private fun Form(loginViewModel: LoginViewModel, onLoggedIn: () -> Unit) {
                 passwordText = it
             }
         )
-        val isLoading = loginState.contentType is ContentType.LoggingIn
+        val isLoading = loginState.displayState is DisplayState.LoggingIn
         LoadingButton(text = stringResource(R.string.login_button_text), isLoading) {
             loginViewModel.login(emailText, passwordText)
         }

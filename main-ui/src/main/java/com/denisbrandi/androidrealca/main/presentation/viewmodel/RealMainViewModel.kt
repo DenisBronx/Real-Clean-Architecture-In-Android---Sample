@@ -9,11 +9,11 @@ import kotlinx.coroutines.flow.*
 internal class RealMainViewModel(
     observeUserWishlistIds: ObserveUserWishlistIds,
     observeUserCart: ObserveUserCart,
-    stateDelegate: StateDelegate<MainState>
-) : MainViewModel, StateViewModel<MainState> by stateDelegate, ViewModel() {
+    stateDelegate: StateDelegate<MainScreenState>
+) : MainViewModel, StateViewModel<MainScreenState> by stateDelegate, ViewModel() {
 
     init {
-        stateDelegate.setDefaultState(MainState())
+        stateDelegate.setDefaultState(MainScreenState())
         observeUserWishlistIds().onEach { list ->
             stateDelegate.updateState { state -> state.copy(wishlistBadge = list.size) }
         }.launchIn(viewModelScope)

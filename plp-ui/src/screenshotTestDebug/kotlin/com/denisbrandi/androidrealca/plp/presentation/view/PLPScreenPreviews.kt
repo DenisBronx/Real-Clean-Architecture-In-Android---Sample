@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.*
 @Preview
 @Composable
 fun PreviewPLPDefaultState() {
-    PLPScreen(createViewModelWithState(PLPState(fullName = "Full Name")))
+    PLPScreen(createViewModelWithState(PLPScreenState(fullName = "Full Name")))
 }
 
 @Preview
@@ -18,9 +18,9 @@ fun PreviewPLPDefaultState() {
 fun PreviewPLPLoadingState() {
     PLPScreen(
         createViewModelWithState(
-            PLPState(
+            PLPScreenState(
                 fullName = "Full Name",
-                contentType = ContentType.Loading
+                displayState = DisplayState.Loading
             )
         )
     )
@@ -31,9 +31,9 @@ fun PreviewPLPLoadingState() {
 fun PreviewPLPErrorState() {
     PLPScreen(
         createViewModelWithState(
-            PLPState(
+            PLPScreenState(
                 fullName = "Full Name",
-                contentType = ContentType.Error
+                displayState = DisplayState.Error
             )
         )
     )
@@ -44,9 +44,9 @@ fun PreviewPLPErrorState() {
 fun PreviewPLPEmptyState() {
     PLPScreen(
         createViewModelWithState(
-            PLPState(
+            PLPScreenState(
                 fullName = "Full Name",
-                contentType = ContentType.Content(emptyList())
+                displayState = DisplayState.Content(emptyList())
             )
         )
     )
@@ -57,22 +57,22 @@ fun PreviewPLPEmptyState() {
 fun PreviewPLPProductsState() {
     PLPScreen(
         createViewModelWithState(
-            PLPState(
+            PLPScreenState(
                 fullName = "Full Name",
-                contentType = ContentType.Content(productList)
+                displayState = DisplayState.Content(productList)
             )
         )
     )
 }
 
-private fun createViewModelWithState(state: PLPState): PLPViewModel {
+private fun createViewModelWithState(state: PLPScreenState): PLPViewModel {
     return TestPLPViewModel(MutableStateFlow(state))
 }
 
 private class TestPLPViewModel(
-    stateFlow: StateFlow<PLPState>
+    stateFlow: StateFlow<PLPScreenState>
 ) : PLPViewModel,
-    StateViewModel<PLPState> {
+    StateViewModel<PLPScreenState> {
     override val state = stateFlow
     override fun loadProducts() {}
     override fun isFavourite(productId: String): Boolean {

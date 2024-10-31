@@ -9,13 +9,13 @@ import kotlinx.coroutines.flow.*
 internal class RealCartViewModel(
     observeUserCart: ObserveUserCart,
     private val updateCartItem: UpdateCartItem,
-    private val stateDelegate: StateDelegate<CartState>
-) : CartViewModel, StateViewModel<CartState> by stateDelegate, ViewModel() {
+    private val stateDelegate: StateDelegate<CartScreenState>
+) : CartViewModel, StateViewModel<CartScreenState> by stateDelegate, ViewModel() {
 
     init {
-        stateDelegate.setDefaultState(CartState(Cart(emptyList())))
+        stateDelegate.setDefaultState(CartScreenState(Cart(emptyList())))
         observeUserCart().onEach { cart ->
-            stateDelegate.updateState { CartState(cart) }
+            stateDelegate.updateState { CartScreenState(cart) }
         }.launchIn(viewModelScope)
     }
 

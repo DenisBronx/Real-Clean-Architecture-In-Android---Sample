@@ -10,23 +10,23 @@ import kotlinx.coroutines.flow.*
 @Preview
 @Composable
 fun PreviewPLPEmptyState() {
-    WishlistScreen(createViewModelWithState(WishlistState(emptyList())))
+    WishlistScreen(createViewModelWithState(WishlistScreenState(emptyList())))
 }
 
 @Preview
 @Composable
 fun PreviewPLPProductsState() {
-    WishlistScreen(createViewModelWithState(WishlistState(wishlist)))
+    WishlistScreen(createViewModelWithState(WishlistScreenState(wishlist)))
 }
 
-private fun createViewModelWithState(state: WishlistState): WishlistViewModel {
+private fun createViewModelWithState(state: WishlistScreenState): WishlistViewModel {
     return TestWishlistViewModel(MutableStateFlow(state))
 }
 
 private class TestWishlistViewModel(
-    stateFlow: StateFlow<WishlistState>
+    stateFlow: StateFlow<WishlistScreenState>
 ) : WishlistViewModel,
-    StateViewModel<WishlistState> {
+    StateViewModel<WishlistScreenState> {
     override val state = stateFlow
 
     override fun removeItemFromWishlist(wishlistItemId: String) {}

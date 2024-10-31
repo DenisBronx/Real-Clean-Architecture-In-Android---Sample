@@ -9,22 +9,22 @@ import kotlinx.coroutines.flow.*
 @Preview
 @Composable
 fun PreviewNoBadgesState() {
-    MainScreen(createViewModelWithState(MainState()), {}, {}, {})
+    MainScreen(createViewModelWithState(MainScreenState()), {}, {}, {})
 }
 
 @Preview
 @Composable
 fun PreviewCartBadgeState() {
-    MainScreen(createViewModelWithState(MainState(wishlistBadge = 5, cartBadge = 9)), {}, {}, {})
+    MainScreen(createViewModelWithState(MainScreenState(wishlistBadge = 5, cartBadge = 9)), {}, {}, {})
 }
 
-private fun createViewModelWithState(state: MainState): MainViewModel {
+private fun createViewModelWithState(state: MainScreenState): MainViewModel {
     return TestMainViewModel(MutableStateFlow(state))
 }
 
 private class TestMainViewModel(
-    stateFlow: StateFlow<MainState>
+    stateFlow: StateFlow<MainScreenState>
 ) : MainViewModel,
-    StateViewModel<MainState> {
+    StateViewModel<MainScreenState> {
     override val state = stateFlow
 }

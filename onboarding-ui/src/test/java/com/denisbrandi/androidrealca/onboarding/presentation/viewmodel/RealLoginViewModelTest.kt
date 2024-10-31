@@ -17,7 +17,7 @@ class RealLoginViewModelTest {
     val rule = MainCoroutineRule()
 
     private val login = TestLogin()
-    private lateinit var stateObserver: FlowTestObserver<LoginState>
+    private lateinit var stateObserver: FlowTestObserver<LoginScreenState>
     private lateinit var eventObserver: FlowTestObserver<LoginViewEvent>
     private val sut = RealLoginViewModel(login, StateDelegate(), EventDelegate())
 
@@ -29,7 +29,7 @@ class RealLoginViewModelTest {
 
     @Test
     fun `EXPECT default state WHEN initialized`() {
-        assertEquals(listOf(LoginState(ContentType.Form)), stateObserver.getValues())
+        assertEquals(listOf(LoginScreenState(DisplayState.Form)), stateObserver.getValues())
     }
 
     @Test
@@ -40,8 +40,8 @@ class RealLoginViewModelTest {
 
         assertEquals(
             listOf(
-                LoginState(ContentType.Form),
-                LoginState(ContentType.LoggingIn)
+                LoginScreenState(DisplayState.Form),
+                LoginScreenState(DisplayState.LoggingIn)
             ),
             stateObserver.getValues()
         )
@@ -56,9 +56,9 @@ class RealLoginViewModelTest {
 
         assertEquals(
             listOf(
-                LoginState(ContentType.Form),
-                LoginState(ContentType.LoggingIn),
-                LoginState(ContentType.Form)
+                LoginScreenState(DisplayState.Form),
+                LoginScreenState(DisplayState.LoggingIn),
+                LoginScreenState(DisplayState.Form)
             ),
             stateObserver.getValues()
         )
@@ -73,8 +73,8 @@ class RealLoginViewModelTest {
 
         assertEquals(
             listOf(
-                LoginState(ContentType.Form),
-                LoginState(ContentType.LoggingIn)
+                LoginScreenState(DisplayState.Form),
+                LoginScreenState(DisplayState.LoggingIn)
             ),
             stateObserver.getValues()
         )

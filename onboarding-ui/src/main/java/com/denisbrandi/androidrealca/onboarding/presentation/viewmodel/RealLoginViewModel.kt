@@ -8,19 +8,19 @@ import kotlinx.coroutines.launch
 
 internal class RealLoginViewModel(
     private val login: Login,
-    private val stateDelegate: StateDelegate<LoginState>,
+    private val stateDelegate: StateDelegate<LoginScreenState>,
     private val eventDelegate: EventDelegate<LoginViewEvent>
 ) : LoginViewModel,
-    StateViewModel<LoginState> by stateDelegate,
+    StateViewModel<LoginScreenState> by stateDelegate,
     EventViewModel<LoginViewEvent> by eventDelegate,
     ViewModel() {
 
     init {
-        stateDelegate.setDefaultState(LoginState(ContentType.Form))
+        stateDelegate.setDefaultState(LoginScreenState(DisplayState.Form))
     }
 
     override fun login(email: String, password: String) {
-        stateDelegate.updateState { it.copy(contentType = ContentType.LoggingIn) }
+        stateDelegate.updateState { it.copy(displayState = DisplayState.LoggingIn) }
 
         viewModelScope.launch {
             login(LoginRequest(email, password)).fold(
@@ -28,7 +28,7 @@ internal class RealLoginViewModel(
                     eventDelegate.sendEvent(viewModelScope, LoginViewEvent.SuccessfulLogin)
                 },
                 error = { loginError ->
-                    stateDelegate.updateState { it.copy(contentType = ContentType.Form) }
+                    stateDelegate.updateState { it.copy(displayState = DisplayState.Form) }
                     eventDelegate.sendEvent(viewModelScope, LoginViewEvent.ShowError(loginError))
                 }
             )

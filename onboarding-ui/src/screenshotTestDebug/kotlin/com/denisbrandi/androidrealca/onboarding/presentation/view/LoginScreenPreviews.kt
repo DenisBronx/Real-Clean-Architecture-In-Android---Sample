@@ -9,24 +9,24 @@ import kotlinx.coroutines.flow.*
 @Preview
 @Composable
 fun PreviewLoginScreenFormState() {
-    LoginScreen(createViewModelWithState(LoginState(ContentType.Form))) {}
+    LoginScreen(createViewModelWithState(LoginScreenState(DisplayState.Form))) {}
 }
 
 @Preview
 @Composable
 fun PreviewLoginScreenLoggingInState() {
-    LoginScreen(createViewModelWithState(LoginState(ContentType.LoggingIn))) {}
+    LoginScreen(createViewModelWithState(LoginScreenState(DisplayState.LoggingIn))) {}
 }
 
-private fun createViewModelWithState(loginState: LoginState): LoginViewModel {
-    return TestLoginViewModel(MutableStateFlow(loginState), emptyFlow())
+private fun createViewModelWithState(loginScreenState: LoginScreenState): LoginViewModel {
+    return TestLoginViewModel(MutableStateFlow(loginScreenState), emptyFlow())
 }
 
 private class TestLoginViewModel(
-    flowState: StateFlow<LoginState>,
+    flowState: StateFlow<LoginScreenState>,
     flowViewEvent: Flow<LoginViewEvent>
 ) : LoginViewModel,
-    StateViewModel<LoginState>,
+    StateViewModel<LoginScreenState>,
     EventViewModel<LoginViewEvent> {
     override val state = flowState
     override val viewEvent = flowViewEvent

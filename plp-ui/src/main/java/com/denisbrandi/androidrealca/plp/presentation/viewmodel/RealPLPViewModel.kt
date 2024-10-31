@@ -19,34 +19,34 @@ internal class RealPLPViewModel(
     private val addToWishlist: AddToWishlist,
     private val removeFromWishlist: RemoveFromWishlist,
     private val addCartItem: AddCartItem,
-    private val stateDelegate: StateDelegate<PLPState>
-) : PLPViewModel, StateViewModel<PLPState> by stateDelegate, ViewModel() {
+    private val stateDelegate: StateDelegate<PLPScreenState>
+) : PLPViewModel, StateViewModel<PLPScreenState> by stateDelegate, ViewModel() {
 
     init {
-        stateDelegate.setDefaultState(PLPState(getUser().fullName))
+        stateDelegate.setDefaultState(PLPScreenState(getUser().fullName))
         observeUserWishlistIds().onEach { ids ->
             stateDelegate.updateState { it.copy(wishlistIds = ids) }
         }.launchIn(viewModelScope)
     }
 
     override fun loadProducts() {
-        if (state.value.contentType == null) {
+        if (state.value.displayState == null) {
             stateDelegate.updateState {
-                it.copy(contentType = ContentType.Loading)
+                it.copy(displayState = DisplayState.Loading)
             }
             viewModelScope.launch {
                 getProducts().fold(
                     success = { products ->
                         stateDelegate.updateState {
                             it.copy(
-                                contentType = ContentType.Content(
+                                displayState = DisplayState.Content(
                                     products
                                 )
                             )
                         }
                     },
                     error = {
-                        stateDelegate.updateState { it.copy(contentType = ContentType.Error) }
+                        stateDelegate.updateState { it.copy(displayState = DisplayState.Error) }
                     }
                 )
             }

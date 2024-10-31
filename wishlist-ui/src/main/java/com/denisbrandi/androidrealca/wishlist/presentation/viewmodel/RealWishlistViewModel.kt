@@ -12,12 +12,12 @@ internal class RealWishlistViewModel(
     observeUserWishlist: ObserveUserWishlist,
     private val removeFromWishlist: RemoveFromWishlist,
     private val addCartItem: AddCartItem,
-    private val stateDelegate: StateDelegate<WishlistState>
-) : WishlistViewModel, StateViewModel<WishlistState> by stateDelegate, ViewModel() {
+    private val stateDelegate: StateDelegate<WishlistScreenState>
+) : WishlistViewModel, StateViewModel<WishlistScreenState> by stateDelegate, ViewModel() {
     init {
-        stateDelegate.setDefaultState(WishlistState())
+        stateDelegate.setDefaultState(WishlistScreenState())
         observeUserWishlist().onEach { wishlistItems ->
-            stateDelegate.updateState { WishlistState(wishlistItems) }
+            stateDelegate.updateState { WishlistScreenState(wishlistItems) }
         }.launchIn(viewModelScope)
     }
 
