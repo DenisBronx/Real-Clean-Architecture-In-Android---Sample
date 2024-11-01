@@ -24,10 +24,10 @@ private fun createViewModelWithState(loginScreenState: LoginScreenState): LoginV
 
 private class TestLoginViewModel(
     flowState: StateFlow<LoginScreenState>,
-    flowViewEvent: Flow<LoginViewEvent>
+    flowViewEvent: Flow<LoginScreenEvent>
 ) : LoginViewModel,
     StateViewModel<LoginScreenState>,
-    EventViewModel<LoginViewEvent> {
+    EventViewModel<LoginScreenEvent> {
     override val state = flowState
     override val viewEvent = flowViewEvent
     override fun login(email: String, password: String) {}

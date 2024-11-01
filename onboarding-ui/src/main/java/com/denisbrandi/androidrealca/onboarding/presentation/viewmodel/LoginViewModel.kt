@@ -3,7 +3,7 @@ package com.denisbrandi.androidrealca.onboarding.presentation.viewmodel
 import com.denisbrandi.androidrealca.user.domain.model.LoginError
 import com.denisbrandi.androidrealca.viewmodel.*
 
-internal interface LoginViewModel : StateViewModel<LoginScreenState>, EventViewModel<LoginViewEvent> {
+internal interface LoginViewModel : StateViewModel<LoginScreenState>, EventViewModel<LoginScreenEvent> {
     fun login(email: String, password: String)
 }
 
@@ -14,7 +14,7 @@ internal sealed interface DisplayState {
     data object LoggingIn : DisplayState
 }
 
-internal sealed interface LoginViewEvent {
-    data class ShowError(val loginError: LoginError) : LoginViewEvent
-    data object SuccessfulLogin : LoginViewEvent
+internal sealed interface LoginScreenEvent {
+    data class ShowError(val loginError: LoginError) : LoginScreenEvent
+    data object SuccessfulLogin : LoginScreenEvent
 }

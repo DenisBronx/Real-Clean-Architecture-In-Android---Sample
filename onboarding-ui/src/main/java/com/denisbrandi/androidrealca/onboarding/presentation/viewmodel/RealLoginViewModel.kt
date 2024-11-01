@@ -9,10 +9,10 @@ import kotlinx.coroutines.launch
 internal class RealLoginViewModel(
     private val login: Login,
     private val stateDelegate: StateDelegate<LoginScreenState>,
-    private val eventDelegate: EventDelegate<LoginViewEvent>
+    private val eventDelegate: EventDelegate<LoginScreenEvent>
 ) : LoginViewModel,
     StateViewModel<LoginScreenState> by stateDelegate,
-    EventViewModel<LoginViewEvent> by eventDelegate,
+    EventViewModel<LoginScreenEvent> by eventDelegate,
     ViewModel() {
 
     init {
@@ -25,11 +25,11 @@ internal class RealLoginViewModel(
         viewModelScope.launch {
             login(LoginRequest(email, password)).fold(
                 success = {
-                    eventDelegate.sendEvent(viewModelScope, LoginViewEvent.SuccessfulLogin)
+                    eventDelegate.sendEvent(viewModelScope, LoginScreenEvent.SuccessfulLogin)
                 },
                 error = { loginError ->
                     stateDelegate.updateState { it.copy(displayState = DisplayState.Form) }
-                    eventDelegate.sendEvent(viewModelScope, LoginViewEvent.ShowError(loginError))
+                    eventDelegate.sendEvent(viewModelScope, LoginScreenEvent.ShowError(loginError))
                 }
             )
         }

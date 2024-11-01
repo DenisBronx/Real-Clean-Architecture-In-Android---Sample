@@ -18,7 +18,7 @@ class RealLoginViewModelTest {
 
     private val login = TestLogin()
     private lateinit var stateObserver: FlowTestObserver<LoginScreenState>
-    private lateinit var eventObserver: FlowTestObserver<LoginViewEvent>
+    private lateinit var eventObserver: FlowTestObserver<LoginScreenEvent>
     private val sut = RealLoginViewModel(login, StateDelegate(), EventDelegate())
 
     @Before
@@ -62,7 +62,7 @@ class RealLoginViewModelTest {
             ),
             stateObserver.getValues()
         )
-        assertEquals(listOf(LoginViewEvent.ShowError(loginError)), eventObserver.getValues())
+        assertEquals(listOf(LoginScreenEvent.ShowError(loginError)), eventObserver.getValues())
     }
 
     @Test
@@ -78,7 +78,7 @@ class RealLoginViewModelTest {
             ),
             stateObserver.getValues()
         )
-        assertEquals(listOf(LoginViewEvent.SuccessfulLogin), eventObserver.getValues())
+        assertEquals(listOf(LoginScreenEvent.SuccessfulLogin), eventObserver.getValues())
     }
 
     private class TestLogin : Login {

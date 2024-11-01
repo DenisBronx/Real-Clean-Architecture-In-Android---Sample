@@ -104,11 +104,11 @@ private fun LoginEvent(
     LaunchedEffect(key1 = Unit) {
         loginViewModel.viewEvent.onEach { viewEvent ->
             when (viewEvent) {
-                is LoginViewEvent.ShowError -> {
+                is LoginScreenEvent.ShowError -> {
                     showErrorDialog = ModalEvent(viewEvent.loginError)
                 }
 
-                is LoginViewEvent.SuccessfulLogin -> {
+                is LoginScreenEvent.SuccessfulLogin -> {
                     onLoggedIn()
                 }
             }
