@@ -13,7 +13,8 @@ interface EventViewModel<ViewEvent> {
 
 class StateDelegate<State> : StateViewModel<State> {
     private lateinit var _state: MutableStateFlow<State>
-    override val state: StateFlow<State> = _state.asStateFlow()
+    override val state: StateFlow<State>
+        get() = _state.asStateFlow()
 
     fun setDefaultState(state: State) {
         _state = MutableStateFlow(state)
