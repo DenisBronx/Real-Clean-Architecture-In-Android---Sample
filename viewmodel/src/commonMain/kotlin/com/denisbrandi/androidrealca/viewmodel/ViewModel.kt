@@ -35,11 +35,7 @@ class EventDelegate<ViewEvent> : EventViewModel<ViewEvent> {
 
     fun sendEvent(scope: CoroutineScope, newEvent: ViewEvent) {
         scope.launch {
-            sendEvent(newEvent)
+            _viewEvent.emit(newEvent)
         }
-    }
-
-    suspend fun sendEvent(newEvent: ViewEvent) {
-        _viewEvent.emit(newEvent)
     }
 }
