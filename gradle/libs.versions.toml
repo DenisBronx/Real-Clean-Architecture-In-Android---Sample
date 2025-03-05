@@ -18,7 +18,7 @@ runtimeAndroid = "1.7.5"
 preferences-ktx = "1.2.1"
 navigation-compose = "2.8.3"
 coil = "3.0.0-rc01"
-screenshot = "0.0.1-alpha07"
+screenshot = "0.0.1-alpha09"
 kotlin-compiler-extension = "1.5.4"
 
 [libraries]
