@@ -1,5 +1,6 @@
 #!/bin/sh
 set -e
+./scripts/ktlintCheck.sh
 ./gradlew koverXmlReport
 ./gradlew koverHtmlReport
 ./gradlew validateDebugScreenshotTest
