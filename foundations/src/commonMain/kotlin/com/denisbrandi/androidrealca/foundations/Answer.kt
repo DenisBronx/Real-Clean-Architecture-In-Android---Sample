@@ -9,7 +9,7 @@ sealed class Answer<out T, out E> {
         val reason: E,
     ) : Answer<Nothing, E>()
 
-    inline fun <C> fold(
+    fun <C> fold(
         success: (T) -> C,
         error: (E) -> C,
     ): C =
