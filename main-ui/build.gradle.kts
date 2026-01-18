@@ -1,16 +1,13 @@
 plugins {
     alias(libs.plugins.android.library)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.screenshot)
 }
 
-apply(from = "../coverage/androidCoverageReport.gradle")
-
 android {
     namespace = "com.denisbrandi.androidrealca.main.ui"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         minSdk = 24
@@ -32,8 +29,10 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlinOptions {
-        jvmTarget = "17"
+    kotlin {
+        compilerOptions {
+            jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
+        }
     }
     buildFeatures {
         compose = true
@@ -58,6 +57,7 @@ dependencies {
 
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.compose.navigation)
+    implementation(libs.compose.material.icons.extended)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.core.ktx)
@@ -72,5 +72,6 @@ dependencies {
     testImplementation(project(":flow-test-observer"))
     testImplementation(project(":coroutines-test-dispatcher"))
 
+    screenshotTestImplementation(libs.screenshot.validation.api)
     screenshotTestImplementation(libs.androidx.ui.tooling)
 }

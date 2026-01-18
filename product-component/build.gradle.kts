@@ -3,8 +3,6 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
 }
 
-apply(from = "../coverage/kmpCoverageReport.gradle")
-
 kotlin {
     jvmToolchain(17)
     jvm()

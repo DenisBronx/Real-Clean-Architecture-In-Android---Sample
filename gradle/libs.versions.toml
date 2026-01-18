@@ -1,24 +1,24 @@
 [versions]
-agp = "8.7.0"
-kotlin = "2.0.21"
-coreKtx = "1.15.0"
+agp = "9.0.0"
+kotlin = "2.3.0"
+coreKtx = "1.17.0"
 junit = "4.13.2"
-lifecycleRuntimeKtx = "2.8.7"
-activityCompose = "1.9.3"
-composeBom = "2024.10.01"
-jetbrainsKotlinJvm = "2.0.20"
-coroutines = "1.9.0"
-kover = "0.8.3"
-netmock = "0.5.0"
-ktor = "2.3.12"
-multiplatform-settings = "1.2.0"
-kotlin-serialization-library = "1.7.3"
-lifecycle = "2.8.7"
-runtimeAndroid = "1.7.5"
+lifecycleRuntimeKtx = "2.10.0"
+activityCompose = "1.12.2"
+composeBom = "2026.01.00"
+jetbrainsKotlinJvm = "2.3.0"
+coroutines = "1.10.2"
+kover = "0.9.4"
+netmock = "0.8.0"
+ktor = "3.3.3"
+multiplatform-settings = "1.3.0"
+kotlin-serialization-library = "1.9.0"
+lifecycle = "2.10.0"
+runtimeAndroid = "1.10.1"
 preferences-ktx = "1.2.1"
-navigation-compose = "2.8.3"
-coil = "3.0.0-rc01"
-screenshot = "0.0.1-alpha09"
+navigation-compose = "2.9.6"
+coil = "3.3.0"
+screenshot = "0.0.1-alpha13"
 kotlin-compiler-extension = "1.5.4"
 
 [libraries]
@@ -28,6 +28,7 @@ androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecyc
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
 androidx-compose-foundation = { group = "androidx.compose.foundation", name = "foundation" }
+compose-material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended" }
 androidx-ui = { group = "androidx.compose.ui", name = "ui" }
 androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
@@ -50,16 +51,16 @@ lifecycle-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmode
 androidx-runtime-android = { group = "androidx.compose.runtime", name = "runtime-android", version.ref = "runtimeAndroid" }
 preferences-ktx = { group = "androidx.preference", name = "preference-ktx", version.ref = "preferences-ktx" }
 compose-navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation-compose" }
-coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil"}
-coil-okhttp = { group = "io.coil-kt.coil3", name = "coil-network-okhttp", version.ref = "coil"}
+coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil" }
+coil-okhttp = { group = "io.coil-kt.coil3", name = "coil-network-okhttp", version.ref = "coil" }
+screenshot-validation-api = { group = "com.android.tools.screenshot", name = "screenshot-validation-api", version.ref = "screenshot" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
 kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 android-library = { id = "com.android.library", version.ref = "agp" }
-screenshot = { id = "com.android.compose.screenshot", version.ref = "screenshot"}
+screenshot = { id = "com.android.compose.screenshot", version.ref = "screenshot" }

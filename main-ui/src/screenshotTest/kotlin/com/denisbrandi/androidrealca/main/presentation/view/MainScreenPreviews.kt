@@ -2,16 +2,19 @@ package com.denisbrandi.androidrealca.main.presentation.view
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import com.android.tools.screenshot.PreviewTest
 import com.denisbrandi.androidrealca.main.presentation.viewmodel.*
 import com.denisbrandi.androidrealca.viewmodel.StateViewModel
 import kotlinx.coroutines.flow.*
 
+@PreviewTest
 @Preview
 @Composable
 fun PreviewNoBadgesState() {
     MainScreen(createViewModelWithState(MainScreenState()), {}, {}, {})
 }
 
+@PreviewTest
 @Preview
 @Composable
 fun PreviewCartBadgeState() {

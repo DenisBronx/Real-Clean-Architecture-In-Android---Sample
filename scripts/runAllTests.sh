@@ -1,4 +1,6 @@
 #!/bin/sh
 set -e
-./gradlew koverHtmlReportCustomDebug
+./gradlew koverXmlReport
+./gradlew koverHtmlReport
 ./gradlew validateDebugScreenshotTest
+./scripts/testCoverageValidator.sh -m 0.0 -b 0.0

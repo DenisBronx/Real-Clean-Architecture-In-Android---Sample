@@ -2,17 +2,20 @@ package com.denisbrandi.androidrealca.plp.presentation.view
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import com.android.tools.screenshot.PreviewTest
 import com.denisbrandi.androidrealca.plp.presentation.viewmodel.*
 import com.denisbrandi.androidrealca.product.domain.model.Product
 import com.denisbrandi.androidrealca.viewmodel.StateViewModel
 import kotlinx.coroutines.flow.*
 
+@PreviewTest
 @Preview
 @Composable
 fun PreviewPLPDefaultState() {
     PLPScreen(createViewModelWithState(PLPScreenState(fullName = "Full Name")))
 }
 
+@PreviewTest
 @Preview
 @Composable
 fun PreviewPLPLoadingState() {
@@ -26,6 +29,7 @@ fun PreviewPLPLoadingState() {
     )
 }
 
+@PreviewTest
 @Preview
 @Composable
 fun PreviewPLPErrorState() {
@@ -39,6 +43,7 @@ fun PreviewPLPErrorState() {
     )
 }
 
+@PreviewTest
 @Preview
 @Composable
 fun PreviewPLPEmptyState() {
@@ -52,6 +57,7 @@ fun PreviewPLPEmptyState() {
     )
 }
 
+@PreviewTest
 @Preview
 @Composable
 fun PreviewPLPProductsState() {
