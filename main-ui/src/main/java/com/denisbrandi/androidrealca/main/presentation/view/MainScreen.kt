@@ -16,6 +16,7 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.*
 import com.denisbrandi.androidrealca.designsystem.bottomNavElevation
+import com.denisbrandi.androidrealca.main.presentation.view.navigation.BottomNavRouter
 import com.denisbrandi.androidrealca.main.presentation.viewmodel.*
 import com.denisbrandi.androidrealca.main.ui.R
 import kotlinx.serialization.Serializable
@@ -49,9 +50,7 @@ private fun topLevelRoutes() = listOf(
 @Composable
 internal fun MainScreen(
     mainViewModel: MainViewModel,
-    makePLPScreen: @Composable () -> Unit,
-    makeWishlistScreen: @Composable () -> Unit,
-    makeCartScreen: @Composable () -> Unit
+    bottomNavRouter: BottomNavRouter
 ) {
     val navController = rememberNavController()
     val topLevelRoutes = topLevelRoutes()
@@ -67,9 +66,9 @@ internal fun MainScreen(
             startDestination = topLevelRoutes.first().route,
             modifier = Modifier.padding(paddingValues = paddingValues)
         ) {
-            composable<NavProducts> { makePLPScreen() }
-            composable<NavWishlist> { makeWishlistScreen() }
-            composable<NavCart> { makeCartScreen() }
+            composable<NavProducts> { bottomNavRouter.OpenPLPScreen() }
+            composable<NavWishlist> { bottomNavRouter.OpenWishlistScreen() }
+            composable<NavCart> { bottomNavRouter.OpenCartScreen() }
         }
     }
 }

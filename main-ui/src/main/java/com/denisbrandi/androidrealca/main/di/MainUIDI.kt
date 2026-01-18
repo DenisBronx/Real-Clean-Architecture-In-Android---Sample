@@ -3,6 +3,7 @@ package com.denisbrandi.androidrealca.main.di
 import androidx.compose.runtime.Composable
 import com.denisbrandi.androidrealca.cart.domain.usecase.ObserveUserCart
 import com.denisbrandi.androidrealca.main.presentation.view.MainScreen
+import com.denisbrandi.androidrealca.main.presentation.view.navigation.BottomNavRouter
 import com.denisbrandi.androidrealca.main.presentation.viewmodel.*
 import com.denisbrandi.androidrealca.viewmodel.StateDelegate
 import com.denisbrandi.androidrealca.wishlist.domain.usecase.ObserveUserWishlistIds
@@ -18,15 +19,11 @@ class MainUIDI(
 
     @Composable
     fun MainScreenDI(
-        makePLPScreen: @Composable () -> Unit,
-        makeWishlistScreen: @Composable () -> Unit,
-        makeCartScreen: @Composable () -> Unit
+        bottomNavRouter: BottomNavRouter
     ) {
         MainScreen(
             mainViewModel = makeMainViewModel(),
-            makePLPScreen = makePLPScreen,
-            makeWishlistScreen = makeWishlistScreen,
-            makeCartScreen = makeCartScreen
+            bottomNavRouter = bottomNavRouter
         )
     }
 }

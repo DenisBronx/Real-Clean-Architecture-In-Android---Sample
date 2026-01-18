@@ -3,6 +3,7 @@ package com.denisbrandi.androidrealca.navigation
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.*
 import com.denisbrandi.androidrealca.di.injector
+import com.denisbrandi.androidrealca.main.presentation.view.navigation.BottomNavRouter
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -27,16 +28,29 @@ fun RootNavigation() {
             navController.navigate(route = destination)
         }
         composable<NavLogin> {
-            injector.onboardingUIDI.LoginScreenDI {
-                navController.navigate(route = NavMain)
-            }
-        }
-        composable<NavMain> {
-            injector.mainUIDI.MainScreenDI(
-                makePLPScreen = { injector.plpUIDI.PLPScreenDI() },
-                makeWishlistScreen = { injector.wishlistUIDI.WishlistScreenDI() },
-                makeCartScreen = { injector.cartUIDI.CartScreenDI() }
+            injector.onboardingUIDI.LoginScreenDI(
+                onLoggedIn = { navController.navigate(route = NavMain) }
             )
         }
+        composable<NavMain> {
+            injector.mainUIDI.MainScreenDI(RealBottomNavRouter)
+        }
+    }
+}
+
+private object RealBottomNavRouter : BottomNavRouter {
+    @Composable
+    override fun OpenPLPScreen() {
+        injector.plpUIDI.PLPScreenDI()
+    }
+
+    @Composable
+    override fun OpenWishlistScreen() {
+        injector.wishlistUIDI.WishlistScreenDI()
+    }
+
+    @Composable
+    override fun OpenCartScreen() {
+        injector.cartUIDI.CartScreenDI()
     }
 }
