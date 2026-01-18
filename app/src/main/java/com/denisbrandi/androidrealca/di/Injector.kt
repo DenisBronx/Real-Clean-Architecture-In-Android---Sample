@@ -13,26 +13,47 @@ import com.denisbrandi.androidrealca.wishlist.di.*
 class Injector private constructor(
     applicationContext: Context
 ) {
-    private val httpClient = RealHttpClientProvider.getClient()
-    private val cacheProvider = AndroidCacheProvider(applicationContext)
-    private val userComponentDI = UserComponentDI(httpClient, cacheProvider)
-    private val productComponentDI = ProductComponentDI(httpClient)
-    private val wishlistComponentDI = WishlistComponentDI(cacheProvider, userComponentDI.getUser)
-    private val cartComponentDI = CartComponentDI(cacheProvider, userComponentDI.getUser)
-    val isUserLoggedIn = userComponentDI.isUserLoggedIn
-    val onboardingUIDI = OnboardingUIDI(userComponentDI.login)
-    val plpUIDI = PLPUIDI(
-        userComponentDI.getUser,
-        productComponentDI.getProducts,
-        wishlistComponentDI,
-        cartComponentDI.addCartItem
-    )
-    val wishlistUIDI = WishlistUIDI(wishlistComponentDI, cartComponentDI.addCartItem)
-    val cartUIDI = CartUIDI(cartComponentDI)
-    val mainUIDI = MainUIDI(
-        wishlistComponentDI.observeUserWishlistIds,
-        cartComponentDI.observeUserCart
-    )
+    private val httpClient by lazy {
+        RealHttpClientProvider.getClient()
+    }
+    private val cacheProvider by lazy {
+        AndroidCacheProvider(applicationContext)
+    }
+    private val userComponentDI by lazy {
+        UserComponentDI(httpClient, cacheProvider)
+    }
+    private val productComponentDI by lazy {
+        ProductComponentDI(httpClient)
+    }
+    private val wishlistComponentDI by lazy {
+        WishlistComponentDI(cacheProvider, userComponentDI.getUser)
+    }
+    private val cartComponentDI by lazy {
+        CartComponentDI(cacheProvider, userComponentDI.getUser)
+    }
+    val isUserLoggedIn by lazy {
+        userComponentDI.isUserLoggedIn
+    }
+    val onboardingUIDI by lazy {
+        OnboardingUIDI(userComponentDI.login)
+    }
+    val plpUIDI by lazy {
+        PLPUIDI(
+            userComponentDI.getUser,
+            productComponentDI.getProducts,
+            wishlistComponentDI,
+            cartComponentDI.addCartItem
+        )
+    }
+    val wishlistUIDI by lazy {
+        WishlistUIDI(wishlistComponentDI, cartComponentDI.addCartItem)
+    }
+    val cartUIDI by lazy {
+        CartUIDI(cartComponentDI)
+    }
+    val mainUIDI by lazy {
+        MainUIDI(wishlistComponentDI.observeUserWishlistIds, cartComponentDI.observeUserCart)
+    }
 
     companion object {
         lateinit var INSTANCE: Injector
