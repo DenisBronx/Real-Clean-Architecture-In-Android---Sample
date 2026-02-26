@@ -7,16 +7,16 @@ import com.denisbrandi.androidrealca.viewmodel.StateDelegate
 import com.denisbrandi.androidrealca.wishlist.presentation.view.WishlistScreen
 import com.denisbrandi.androidrealca.wishlist.presentation.viewmodel.*
 
-class WishlistUIDI(
-    private val wishlistComponentDI: WishlistComponentDI,
+class WishlistUIAssembler(
+    private val wishlistComponentAssembler: WishlistComponentAssembler,
     private val addCartItem: AddCartItem
 ) {
     @Composable
     private fun makeWishlistViewModel(): WishlistViewModel {
         return viewModel {
             RealWishlistViewModel(
-                wishlistComponentDI.observeUserWishlist,
-                wishlistComponentDI.removeFromWishlist,
+                wishlistComponentAssembler.observeUserWishlist,
+                wishlistComponentAssembler.removeFromWishlist,
                 addCartItem,
                 StateDelegate()
             )
@@ -24,7 +24,7 @@ class WishlistUIDI(
     }
 
     @Composable
-    fun WishlistScreenDI() {
+    fun WishlistScreenDestination() {
         WishlistScreen(makeWishlistViewModel())
     }
 }

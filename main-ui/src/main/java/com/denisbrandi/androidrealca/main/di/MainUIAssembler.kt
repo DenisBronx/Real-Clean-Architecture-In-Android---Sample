@@ -8,7 +8,7 @@ import com.denisbrandi.androidrealca.main.presentation.viewmodel.*
 import com.denisbrandi.androidrealca.viewmodel.StateDelegate
 import com.denisbrandi.androidrealca.wishlist.domain.usecase.ObserveUserWishlistIds
 
-class MainUIDI(
+class MainUIAssembler(
     private val observeUserWishlistIds: ObserveUserWishlistIds,
     private val observeUserCart: ObserveUserCart
 ) {
@@ -18,7 +18,7 @@ class MainUIDI(
     }
 
     @Composable
-    fun MainScreenDI(
+    fun MainScreenDestination(
         bottomNavRouter: BottomNavRouter
     ) {
         MainScreen(

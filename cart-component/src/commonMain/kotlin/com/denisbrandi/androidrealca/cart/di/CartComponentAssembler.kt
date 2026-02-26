@@ -5,7 +5,7 @@ import com.denisbrandi.androidrealca.cart.data.repository.RealCartRepository
 import com.denisbrandi.androidrealca.cart.domain.usecase.*
 import com.denisbrandi.androidrealca.user.domain.usecase.GetUser
 
-class CartComponentDI(
+class CartComponentAssembler(
     private val cacheProvider: CacheProvider,
     private val getUser: GetUser
 ) {

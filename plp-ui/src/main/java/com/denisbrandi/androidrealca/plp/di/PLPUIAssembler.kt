@@ -8,12 +8,12 @@ import com.denisbrandi.androidrealca.plp.presentation.viewmodel.*
 import com.denisbrandi.androidrealca.product.domain.usecase.GetProducts
 import com.denisbrandi.androidrealca.user.domain.usecase.GetUser
 import com.denisbrandi.androidrealca.viewmodel.StateDelegate
-import com.denisbrandi.androidrealca.wishlist.di.WishlistComponentDI
+import com.denisbrandi.androidrealca.wishlist.di.WishlistComponentAssembler
 
-class PLPUIDI(
+class PLPUIAssembler(
     private val getUser: GetUser,
     private val getProducts: GetProducts,
-    private val wishlistComponentDI: WishlistComponentDI,
+    private val wishlistComponentAssembler: WishlistComponentAssembler,
     private val addCartItem: AddCartItem
 ) {
     @Composable
@@ -22,9 +22,9 @@ class PLPUIDI(
             RealPLPViewModel(
                 getUser,
                 getProducts,
-                wishlistComponentDI.observeUserWishlistIds,
-                wishlistComponentDI.addToWishlist,
-                wishlistComponentDI.removeFromWishlist,
+                wishlistComponentAssembler.observeUserWishlistIds,
+                wishlistComponentAssembler.addToWishlist,
+                wishlistComponentAssembler.removeFromWishlist,
                 addCartItem,
                 StateDelegate()
             )
@@ -32,7 +32,7 @@ class PLPUIDI(
     }
 
     @Composable
-    fun PLPScreenDI() {
+    fun PLPScreenDestination() {
         PLPScreen(makePLPViewModel())
     }
 }

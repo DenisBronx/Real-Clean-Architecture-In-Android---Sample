@@ -5,7 +5,7 @@ import com.denisbrandi.androidrealca.user.domain.usecase.GetUser
 import com.denisbrandi.androidrealca.wishlist.data.repository.RealWishlistRepository
 import com.denisbrandi.androidrealca.wishlist.domain.usecase.*
 
-class WishlistComponentDI(
+class WishlistComponentAssembler(
     private val cacheProvider: CacheProvider,
     private val getUser: GetUser
 ) {

@@ -6,22 +6,22 @@ import com.denisbrandi.androidrealca.cart.presentation.view.CartScreen
 import com.denisbrandi.androidrealca.cart.presentation.viewmodel.*
 import com.denisbrandi.androidrealca.viewmodel.StateDelegate
 
-class CartUIDI(
-    private val cartComponentDI: CartComponentDI
+class CartUIAssembler(
+    private val cartComponentAssembler: CartComponentAssembler
 ) {
     @Composable
     private fun makeCartViewModel(): CartViewModel {
         return viewModel {
             RealCartViewModel(
-                cartComponentDI.observeUserCart,
-                cartComponentDI.updateCartItem,
+                cartComponentAssembler.observeUserCart,
+                cartComponentAssembler.updateCartItem,
                 StateDelegate()
             )
         }
     }
 
     @Composable
-    fun CartScreenDI() {
+    fun CartScreenDestination() {
         CartScreen(makeCartViewModel())
     }
 }

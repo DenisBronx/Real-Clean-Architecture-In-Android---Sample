@@ -2,7 +2,7 @@ package com.denisbrandi.androidrealca.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.*
-import com.denisbrandi.androidrealca.di.injector
+import com.denisbrandi.androidrealca.di.compositionRoot
 import com.denisbrandi.androidrealca.main.presentation.view.navigation.BottomNavRouter
 import kotlinx.serialization.Serializable
 
@@ -20,7 +20,7 @@ fun RootNavigation() {
     val navController = rememberNavController()
     NavHost(navController, startDestination = NavSplash) {
         composable<NavSplash> {
-            val destination: Any = if (injector.isUserLoggedIn()) {
+            val destination: Any = if (compositionRoot.isUserLoggedIn()) {
                 NavMain
             } else {
                 NavLogin
@@ -28,12 +28,12 @@ fun RootNavigation() {
             navController.navigate(route = destination)
         }
         composable<NavLogin> {
-            injector.onboardingUIDI.LoginScreenDI(
+            compositionRoot.onboardingUIAssembler.LoginScreenDestination(
                 onLoggedIn = { navController.navigate(route = NavMain) }
             )
         }
         composable<NavMain> {
-            injector.mainUIDI.MainScreenDI(RealBottomNavRouter)
+            compositionRoot.mainUIAssembler.MainScreenDestination(RealBottomNavRouter)
         }
     }
 }
@@ -41,16 +41,16 @@ fun RootNavigation() {
 private object RealBottomNavRouter : BottomNavRouter {
     @Composable
     override fun OpenPLPScreen() {
-        injector.plpUIDI.PLPScreenDI()
+        compositionRoot.plpUIAssembler.PLPScreenDestination()
     }
 
     @Composable
     override fun OpenWishlistScreen() {
-        injector.wishlistUIDI.WishlistScreenDI()
+        compositionRoot.wishlistUIAssembler.WishlistScreenDestination()
     }
 
     @Composable
     override fun OpenCartScreen() {
-        injector.cartUIDI.CartScreenDI()
+        compositionRoot.cartUIAssembler.CartScreenDestination()
     }
 }

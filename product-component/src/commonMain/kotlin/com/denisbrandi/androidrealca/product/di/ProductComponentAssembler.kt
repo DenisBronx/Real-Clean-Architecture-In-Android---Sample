@@ -4,7 +4,7 @@ import com.denisbrandi.androidrealca.product.data.repository.RealProductReposito
 import com.denisbrandi.androidrealca.product.domain.usecase.GetProducts
 import io.ktor.client.HttpClient
 
-class ProductComponentDI(
+class ProductComponentAssembler(
     private val httpClient: HttpClient
 ) {
     private val productRepository by lazy {

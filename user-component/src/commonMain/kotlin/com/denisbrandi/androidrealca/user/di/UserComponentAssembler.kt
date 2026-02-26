@@ -5,7 +5,7 @@ import com.denisbrandi.androidrealca.user.data.repository.RealUserRepository
 import com.denisbrandi.androidrealca.user.domain.usecase.*
 import io.ktor.client.HttpClient
 
-class UserComponentDI(
+class UserComponentAssembler(
     private val httpClient: HttpClient,
     private val cacheProvider: CacheProvider
 ) {

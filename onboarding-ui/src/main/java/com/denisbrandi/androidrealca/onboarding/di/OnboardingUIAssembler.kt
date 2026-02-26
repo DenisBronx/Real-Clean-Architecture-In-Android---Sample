@@ -7,7 +7,7 @@ import com.denisbrandi.androidrealca.onboarding.presentation.viewmodel.*
 import com.denisbrandi.androidrealca.user.domain.usecase.Login
 import com.denisbrandi.androidrealca.viewmodel.*
 
-class OnboardingUIDI(
+class OnboardingUIAssembler(
     private val login: Login
 ) {
     @Composable
@@ -22,7 +22,7 @@ class OnboardingUIDI(
     }
 
     @Composable
-    fun LoginScreenDI(onLoggedIn: () -> Unit) {
+    fun LoginScreenDestination(onLoggedIn: () -> Unit) {
         LoginScreen(makeLoginViewModel(), onLoggedIn)
     }
 }
