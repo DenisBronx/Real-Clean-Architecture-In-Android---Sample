@@ -3,12 +3,13 @@ package com.denisbrandi.androidrealca.designsystem
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.*
-import androidx.compose.ui.res.stringResource
+import com.denisbrandi.androidrealca.designsystem.resources.*
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
-inline fun RetryErrorView(
-    errorMessage: String = stringResource(id = R.string.generic_error_message),
-    crossinline onRetry: () -> Unit
+fun RetryErrorView(
+    errorMessage: String = stringResource(Res.string.generic_error_message),
+    onRetry: () -> Unit
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -16,14 +17,14 @@ inline fun RetryErrorView(
         verticalArrangement = Arrangement.Center,
         content = {
             MediumLabel(modifier = Modifier.padding(defaultMargin), text = errorMessage)
-            LabelButton(text = stringResource(R.string.retry)) { onRetry() }
+            LabelButton(text = stringResource(Res.string.retry)) { onRetry() }
         }
     )
 }
 
 @Composable
 fun ErrorView(
-    errorMessage: String = stringResource(id = R.string.generic_error_message)
+    errorMessage: String = stringResource(Res.string.generic_error_message)
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),

@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.jetbrains.compose)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kotlin.serialization)
 }
@@ -66,6 +67,8 @@ dependencies {
     implementation(project(":cart-ui"))
     implementation(project(":main-ui"))
 
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(compose.components.resources)
     implementation(libs.multiplatform.settings)
     implementation(libs.preferences.ktx)
     implementation(libs.androidx.core.ktx)

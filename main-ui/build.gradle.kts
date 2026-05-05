@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.library)
+    alias(libs.plugins.jetbrains.compose)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.screenshot)
@@ -56,6 +57,7 @@ dependencies {
     implementation(libs.kotlin.serialization)
 
     implementation(platform(libs.androidx.compose.bom))
+    implementation(compose.components.resources)
     implementation(libs.compose.navigation)
     implementation(libs.compose.material.icons.extended)
     implementation(libs.androidx.ui.tooling.preview)
