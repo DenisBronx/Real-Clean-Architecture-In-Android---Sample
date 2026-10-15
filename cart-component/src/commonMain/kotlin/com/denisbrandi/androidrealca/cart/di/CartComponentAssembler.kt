@@ -3,24 +3,29 @@ package com.denisbrandi.androidrealca.cart.di
 import com.denisbrandi.androidrealca.cache.CacheProvider
 import com.denisbrandi.androidrealca.cart.data.repository.RealCartRepository
 import com.denisbrandi.androidrealca.cart.domain.usecase.*
-import com.denisbrandi.androidrealca.user.domain.usecase.GetUser
+import com.denisbrandi.androidrealca.user.di.UserComponentAssembler
 
 class CartComponentAssembler(
     private val cacheProvider: CacheProvider,
-    private val getUser: GetUser
+    private val userComponentAssembler: UserComponentAssembler
 ) {
     private val cartRepository by lazy {
         RealCartRepository(cacheProvider)
     }
 
-    val updateCartItem: UpdateCartItem by lazy {
-        UpdateCartItemUseCase(getUser, cartRepository)
-    }
+    fun makeUpdateCartItem(): UpdateCartItem = UpdateCartItemUseCase(
+        getUser = userComponentAssembler.makeGetUser(),
+        cartRepository = cartRepository
+    )
 
-    val observeUserCart: ObserveUserCart by lazy {
-        ObserveUserCartUseCase(getUser, cartRepository)
-    }
-    val addCartItem: AddCartItem by lazy {
-        AddCartItemUseCase(getUser, cartRepository, updateCartItem)
-    }
+    fun makeObserveUserCart(): ObserveUserCart = ObserveUserCartUseCase(
+        getUser = userComponentAssembler.makeGetUser(),
+        cartRepository = cartRepository
+    )
+
+    fun makeAddCartItem(): AddCartItem = AddCartItemUseCase(
+        getUser = userComponentAssembler.makeGetUser(),
+        cartRepository = cartRepository,
+        updateCartItem = makeUpdateCartItem()
+    )
 }

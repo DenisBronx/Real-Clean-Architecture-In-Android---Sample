@@ -40,6 +40,7 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.kotlin.compiler.extension.get()
     }
+    androidResources.enable = true
     experimentalProperties["android.experimental.enableScreenshotTest"] = true
 }
 

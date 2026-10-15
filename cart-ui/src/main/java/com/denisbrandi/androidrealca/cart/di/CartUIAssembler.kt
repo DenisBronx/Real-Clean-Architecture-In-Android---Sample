@@ -13,9 +13,9 @@ class CartUIAssembler(
     private fun makeCartViewModel(): CartViewModel {
         return viewModel {
             RealCartViewModel(
-                cartComponentAssembler.observeUserCart,
-                cartComponentAssembler.updateCartItem,
-                StateDelegate()
+                observeUserCart = cartComponentAssembler.makeObserveUserCart(),
+                updateCartItem = cartComponentAssembler.makeUpdateCartItem(),
+                stateDelegate = StateDelegate()
             )
         }
     }

@@ -3,7 +3,7 @@ package com.denisbrandi.androidrealca.user.di
 import com.denisbrandi.androidrealca.cache.CacheProvider
 import com.denisbrandi.androidrealca.user.data.repository.RealUserRepository
 import com.denisbrandi.androidrealca.user.domain.usecase.*
-import io.ktor.client.HttpClient
+import io.ktor.client.*
 
 class UserComponentAssembler(
     private val httpClient: HttpClient,
@@ -14,15 +14,9 @@ class UserComponentAssembler(
         RealUserRepository(httpClient, cacheProvider)
     }
 
-    val login: Login by lazy {
-        LoginUseCase(userRepository)
-    }
+    fun makeLogin(): Login = LoginUseCase(userRepository)
 
-    val getUser by lazy {
-        GetUser(userRepository::getUser)
-    }
+    fun makeGetUser() = GetUser(userRepository::getUser)
 
-    val isUserLoggedIn by lazy {
-        IsUserLoggedIn(userRepository::isLoggedIn)
-    }
+    fun makeIsUserLoggedIn() = IsUserLoggedIn(userRepository::isLoggedIn)
 }

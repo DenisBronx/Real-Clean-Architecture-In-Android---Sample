@@ -1,32 +1,35 @@
 package com.denisbrandi.androidrealca.wishlist.di
 
 import com.denisbrandi.androidrealca.cache.CacheProvider
-import com.denisbrandi.androidrealca.user.domain.usecase.GetUser
+import com.denisbrandi.androidrealca.user.di.UserComponentAssembler
 import com.denisbrandi.androidrealca.wishlist.data.repository.RealWishlistRepository
 import com.denisbrandi.androidrealca.wishlist.domain.usecase.*
 
 class WishlistComponentAssembler(
     private val cacheProvider: CacheProvider,
-    private val getUser: GetUser
+    private val userComponentAssembler: UserComponentAssembler
 ) {
 
     private val wishlistRepository by lazy {
         RealWishlistRepository(cacheProvider)
     }
 
-    val addToWishlist: AddToWishlist by lazy {
-        AddToWishlistUseCase(getUser, wishlistRepository)
-    }
+    fun makeAddToWishlist(): AddToWishlist = AddToWishlistUseCase(
+        getUser = userComponentAssembler.makeGetUser(),
+        wishlistRepository = wishlistRepository
+    )
 
-    val removeFromWishlist: RemoveFromWishlist by lazy {
-        RemoveFromWishlistUseCase(getUser, wishlistRepository)
-    }
+    fun makeRemoveFromWishlist(): RemoveFromWishlist = RemoveFromWishlistUseCase(
+        getUser = userComponentAssembler.makeGetUser(),
+        wishlistRepository = wishlistRepository
+    )
 
-    val observeUserWishlist: ObserveUserWishlist by lazy {
-        ObserveUserWishlistUseCase(getUser, wishlistRepository)
-    }
+    fun makeObserveUserWishlist(): ObserveUserWishlist = ObserveUserWishlistUseCase(
+        getUser = userComponentAssembler.makeGetUser(),
+        wishlistRepository = wishlistRepository
+    )
 
-    val observeUserWishlistIds: ObserveUserWishlistIds by lazy {
-        ObserveUserWishlistIdsUseCase(observeUserWishlist)
-    }
+    fun makeObserveUserWishlistIds(): ObserveUserWishlistIds = ObserveUserWishlistIdsUseCase(
+        observeUserWishlist = makeObserveUserWishlist()
+    )
 }

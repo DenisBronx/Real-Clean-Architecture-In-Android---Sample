@@ -2,31 +2,31 @@ package com.denisbrandi.androidrealca.plp.di
 
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.denisbrandi.androidrealca.cart.domain.usecase.AddCartItem
+import com.denisbrandi.androidrealca.cart.di.CartComponentAssembler
 import com.denisbrandi.androidrealca.plp.presentation.view.PLPScreen
 import com.denisbrandi.androidrealca.plp.presentation.viewmodel.*
-import com.denisbrandi.androidrealca.product.domain.usecase.GetProducts
-import com.denisbrandi.androidrealca.user.domain.usecase.GetUser
+import com.denisbrandi.androidrealca.product.di.ProductComponentAssembler
+import com.denisbrandi.androidrealca.user.di.UserComponentAssembler
 import com.denisbrandi.androidrealca.viewmodel.StateDelegate
 import com.denisbrandi.androidrealca.wishlist.di.WishlistComponentAssembler
 
 class PLPUIAssembler(
-    private val getUser: GetUser,
-    private val getProducts: GetProducts,
+    private val userComponentAssembler: UserComponentAssembler,
+    private val productComponentAssembler: ProductComponentAssembler,
     private val wishlistComponentAssembler: WishlistComponentAssembler,
-    private val addCartItem: AddCartItem
+    private val cartComponentAssembler: CartComponentAssembler
 ) {
     @Composable
     private fun makePLPViewModel(): PLPViewModel {
         return viewModel {
             RealPLPViewModel(
-                getUser,
-                getProducts,
-                wishlistComponentAssembler.observeUserWishlistIds,
-                wishlistComponentAssembler.addToWishlist,
-                wishlistComponentAssembler.removeFromWishlist,
-                addCartItem,
-                StateDelegate()
+                getUser = userComponentAssembler.makeGetUser(),
+                getProducts = productComponentAssembler.makeGetProducts(),
+                observeUserWishlistIds = wishlistComponentAssembler.makeObserveUserWishlistIds(),
+                addToWishlist = wishlistComponentAssembler.makeAddToWishlist(),
+                removeFromWishlist = wishlistComponentAssembler.makeRemoveFromWishlist(),
+                addCartItem = cartComponentAssembler.makeAddCartItem(),
+                stateDelegate = StateDelegate()
             )
         }
     }

@@ -26,33 +26,33 @@ class CompositionRoot private constructor(
         ProductComponentAssembler(httpClient)
     }
     private val wishlistComponentAssembler by lazy {
-        WishlistComponentAssembler(cacheProvider, userComponentAssembler.getUser)
+        WishlistComponentAssembler(cacheProvider, userComponentAssembler)
     }
     private val cartComponentAssembler by lazy {
-        CartComponentAssembler(cacheProvider, userComponentAssembler.getUser)
+        CartComponentAssembler(cacheProvider, userComponentAssembler)
     }
     val isUserLoggedIn by lazy {
-        userComponentAssembler.isUserLoggedIn
+        userComponentAssembler.makeIsUserLoggedIn()
     }
     val onboardingUIAssembler by lazy {
-        OnboardingUIAssembler(userComponentAssembler.login)
+        OnboardingUIAssembler(userComponentAssembler)
     }
     val plpUIAssembler by lazy {
         PLPUIAssembler(
-            userComponentAssembler.getUser,
-            productComponentAssembler.getProducts,
+            userComponentAssembler,
+            productComponentAssembler,
             wishlistComponentAssembler,
-            cartComponentAssembler.addCartItem
+            cartComponentAssembler
         )
     }
     val wishlistUIAssembler by lazy {
-        WishlistUIAssembler(wishlistComponentAssembler, cartComponentAssembler.addCartItem)
+        WishlistUIAssembler(wishlistComponentAssembler, cartComponentAssembler)
     }
     val cartUIAssembler by lazy {
         CartUIAssembler(cartComponentAssembler)
     }
     val mainUIAssembler by lazy {
-        MainUIAssembler(wishlistComponentAssembler.observeUserWishlistIds, cartComponentAssembler.observeUserCart)
+        MainUIAssembler(wishlistComponentAssembler, cartComponentAssembler)
     }
 
     companion object {
