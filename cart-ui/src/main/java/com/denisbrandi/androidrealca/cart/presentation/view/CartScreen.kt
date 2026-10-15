@@ -14,11 +14,9 @@ import com.denisbrandi.androidrealca.cart.domain.model.*
 import com.denisbrandi.androidrealca.cart.presentation.viewmodel.CartViewModel
 import com.denisbrandi.androidrealca.cart.ui.R
 import com.denisbrandi.androidrealca.designsystem.*
-import com.denisbrandi.androidrealca.designsystem.resources.*
 import com.denisbrandi.androidrealca.money.domain.model.Money
 import com.denisbrandi.androidrealca.money.presentation.presenter.MoneyPresenter
 import com.denisbrandi.androidrealca.money.presentation.view.PriceText
-import org.jetbrains.compose.resources.painterResource
 
 @Composable
 internal fun CartScreen(
@@ -123,8 +121,8 @@ private fun CartItemRow(
                 modifier = Modifier.size(cardImage),
                 model = cartItem.imageUrl,
                 contentDescription = null,
-                placeholder = painterResource(Res.drawable.baseline_image_24),
-                error = painterResource(Res.drawable.baseline_image_24)
+                placeholder = painterResource(com.denisbrandi.androidrealca.designsystem.R.drawable.baseline_image_24),
+                error = painterResource(com.denisbrandi.androidrealca.designsystem.R.drawable.baseline_image_24)
             )
             Column(
                 modifier = Modifier.padding(start = defaultMargin)

@@ -1,6 +1,5 @@
 plugins {
     alias(libs.plugins.android.library)
-    alias(libs.plugins.jetbrains.compose)
     alias(libs.plugins.compose.compiler)
 }
 
@@ -47,7 +46,6 @@ dependencies {
     implementation(libs.androidx.runtime.android)
 
     implementation(platform(libs.androidx.compose.bom))
-    implementation(compose.components.resources)
     implementation(libs.compose.navigation)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)

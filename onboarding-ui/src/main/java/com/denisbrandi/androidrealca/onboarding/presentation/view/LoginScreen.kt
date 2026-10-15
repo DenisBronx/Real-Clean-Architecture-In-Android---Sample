@@ -9,12 +9,10 @@ import androidx.compose.ui.*
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.*
 import com.denisbrandi.androidrealca.designsystem.*
-import com.denisbrandi.androidrealca.designsystem.resources.*
 import com.denisbrandi.androidrealca.onboarding.presentation.viewmodel.*
 import com.denisbrandi.androidrealca.onboarding.ui.R
 import com.denisbrandi.androidrealca.user.domain.model.LoginError
 import kotlinx.coroutines.flow.*
-import org.jetbrains.compose.resources.stringResource
 
 @Composable
 internal fun LoginScreen(
@@ -43,9 +41,7 @@ private fun Form(loginViewModel: LoginViewModel, onLoggedIn: () -> Unit) {
     var passwordText by rememberSaveable { mutableStateOf("") }
     val loginState by loginViewModel.state.collectAsState()
     Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = defaultMargin),
+        modifier = Modifier.fillMaxWidth().padding(top = defaultMargin),
         verticalArrangement = Arrangement.SpaceEvenly,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -127,9 +123,9 @@ private fun LoginEvent(
                     onRetryLogin()
                 },
                 onDismiss = { showErrorDialog = noModalEvent },
-                dialogText = stringResource(Res.string.something_went_wrong),
-                confirmText = stringResource(Res.string.retry),
-                dismissText = stringResource(Res.string.cancel)
+                dialogText = stringResource(com.denisbrandi.androidrealca.designsystem.R.string.something_went_wrong),
+                confirmText = stringResource(com.denisbrandi.androidrealca.designsystem.R.string.retry),
+                dismissText = stringResource(com.denisbrandi.androidrealca.designsystem.R.string.cancel)
             )
         }
 
@@ -138,7 +134,7 @@ private fun LoginEvent(
                 onConfirm = { showErrorDialog = noModalEvent },
                 onDismiss = { showErrorDialog = noModalEvent },
                 dialogText = stringResource(R.string.error_invalid_email),
-                confirmText = stringResource(Res.string.ok)
+                confirmText = stringResource(com.denisbrandi.androidrealca.designsystem.R.string.ok)
             )
         }
 
@@ -147,7 +143,7 @@ private fun LoginEvent(
                 onConfirm = { showErrorDialog = noModalEvent },
                 onDismiss = { showErrorDialog = noModalEvent },
                 dialogText = stringResource(R.string.error_invalid_password),
-                confirmText = stringResource(Res.string.ok)
+                confirmText = stringResource(com.denisbrandi.androidrealca.designsystem.R.string.ok)
             )
         }
 
@@ -156,7 +152,7 @@ private fun LoginEvent(
                 onConfirm = { showErrorDialog = noModalEvent },
                 onDismiss = { showErrorDialog = noModalEvent },
                 dialogText = stringResource(R.string.error_invalid_password),
-                confirmText = stringResource(Res.string.ok)
+                confirmText = stringResource(com.denisbrandi.androidrealca.designsystem.R.string.ok)
             )
         }
 

@@ -11,12 +11,10 @@ import androidx.compose.ui.res.*
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.denisbrandi.androidrealca.designsystem.*
-import com.denisbrandi.androidrealca.designsystem.resources.*
 import com.denisbrandi.androidrealca.money.presentation.view.PriceText
 import com.denisbrandi.androidrealca.plp.presentation.viewmodel.*
 import com.denisbrandi.androidrealca.plp.ui.R
 import com.denisbrandi.androidrealca.product.domain.model.Product
-import org.jetbrains.compose.resources.painterResource
 
 @Composable
 internal fun PLPScreen(
@@ -104,8 +102,8 @@ private fun ProductRow(
                 modifier = Modifier.size(cardImage),
                 model = product.imageUrl,
                 contentDescription = null,
-                placeholder = painterResource(Res.drawable.baseline_image_24),
-                error = painterResource(Res.drawable.baseline_image_24)
+                placeholder = painterResource(com.denisbrandi.androidrealca.designsystem.R.drawable.baseline_image_24),
+                error = painterResource(com.denisbrandi.androidrealca.designsystem.R.drawable.baseline_image_24)
             )
             Column(
                 modifier = Modifier.padding(start = defaultMargin)
@@ -131,7 +129,7 @@ private fun ProductRow(
                     }
                 ) {
                     Icon(
-                        painterResource(Res.drawable.baseline_add_shopping_cart_24),
+                        painterResource(com.denisbrandi.androidrealca.designsystem.R.drawable.baseline_add_shopping_cart_24),
                         contentDescription = null
                     )
                 }

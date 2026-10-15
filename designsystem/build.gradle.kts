@@ -1,43 +1,50 @@
 plugins {
-    alias(libs.plugins.kotlin.multiplatform)
-    alias(libs.plugins.android.kotlin.multiplatform.library)
-    alias(libs.plugins.jetbrains.compose)
+    alias(libs.plugins.android.library)
     alias(libs.plugins.compose.compiler)
 }
 
-kotlin {
-    androidLibrary {
-        namespace = "com.denisbrandi.androidrealca.designsystem"
-        compileSdk = 36
+android {
+    namespace = "com.denisbrandi.androidrealca.designsystem"
+    compileSdk = 36
+
+    defaultConfig {
         minSdk = 24
 
-        androidResources.enable = true
-        compilerOptions {
-            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
-        }
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
     }
-    jvmToolchain(17)
-    jvm()
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
 
-    sourceSets {
-        val commonMain by getting {
-            dependencies {
-                implementation(compose.runtime)
-                implementation(compose.foundation)
-                implementation(compose.material3)
-                implementation(compose.components.resources)
-                implementation(compose.components.uiToolingPreview)
-                implementation(compose.components.resources)
-            }
+    buildTypes {
+        release {
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+    kotlin {
+        compilerOptions {
+            jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
+        }
+    }
+    buildFeatures {
+        compose = true
+    }
+    experimentalProperties["android.experimental.enableScreenshotTest"] = true
 }
 
-compose.resources {
-    packageOfResClass = "com.denisbrandi.androidrealca.designsystem.resources"
-    generateResClass = always
-    publicResClass = true
+dependencies {
+
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.activity.compose)
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.compose.foundation)
+    implementation(libs.androidx.material3)
+    debugImplementation(libs.androidx.ui.tooling)
+    debugImplementation(libs.androidx.ui.test.manifest)
 }
